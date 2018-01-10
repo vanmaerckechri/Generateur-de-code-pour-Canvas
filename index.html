@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Canvas - Divers Dessins</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <canvas id="scene" width="700" height="700" style="background-color: pink;">
+    </canvas>
+    <script type="text/javascript">
+        window.onload = function()
+        {
+            var canvas = document.getElementById('scene');
+            var ctx = canvas.getContext('2d');
+
+            function draw(form, startEnd, fillStroke, originX, originY, destinationX, destinationY)
+            {
+                if (startEnd == 'start')
+                {
+                    ctx.beginPath();
+                }
+                if (form == 'line')
+                {
+                    drawLine(fillStroke, originX, originY, destinationX, destinationY)
+                }
+                if (startEnd == 'end')
+                {
+                    ctx.closePath();
+                }
+            }
+
+            function drawLine(fillStroke, originX, originY, destinationX, destinationY)
+            {
+                ctx.moveTo(originX, originY);
+                ctx.lineTo(destinationX, destinationY);
+                if (fillStroke == 'stroke')
+                {
+                    ctx.stroke();
+                }
+            }
+
+            draw('line', 'start', 'stroke', 0, 0, 100, 100);
+            draw('line', 'end', 'stroke', 100, 100, 200, 150);
+        }
+    </script>
+</body>
+</html>
