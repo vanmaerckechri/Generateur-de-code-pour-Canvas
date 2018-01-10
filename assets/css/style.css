@@ -12,6 +12,8 @@ html {
   height: 100%; }
 
 body {
+  margin-left: auto;
+  margin-right: auto;
   width: 960px;
   height: 100%;
   display: flex;
@@ -39,5 +41,10 @@ body {
   width: 100%;
   background-color: white;
   color: black; }
+
+#code {
+  width: 250px;
+  height: 100%;
+  background-color: green; }
 
 /*# sourceMappingURL=style.css.map */

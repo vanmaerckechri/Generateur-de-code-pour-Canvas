@@ -15,6 +15,9 @@
     </div>
     <canvas id="scene" width="700" height="700" style="background-color: pink;">
     </canvas>
+    <code id="code">
+
+    </code>
     <script type="text/javascript">
 
             var canvas = document.getElementById('scene');
@@ -24,9 +27,12 @@
             var boutonDrawLine = document.getElementById('drawLine');
             var mouseX;
             var mouseY;
+            var fixeMouseX;
+            var fixeMouseY;
             var originX;
             var originY;
             var tempoDessin;
+            var saveCanvas = ctx.getImageData(0, 0, canvas.width, canvas.height);
 
             function activerBouton(ceBouton)
             {
@@ -47,9 +53,9 @@
             {
                 if (boutonSelection == boutonDrawLine)
                 {
-                    if (dessinEnCours == 2)
+                    if (dessinEnCours == 1)
                     {
-                        dessinEnCours = 3;
+                        dessinEnCours = 2;
                     }
                     drawLine();
                 }
@@ -59,31 +65,34 @@
             {
                 if (dessinEnCours == 0)
                 {
+                    originX = mouseX;
+                    originY = mouseY;
                     dessinEnCours = 1;
                 }
                 if (dessinEnCours == 1)
                 {
-                    ctx.beginPath();
-                    ctx.moveTo(originX, originY);
-                    dessinEnCours = 2;
-                }
-                if (dessinEnCours == 2)
-                {
                     tempoDessin = setInterval(function(){
                    /* ctx.clearRect(0, 0, canvas.width, canvas.height)
                     ctx.restore();*/
-                    console.log('tourne');
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.putImageData(saveCanvas, 0, 0);
+                    ctx.beginPath();
+                    ctx.moveTo(originX, originY);
                     ctx.lineTo(mouseX, mouseY);
+                    fixeMouseX = mouseX;
+                    fixeMouseY = mouseY;
+                    ctx.closePath();
                     ctx.stroke();
-                    }, 10);
+                    }, 100);
                 }
-                if (dessinEnCours == 3)
+                if (dessinEnCours == 2)
                 {
                     console.log(tempoDessin);
                     ctx.closePath();
-                    ctx.save();
+                    saveCanvas = ctx.getImageData(0, 0, canvas.width, canvas.height);
                     clearInterval(tempoDessin);
                     dessinEnCours = 0;
+                    document.getElementById('code').innerHTML += 'ctx.beginPath();<br>ctx.moveTo('+originX+', '+originY+');<br>ctx.lineTo('+fixeMouseX+', '+fixeMouseY+');<br>ctx.closePath();<br>ctx.stroke();<br>';
                 }
             }
     </script>
