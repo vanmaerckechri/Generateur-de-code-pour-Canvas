@@ -45,6 +45,7 @@ body {
 #code {
   width: 250px;
   height: 100%;
-  background-color: green; }
+  background-color: green;
+  overflow: scroll; }
 
 /*# sourceMappingURL=style.css.map */
