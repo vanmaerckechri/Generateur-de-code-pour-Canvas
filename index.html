@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Canvas - Divers Dessins</title>
+    <title>Bomberman</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
@@ -26,6 +26,7 @@
             var mouseY;
             var originX;
             var originY;
+            var tempoDessin;
 
             function activerBouton(ceBouton)
             {
@@ -38,14 +39,18 @@
 
             function saveMouseXY(event)
             {
-                mouseX = event.clientX;
-                mouseY = event.clientY;
+                mouseX = event.clientX - canvas.offsetLeft;
+                mouseY = event.clientY - canvas.offsetTop;
             }
 
             function detecterOutil()
             {
                 if (boutonSelection == boutonDrawLine)
                 {
+                    if (dessinEnCours == 2)
+                    {
+                        dessinEnCours = 3;
+                    }
                     drawLine();
                 }
             }
@@ -54,8 +59,6 @@
             {
                 if (dessinEnCours == 0)
                 {
-                    console.log('tr');
-                    ctx.save();
                     dessinEnCours = 1;
                 }
                 if (dessinEnCours == 1)
@@ -66,61 +69,23 @@
                 }
                 if (dessinEnCours == 2)
                 {
-                    setInterval(function(){
-                    ctx.clearRect(0, 0, canvas.width, canvas.height)
-                    ctx.restore();
+                    tempoDessin = setInterval(function(){
+                   /* ctx.clearRect(0, 0, canvas.width, canvas.height)
+                    ctx.restore();*/
+                    console.log('tourne');
                     ctx.lineTo(mouseX, mouseY);
                     ctx.stroke();
-                    }, 1000);
+                    }, 10);
                 }
-            }
-            function poursuivreDessin()
-            {
-                dessinEnCours = false;
-                alert('désactiver');
-            }
-
-            function draw(form, startEnd, fillStroke, originxX, originxY, destinationX, destinationY)
-            {
-                if (startEnd == 'start')
+                if (dessinEnCours == 3)
                 {
-                    ctx.beginPath();
-                }
-                if (form == 'line')
-                {
-                    draLine(fillStroke, originxX, originxY, destinationX, destinationY)
-                }
-                if (startEnd == 'end')
-                {
+                    console.log(tempoDessin);
                     ctx.closePath();
+                    ctx.save();
+                    clearInterval(tempoDessin);
+                    dessinEnCours = 0;
                 }
             }
-
-            function draLine(fillStroke, originxX, originxY, destinationX, destinationY)
-            {
-                ctx.moveTo(originxX, originxY);
-                ctx.lineTo(destinationX, destinationY);
-                if (fillStroke == 'stroke')
-                {
-                    ctx.stroke();
-                }
-            }
-
-            draw('line', 'start', 'stroke', 400, 150, 500, 180);
-            draw('line', 'middle', 'stroke', 500, 180, 300, 250);
-            draw('line', 'middle', 'stroke', 300, 250, 200, 200);
-            draw('line', 'end', 'stroke', 200, 200, 400, 150);
-
-            draw('line', 'start', 'stroke', 200, 200, 200, 333);
-            draw('line', 'middle', 'stroke', 200, 333, 300, 420);
-            draw('line', 'middle', 'stroke', 300, 420, 300, 250);
-            draw('line', 'end', 'stroke', 300, 250, 200, 200);
-
-            draw('line', 'start', 'stroke', 300, 250, 300, 420);
-            draw('line', 'middle', 'stroke', 300, 420, 500, 333);
-            draw('line', 'middle', 'stroke', 500, 333, 500, 200);
-            draw('line', 'end', 'stroke', 500, 200, 200, 200);
-
     </script>
 </body>
 </html>
