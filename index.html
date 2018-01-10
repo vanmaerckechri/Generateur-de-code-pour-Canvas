@@ -8,15 +8,79 @@
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+    <div id="interface">
+        <button id="drawLine" class="button_unselect" onclick="activerBouton(this)">
+            Draw Line
+        </button>
+    </div>
     <canvas id="scene" width="700" height="700" style="background-color: pink;">
     </canvas>
     <script type="text/javascript">
-        window.onload = function()
-        {
+
             var canvas = document.getElementById('scene');
             var ctx = canvas.getContext('2d');
+            var boutonSelection = "aucun";
+            var dessinEnCours = 0;
+            var boutonDrawLine = document.getElementById('drawLine');
+            var mouseX;
+            var mouseY;
+            var originX;
+            var originY;
 
-            function draw(form, startEnd, fillStroke, originX, originY, destinationX, destinationY)
+            function activerBouton(ceBouton)
+            {
+                ceBouton.className = "button_Select";
+                boutonSelection = ceBouton;
+            }
+
+            canvas.addEventListener('click', detecterOutil, false);
+            addEventListener('mousemove', saveMouseXY);
+
+            function saveMouseXY(event)
+            {
+                mouseX = event.clientX;
+                mouseY = event.clientY;
+            }
+
+            function detecterOutil()
+            {
+                if (boutonSelection == boutonDrawLine)
+                {
+                    drawLine();
+                }
+            }
+
+            function drawLine()
+            {
+                if (dessinEnCours == 0)
+                {
+                    console.log('tr');
+                    ctx.save();
+                    dessinEnCours = 1;
+                }
+                if (dessinEnCours == 1)
+                {
+                    ctx.beginPath();
+                    ctx.moveTo(originX, originY);
+                    dessinEnCours = 2;
+                }
+                if (dessinEnCours == 2)
+                {
+                    setInterval(function(){
+                    ctx.clearRect(0, 0, canvas.width, canvas.height)
+                    ctx.restore();
+                    ctx.lineTo(mouseX, mouseY);
+                    ctx.stroke();
+                    }, 1000);
+                }
+            }
+            function poursuivreDessin()
+            {
+                dessinEnCours = false;
+                alert('désactiver');
+            }
+
+            function draw(form, startEnd, fillStroke, originxX, originxY, destinationX, destinationY)
             {
                 if (startEnd == 'start')
                 {
@@ -24,7 +88,7 @@
                 }
                 if (form == 'line')
                 {
-                    drawLine(fillStroke, originX, originY, destinationX, destinationY)
+                    draLine(fillStroke, originxX, originxY, destinationX, destinationY)
                 }
                 if (startEnd == 'end')
                 {
@@ -32,9 +96,9 @@
                 }
             }
 
-            function drawLine(fillStroke, originX, originY, destinationX, destinationY)
+            function draLine(fillStroke, originxX, originxY, destinationX, destinationY)
             {
-                ctx.moveTo(originX, originY);
+                ctx.moveTo(originxX, originxY);
                 ctx.lineTo(destinationX, destinationY);
                 if (fillStroke == 'stroke')
                 {
@@ -53,11 +117,10 @@
             draw('line', 'end', 'stroke', 300, 250, 200, 200);
 
             draw('line', 'start', 'stroke', 300, 250, 300, 420);
-            draw('line', 'middle', 'stroke', 300, 420, 500, 325);
-            draw('line', 'middle', 'stroke', 500, 325, 500, 180);
-            draw('line', 'end', 'stroke', 500, 180, 300, 250);
+            draw('line', 'middle', 'stroke', 300, 420, 500, 333);
+            draw('line', 'middle', 'stroke', 500, 333, 500, 200);
+            draw('line', 'end', 'stroke', 500, 200, 200, 200);
 
-        }
     </script>
 </body>
 </html>

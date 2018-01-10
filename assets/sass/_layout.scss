@@ -1,1 +1,27 @@
 @import "variables";
+#interface
+{
+	width: 100px;
+	height: 100%;
+	background-color: green;
+}
+.button_unselect
+{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 50px;
+	width: 100%;
+	background-color: black;
+	color: white;
+}
+.button_Select
+{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 50px;
+	width: 100%;
+	background-color: white;
+	color: black;
+}

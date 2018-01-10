@@ -1,0 +1,43 @@
+html, body, header, nav, footer, section, div, span, h1, h2, h3, p, a, blockquote, cite, img, ol, ul, li, form, fieldset, label, legend {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  font-weight: normal; }
+
+html {
+  height: 100%; }
+
+body {
+  width: 960px;
+  height: 100%;
+  display: flex;
+  justify-content: space-between; }
+
+#interface {
+  width: 100px;
+  height: 100%;
+  background-color: green; }
+
+.button_unselect {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  width: 100%;
+  background-color: black;
+  color: white; }
+
+.button_Select {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  width: 100%;
+  background-color: white;
+  color: black; }
+
+/*# sourceMappingURL=style.css.map */
