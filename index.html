@@ -50,7 +50,7 @@
             canvas.addEventListener('click', detecterOutil, false);
             addEventListener('mousemove', saveMouseXY);
 
-            function getX(event, canvas)
+            function getX(event)
             {
                 if(event.offsetX)
                 {
@@ -63,7 +63,7 @@
                 return null;
              }
 
-            function getY(event, canvas)
+            function getY(event)
             {
                 if(event.offsetY)
                 {
@@ -78,30 +78,8 @@
 
             function saveMouseXY(event)
             {
-                mouseX = getX(event, canvas);
-                mouseY = getY(event, canvas);
-            }
-
-            function ajusterMiseEnPage()
-            {
-                let canvasX = ( window.innerWidth /2 ) - canvas.width /2+"px";
-                let codeId = document.getElementById('code');
-                let interfaceId = document.getElementById('interface');
-                canvas.style.position = "fixed";
-                canvas.style.left = canvasX;
-                codeId.style.position = "fixed";
-                codeId.style.left = (canvas.offsetLeft + canvas.width)+"px";
-                interfaceId.style.position = "fixed";
-                interfaceId.style.left = (canvasX - document.getElementById('interface').offsetwidth);
-            }
-
-            function reinitMiseEnPage()
-            {    
-                let codeId = document.getElementById('code');
-                let interfaceId = document.getElementById('interface');
-                canvas.style.position = "static";
-                codeId.style.position = "static";
-                interfaceId.style.position = "static";
+                mouseX = getX(event);
+                mouseY = getY(event);
             }
 
             function detecterOutil()
