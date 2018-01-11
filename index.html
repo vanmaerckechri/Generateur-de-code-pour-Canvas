@@ -43,6 +43,7 @@
             var tempoDessin;
             var saveCanvas = ctx.getImageData(0, 0, canvas.width, canvas.height);
             var saveCanvasUndoLineForm = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            var test=0;
 
 
             function activerBouton(ceBouton)
@@ -96,7 +97,6 @@
             {
                 mouseX = getX(event);
                 mouseY = getY(event);
-                console.log(dessinEnCours);
             }
 
             function detecterOutil()
@@ -114,14 +114,14 @@
                 }
                 if (boutonSelection == boutonDrawLineForm)
                 {
-                    if (mouseX >= saveMousePoints[0][0] - 10 && mouseX <= saveMousePoints[0][0] + 10 && mouseY >= saveMousePoints[1][0] - 10 && mouseY <= saveMousePoints[1][0] + 10)
+                    if (mouseX >= saveMousePoints[0][0] - 10 && mouseX <= saveMousePoints[0][0] + 10 && mouseY >= saveMousePoints[1][0] - 10 && mouseY <= saveMousePoints[1][0] + 10 && dessinEnCours == 2)
                     {
                         dessinEnCours = 3;
                     }
                     if (dessinEnCours == 2)
                     {
                         saveCanvas = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                        dessinEnCours = 0;
+                        dessinEnCours = 1;
                     }
                     drawLineForm();
                 }
@@ -174,11 +174,9 @@
                 {
                     originX = mouseX;
                     originY = mouseY;
-                    ctx.putImageData(saveCanvasUndoLineForm, 0, 0);
                     saveMousePoints[0].push(originX);
                     saveMousePoints[1].push(originY);
                     saveMousePointsIndice++;
-                    console.log(saveMousePoints[0].length);
                     saveCanvas = ctx.getImageData(0, 0, canvas.width, canvas.height);
                     dessinEnCours = 2;
                 }
@@ -187,22 +185,25 @@
                     tempoDessin = setInterval(function(){
                     ctx.beginPath();
                     ctx.moveTo(saveMousePoints[0][saveMousePointsIndice], saveMousePoints[1][saveMousePointsIndice]);
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
                     ctx.putImageData(saveCanvas, 0, 0);
                     ctx.lineTo(mouseX, mouseY);
                     ctx.closePath();
                     ctx.stroke();
+                    test++;
+                    console.log('achevez moi '+test);
                     }, 100);
                 }
-                if (dessinEnCours == 4)
+                if (dessinEnCours == 3)
                 {
-                    ctx.closePath();
-                    saveCanvas = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    tempoDessin = setInterval( function (){}, 100);
+                    ctx.closePath();setTimeout( function() { clearInterval(tempoDessin); }, 1500 );
                     clearInterval(tempoDessin);
-                    dessinEnCours = 0;
-                    document.getElementById('code').removeChild(document.getElementById('lastChild'));
-                    document.getElementById('code').innerHTML += 'ctx.beginPath();<br>ctx.moveTo('+originX+', '+originY+');<br>ctx.lineTo('+saveOriginXForGen+', '+saveOriginYForGen+');<br>ctx.closePath();<br>ctx.stroke();<br>';
-                    document.getElementById('code').innerHTML += '<span id="lastChild">&lt;/script&gt;</span>';
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    tempoDessin = 6;
+                }
+                if (dessinEnCours == 5)
+                {
+                    ctx.putImageData(saveCanvasUndoLineForm, 0, 0);
                 }
             }
     </script>
