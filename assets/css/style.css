@@ -31,17 +31,19 @@ body {
   align-items: center;
   height: 50px;
   width: 100%;
-  background-color: black;
-  color: white; }
+  background-color: white;
+  color: black; }
 
 .button_Select {
+  border: 2px solid orange;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 50px;
   width: 100%;
-  background-color: white;
-  color: black; }
+  font-weight: 900;
+  background-color: black;
+  color: white; }
 
 #code {
   width: 350px;
