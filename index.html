@@ -43,7 +43,7 @@
             var tempoDessin = 0;
             var saveCanvas = ctx.getImageData(0, 0, canvas.width, canvas.height);
             var saveCanvasUndoLineForm = ctx.getImageData(0, 0, canvas.width, canvas.height);
-            var test=0;
+            var test = 0;
 
 
             function activerBouton(ceBouton)
@@ -206,6 +206,7 @@
                 {
                     clearInterval(tempoDessin);
                     console.log('setInterval Cycle: '+test+' en cours: '+dessinEnCours+' tempoDessin: '+tempoDessin+' indice: '+saveMousePointsIndice);
+                    ctx.putImageData(saveCanvasUndoLineForm, 0, 0);
                     ctx.beginPath();
                     ctx.moveTo(saveMousePoints[0][0], saveMousePoints[1][0]);
                     for (i = 1; i < saveMousePoints[0].length; i++)
@@ -216,6 +217,10 @@
                     ctx.lineTo(saveMousePoints[0][0], saveMousePoints[1][0]);
                     ctx.closePath();
                     ctx.stroke();
+                    saveMousePoints = [[],[]];
+                    saveMousePointsIndice = -1;
+                    console.log(saveMousePoints);
+                    dessinEnCours = 0;
                 }
             }
     </script>
