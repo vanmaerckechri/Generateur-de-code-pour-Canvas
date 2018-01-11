@@ -12,6 +12,9 @@
         <button id="drawLine" class="button_unselect" onclick="activerBouton(this)">
             Draw Line
         </button>
+        <button id="drawLineForm" class="button_unselect" onclick="activerBouton(this)">
+            Draw Form with Lines
+        </button>
     </div>
     <div id="canvasRelative">
         <canvas id="scene" width="700" height="700" style="background-color: pink;">
@@ -31,20 +34,33 @@
             var ctx = canvas.getContext('2d');
             var boutonSelection = "aucun";
             var dessinEnCours = 0;
-            var boutonDrawLine = document.getElementById('drawLine');
             var mouseX;
             var mouseY;
-            var fixeMouseX;
-            var fixeMouseY;
+            var saveMousePoints = [[],[]];
+            var saveMousePointsIndice = -1;
             var originX;
             var originY;
             var tempoDessin;
             var saveCanvas = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            var saveCanvasUndoLineForm = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
 
             function activerBouton(ceBouton)
             {
+                desactiverBouton();
                 ceBouton.className = "button_Select";
                 boutonSelection = ceBouton;
+            }
+
+            function desactiverBouton()
+            {
+                if (boutonSelection != 'aucun')
+                {
+                    dessinEnCours = 0;
+                    boutonSelection.className = "button_unselect";
+                    clearInterval(tempoDessin);
+                    ctx.putImageData(saveCanvas, 0, 0);
+                }
             }
 
             canvas.addEventListener('click', detecterOutil, false);
@@ -80,10 +96,13 @@
             {
                 mouseX = getX(event);
                 mouseY = getY(event);
+                console.log(dessinEnCours);
             }
 
             function detecterOutil()
             {
+                let boutonDrawLine = document.getElementById('drawLine');
+                let boutonDrawLineForm = document.getElementById('drawLineForm');
 
                 if (boutonSelection == boutonDrawLine)
                 {
@@ -92,6 +111,15 @@
                         dessinEnCours = 2;
                     }
                     drawLine();
+                }
+                if (boutonSelection == boutonDrawLineForm)
+                {
+                    if (dessinEnCours == 2)
+                    {
+                        saveCanvas = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                        dessinEnCours = 0;
+                    }
+                    drawLineForm();
                 }
             }
 
@@ -113,21 +141,63 @@
                     ctx.beginPath();
                     ctx.moveTo(originX, originY);
                     ctx.lineTo(mouseX, mouseY);
-                    fixeMouseX = mouseX;
-                    fixeMouseY = mouseY;
+                    saveOriginXForGen = mouseX;
+                    saveOriginYForGen = mouseY;
                     ctx.closePath();
                     ctx.stroke();
                     }, 100);
                 }
                 if (dessinEnCours == 2)
                 {
-                    console.log(tempoDessin);
                     ctx.closePath();
                     saveCanvas = ctx.getImageData(0, 0, canvas.width, canvas.height);
                     clearInterval(tempoDessin);
                     dessinEnCours = 0;
                     document.getElementById('code').removeChild(document.getElementById('lastChild'));
-                    document.getElementById('code').innerHTML += 'ctx.beginPath();<br>ctx.moveTo('+originX+', '+originY+');<br>ctx.lineTo('+fixeMouseX+', '+fixeMouseY+');<br>ctx.closePath();<br>ctx.stroke();<br>';
+                    document.getElementById('code').innerHTML += 'ctx.beginPath();<br>ctx.moveTo('+originX+', '+originY+');<br>ctx.lineTo('+saveOriginXForGen+', '+saveOriginYForGen+');<br>ctx.closePath();<br>ctx.stroke();<br>';
+                    document.getElementById('code').innerHTML += '<span id="lastChild">&lt;/script&gt;</span>';
+                }
+            }
+
+            function drawLineForm()
+            {
+                if (dessinEnCours == 0)
+                {
+                    saveCanvasUndoLineForm = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    dessinEnCours = 1;
+                }
+                if (dessinEnCours == 1)
+                {
+                    originX = mouseX;
+                    originY = mouseY;
+                    ctx.putImageData(saveCanvasUndoLineForm, 0, 0);
+                    saveMousePoints[0].push(originX);
+                    saveMousePoints[1].push(originY);
+                    saveMousePointsIndice++;
+                    console.log(saveMousePoints[0].length);
+                    saveCanvas = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    dessinEnCours = 2;
+                }
+                if (dessinEnCours == 2)
+                {
+                    tempoDessin = setInterval(function(){
+                    ctx.beginPath();
+                    ctx.moveTo(saveMousePoints[0][saveMousePointsIndice], saveMousePoints[1][saveMousePointsIndice]);
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.putImageData(saveCanvas, 0, 0);
+                    ctx.lineTo(mouseX, mouseY);
+                    ctx.closePath();
+                    ctx.stroke();
+                    }, 100);
+                }
+                if (dessinEnCours == 4)
+                {
+                    ctx.closePath();
+                    saveCanvas = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    clearInterval(tempoDessin);
+                    dessinEnCours = 0;
+                    document.getElementById('code').removeChild(document.getElementById('lastChild'));
+                    document.getElementById('code').innerHTML += 'ctx.beginPath();<br>ctx.moveTo('+originX+', '+originY+');<br>ctx.lineTo('+saveOriginXForGen+', '+saveOriginYForGen+');<br>ctx.closePath();<br>ctx.stroke();<br>';
                     document.getElementById('code').innerHTML += '<span id="lastChild">&lt;/script&gt;</span>';
                 }
             }
