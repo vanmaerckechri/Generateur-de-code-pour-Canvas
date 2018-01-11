@@ -50,9 +50,7 @@
             var saveCanvas = ctx.getImageData(0, 0, canvas.width, canvas.height);
             var saveCanvasUndoLineForm = ctx.getImageData(0, 0, canvas.width, canvas.height);
             var test = 0;
-            var stroke = 1;
             var paint = "stroke";
-
 
             function activerBouton(ceBouton)
             {
@@ -78,19 +76,18 @@
 
             function changePaintOption()
             {
-                if (stroke == 1)
+                if (paint == "stroke")
                 {
                     document.getElementById('strokeOption').className = 'button_unselect';
                     document.getElementById('fillOption').className = 'button_Select';
-                    var paint = "fill";
+                    paint = "fill";
                 }
                 else
                 {
                     document.getElementById('fillOption').className = 'button_unselect';
                     document.getElementById('strokeOption').className = 'button_Select';
-                    var paint = "stroke";
+                    paint = "stroke";
                 }
-                stroke = stroke * -1;
             }
 
             canvas.addEventListener('click', detecterOutil, false);
@@ -246,7 +243,14 @@
                     }
                     ctx.lineTo(saveMousePoints[0][0], saveMousePoints[1][0]);
                     ctx.closePath();
-                    ctx.stroke();
+                    if (paint == "stroke")
+                    {
+                        ctx.stroke();
+                    }
+                    else
+                    {
+                        ctx.fill();
+                    }
                     saveMousePointsIndice = -1;
                     console.log(saveMousePoints);
                     dessinEnCours = 5;
@@ -270,9 +274,9 @@
                         parentGenerator.appendChild(document.createElement('br'));
                     }
                     document.getElementById('code').innerHTML += 'ctx.closePath();<br>';
-                    document.getElementById('code').innerHTML += 'ctx.stroke();<br>';
+                    document.getElementById('code').innerHTML += 'ctx.'+paint+'();<br>';
                     document.getElementById('code').innerHTML += '<span id="lastChild">&lt;/script&gt;</span>';
-                    saveCanvas = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    saveCanvasUndoLineForm = ctx.getImageData(0, 0, canvas.width, canvas.height);
                     saveMousePoints = [[],[]];
                     dessinEnCours = 0;
                 }
