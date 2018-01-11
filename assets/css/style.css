@@ -17,10 +17,11 @@ body {
   width: 960px;
   height: 100%;
   display: flex;
-  justify-content: space-between; }
+  justify-content: space-between;
+  align-items: flex-start; }
 
 #interface {
-  width: 100px;
+  min-width: 100px;
   height: 100%;
   background-color: green; }
 
@@ -47,5 +48,8 @@ body {
   height: 100%;
   background-color: green;
   overflow: scroll; }
+
+#canvasRelative {
+  position: relative; }
 
 /*# sourceMappingURL=style.css.map */

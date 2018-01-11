@@ -13,8 +13,10 @@
             Draw Line
         </button>
     </div>
-    <canvas id="scene" width="700" height="700" style="background-color: pink;">
-    </canvas>
+    <div id="canvasRelative">
+        <canvas id="scene" width="700" height="700" style="background-color: pink;">
+        </canvas>
+    </div>
     <code id="code">
         &lt;canvas id="scene" width="700" height="700"&gt;
         &lt;/canvas&gt;
@@ -48,14 +50,63 @@
             canvas.addEventListener('click', detecterOutil, false);
             addEventListener('mousemove', saveMouseXY);
 
+            function getX(event, canvas)
+            {
+                if(event.offsetX)
+                {
+                    return event.offsetX;
+                }
+                if(event.clientX) /*firefix*/
+                {
+                    return event.clientX - canvas.offsetLeft;
+                }
+                return null;
+             }
+
+            function getY(event, canvas)
+            {
+                if(event.offsetY)
+                {
+                    return event.offsetY;
+                }
+                if(event.clientY) /*firefix*/
+                {
+                    return event.clientY- canvas.offsetTop;
+                }
+                return null;    
+            }
+
             function saveMouseXY(event)
             {
-                mouseX = event.clientX - canvas.offsetLeft;
-                mouseY = event.clientY + canvas.offsetTop;
+                mouseX = getX(event, canvas);
+                mouseY = getY(event, canvas);
+            }
+
+            function ajusterMiseEnPage()
+            {
+                let canvasX = ( window.innerWidth /2 ) - canvas.width /2+"px";
+                let codeId = document.getElementById('code');
+                let interfaceId = document.getElementById('interface');
+                canvas.style.position = "fixed";
+                canvas.style.left = canvasX;
+                codeId.style.position = "fixed";
+                codeId.style.left = (canvas.offsetLeft + canvas.width)+"px";
+                interfaceId.style.position = "fixed";
+                interfaceId.style.left = (canvasX - document.getElementById('interface').offsetwidth);
+            }
+
+            function reinitMiseEnPage()
+            {    
+                let codeId = document.getElementById('code');
+                let interfaceId = document.getElementById('interface');
+                canvas.style.position = "static";
+                codeId.style.position = "static";
+                interfaceId.style.position = "static";
             }
 
             function detecterOutil()
             {
+
                 if (boutonSelection == boutonDrawLine)
                 {
                     if (dessinEnCours == 1)

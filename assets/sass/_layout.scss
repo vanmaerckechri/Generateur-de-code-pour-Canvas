@@ -1,7 +1,7 @@
 @import "variables";
 #interface
 {
-	width: 100px;
+	min-width: 100px;
 	height: 100%;
 	background-color: green;
 }
@@ -31,4 +31,8 @@
 	height: 100%;
 	background-color: green;
 	overflow: scroll;
+}
+#canvasRelative
+{
+	position: relative;
 }
