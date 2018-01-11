@@ -15,6 +15,12 @@
         <button id="drawLineForm" class="button_unselect" onclick="activerBouton(this)">
             Draw Form with Lines
         </button>
+        <button id="fillOption" class="button_unselect" onclick="changePaintOption()">
+            Fill
+        </button>
+        <button id="strokeOption" class="button_Select" onclick="changePaintOption()">
+            Stroke
+        </button>
     </div>
     <div id="canvasRelative">
         <canvas id="scene" width="700" height="700" style="background-color: pink;">
@@ -44,6 +50,8 @@
             var saveCanvas = ctx.getImageData(0, 0, canvas.width, canvas.height);
             var saveCanvasUndoLineForm = ctx.getImageData(0, 0, canvas.width, canvas.height);
             var test = 0;
+            var stroke = 1;
+            var paint = "stroke";
 
 
             function activerBouton(ceBouton)
@@ -55,7 +63,6 @@
 
             function desactiverBouton()
             {
-
                 if (boutonSelection != 'aucun')
                 {
                     saveMousePoints = [[],[]];
@@ -67,6 +74,23 @@
                     clearInterval(tempoDessin);
                     ctx.putImageData(saveCanvas, 0, 0);
                 }
+            }
+
+            function changePaintOption()
+            {
+                if (stroke == 1)
+                {
+                    document.getElementById('strokeOption').className = 'button_unselect';
+                    document.getElementById('fillOption').className = 'button_Select';
+                    var paint = "fill";
+                }
+                else
+                {
+                    document.getElementById('fillOption').className = 'button_unselect';
+                    document.getElementById('strokeOption').className = 'button_Select';
+                    var paint = "stroke";
+                }
+                stroke = stroke * -1;
             }
 
             canvas.addEventListener('click', detecterOutil, false);
