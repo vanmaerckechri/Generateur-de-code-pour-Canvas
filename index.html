@@ -114,6 +114,10 @@
                 }
                 if (boutonSelection == boutonDrawLineForm)
                 {
+                    if (mouseX >= saveMousePoints[0][0] - 10 && mouseX <= saveMousePoints[0][0] + 10 && mouseY >= saveMousePoints[1][0] - 10 && mouseY <= saveMousePoints[1][0] + 10)
+                    {
+                        dessinEnCours = 3;
+                    }
                     if (dessinEnCours == 2)
                     {
                         saveCanvas = ctx.getImageData(0, 0, canvas.width, canvas.height);
