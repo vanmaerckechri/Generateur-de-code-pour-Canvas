@@ -55,9 +55,14 @@
 
             function desactiverBouton()
             {
+
                 if (boutonSelection != 'aucun')
                 {
+                    saveMousePoints = [[],[]];
+                    ctx.putImageData(saveCanvasUndoLineForm, 0, 0);
+                    saveCanvas = ctx.getImageData(0, 0, canvas.width, canvas.height);
                     dessinEnCours = 0;
+                    saveMousePointsIndice = -1;
                     boutonSelection.className = "button_unselect";
                     clearInterval(tempoDessin);
                     ctx.putImageData(saveCanvas, 0, 0);
@@ -161,6 +166,7 @@
                     saveCanvas = ctx.getImageData(0, 0, canvas.width, canvas.height);
                     clearInterval(tempoDessin);
                     dessinEnCours = 0;
+                    saveCanvasUndoLineForm = ctx.getImageData(0, 0, canvas.width, canvas.height);
                     document.getElementById('code').removeChild(document.getElementById('lastChild'));
                     document.getElementById('code').innerHTML += 'ctx.beginPath();<br>ctx.moveTo('+originX+', '+originY+');<br>ctx.lineTo('+saveOriginXForGen+', '+saveOriginYForGen+');<br>ctx.closePath();<br>ctx.stroke();<br>';
                     document.getElementById('code').innerHTML += '<span id="lastChild">&lt;/script&gt;</span>';
@@ -231,7 +237,6 @@
                     document.getElementById('code').innerHTML += 'ctx.beginPath();<br>';
                     parentGenerator.appendChild(textGenerator);
                     parentGenerator.appendChild(document.createElement('br'));
-
                     for (i = 1; i < saveMousePoints[0].length; i++)
                     {
                         posGeneratorX = saveMousePoints[0][i];
@@ -242,9 +247,8 @@
                     }
                     document.getElementById('code').innerHTML += 'ctx.closePath();<br>';
                     document.getElementById('code').innerHTML += 'ctx.stroke();<br>';
-
-
                     document.getElementById('code').innerHTML += '<span id="lastChild">&lt;/script&gt;</span>';
+                    saveCanvas = ctx.getImageData(0, 0, canvas.width, canvas.height);
                     saveMousePoints = [[],[]];
                     dessinEnCours = 0;
                 }
