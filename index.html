@@ -24,6 +24,13 @@
         <button id="strokeOption" class="button_Select" onclick="changePaintOption()">
             Stroke
         </button>
+        <label for="colorR">% Rouge</label>
+        <input type="range" min="1" max="255" value="0" class="slider" id="colorR" oninput    ="changeColor()">
+        <label for="colorR">% Green</label>
+        <input type="range" min="1" max="255" value="0" class="slider" id="colorG" oninput="changeColor()">
+        <label for="colorR">% Blue</label>
+        <input type="range" min="1" max="255" value="0" class="slider" id="colorB" oninput="changeColor()">
+        <div id="color"></div>
     </div>
     <div id="canvasRelative">
         <canvas id="scene" width="700" height="700" style="background-color: pink;">
@@ -54,6 +61,19 @@
             var saveCanvasUndoLineForm = ctx.getImageData(0, 0, canvas.width, canvas.height);
             var test = 0;
             var paint = "stroke";
+            var red = 0;
+            var green = 0;
+            var blue = 0;
+
+            function changeColor()
+            {
+                let slider = document.getElementsByClassName("slider");
+                let colorActu = document.getElementById('color');
+                red = slider[0].value;
+                green = slider[1].value;
+                blue = slider[2].value;
+                colorActu.style.backgroundColor = 'rgb( '+red+', '+green+', '+blue+')';
+            }
 
             function activerBouton(ceBouton)
             {
@@ -231,6 +251,16 @@
                     ctx.putImageData(saveCanvas, 0, 0);
                     ctx.lineTo(mouseX, mouseY);
                     ctx.closePath();
+                    if (paint == "stroke")
+                    {
+                        ctx.stroke();
+                        ctx.strokeStyle = 'rgb( '+red+', '+green+', '+blue+')';
+                    }
+                    else
+                    {
+                        ctx.fill();
+                        ctx.fillStyle = 'rgb( '+red+', '+green+', '+blue+')';
+                    }
                     ctx.stroke();
                     test++;
                     console.log('setInterval Cycle: '+test+' en cours: '+dessinEnCours+' tempoDessin: '+tempoDessin+' indice: '+saveMousePointsIndice);
@@ -258,10 +288,12 @@
                     if (paint == "stroke")
                     {
                         ctx.stroke();
+                        ctx.strokeStyle = 'rgb( '+red+', '+green+', '+blue+')';
                     }
                     else
                     {
                         ctx.fill();
+                        ctx.fillStyle = 'rgb( '+red+', '+green+', '+blue+')';
                     }
                     saveMousePointsIndice = -1;
                     console.log(saveMousePoints);
@@ -286,6 +318,7 @@
                         parentGenerator.appendChild(document.createElement('br'));
                     }
                     document.getElementById('code').innerHTML += 'ctx.closePath();<br>';
+                    document.getElementById('code').innerHTML += 'ctx.'+paint+'Style = "rgb( '+red+', '+green+', '+blue+')";<br>';
                     document.getElementById('code').innerHTML += 'ctx.'+paint+'();<br>';
                     document.getElementById('code').innerHTML += '<span id="lastChild">&lt;/script&gt;</span>';
                     saveCanvasUndoLineForm = ctx.getImageData(0, 0, canvas.width, canvas.height);
@@ -321,10 +354,12 @@
                         if (paint == "stroke")
                         {
                             ctx.stroke();
+                            ctx.strokeStyle = 'rgb( '+red+', '+green+', '+blue+')';
                         }
                         else
                         {
                             ctx.fill();
+                            ctx.fillStyle = 'rgb( '+red+', '+green+', '+blue+')';
                         }                    
                     }, 100);
                 }
@@ -338,16 +373,18 @@
                     if (paint == "stroke")
                     {
                         ctx.stroke();
+                        ctx.strokeStyle = 'rgb( '+red+', '+green+', '+blue+')';
                     }
                     else
                     {
                         ctx.fill();
+                        ctx.fillStyle = 'rgb( '+red+', '+green+', '+blue+')';
                     }                       
                     clearInterval(tempoDessin);
                     dessinEnCours = 0;
                     document.getElementById('code').removeChild(document.getElementById('lastChild'));
 
-                    document.getElementById('code').innerHTML += 'ctx.beginPath();<br>ctx.rect( '+originX+', '+originY+', '+saveOriginXForGen+', '+saveOriginYForGen+');<br>ctx.'+paint+'();<br>';
+                    document.getElementById('code').innerHTML += 'ctx.beginPath();<br>ctx.rect( '+originX+', '+originY+', '+saveOriginXForGen+', '+saveOriginYForGen+');<br>ctx.'+paint+'Style = "rgb( '+red+', '+green+', '+blue+')";<br>ctx.'+paint+'();<br>';
 
                     document.getElementById('code').innerHTML += '<span id="lastChild">&lt;/script&gt;</span>';
                     saveCanvasUndoLineForm = ctx.getImageData(0, 0, canvas.width, canvas.height);
