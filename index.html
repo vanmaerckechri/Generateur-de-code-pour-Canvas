@@ -24,13 +24,20 @@
         <button id="strokeOption" class="button_Select" onclick="changePaintOption(this, 'stroke')">
             Stroke
         </button>
+        <label for="strokeColorR">% Rouge</label>
+        <input type="range" min="1" max="255" value="0" class="slider" id="strokeColorR" onmouseup="changeColor()">
+        <label for="strokeColorG">% Green</label>
+        <input type="range" min="1" max="255" value="0" class="slider" id="strokeColorG" onmouseup="changeColor()">
+        <label for="strokeColorB">% Blue</label>
+        <input type="range" min="1" max="255" value="0" class="slider" id="strokeColorB" onmouseup="changeColor()">
+        <div id="colorStroke">Stroke</div>
         <label for="colorR">% Rouge</label>
         <input type="range" min="1" max="255" value="0" class="slider" id="colorR" onmouseup="changeColor()">
-        <label for="colorR">% Green</label>
+        <label for="colorG">% Green</label>
         <input type="range" min="1" max="255" value="0" class="slider" id="colorG" onmouseup="changeColor()">
-        <label for="colorR">% Blue</label>
+        <label for="colorB">% Blue</label>
         <input type="range" min="1" max="255" value="0" class="slider" id="colorB" onmouseup="changeColor()">
-        <div id="color"></div>
+        <div id="color">Fill</div>
     </div>
     <div id="canvasRelative">
         <canvas id="scene" width="700" height="700" style="background-color: pink;">
@@ -65,6 +72,9 @@
             var red = 0;
             var green = 0;
             var blue = 0;
+            var redStroke = 0;
+            var greenStroke = 0;
+            var blueStroke = 0;
 
             window.onload = function()
             {                
@@ -72,16 +82,24 @@
                 red = slider[0].value = 0;
                 green = slider[1].value = 0;
                 blue = slider[2].value = 0;
+                redStroke = slider[3].value = 0;
+                greenStroke = slider[4].value = 0;
+                blueStroke = slider[5].value = 0;
             };
 
             function changeColor()
             {
                 let slider = document.getElementsByClassName("slider");
                 let colorActu = document.getElementById('color');
+                let colorActuStroke = document.getElementById('colorStroke');
                 red = slider[0].value;
                 green = slider[1].value;
                 blue = slider[2].value;
+                redStroke = slider[3].value;
+                greenStroke = slider[4].value;
+                blueStroke = slider[5].value;
                 colorActu.style.backgroundColor = 'rgb( '+red+', '+green+', '+blue+')';
+                colorActuStroke.style.backgroundColor = 'rgb( '+redStroke+', '+greenStroke+', '+blueStroke+')';
             }
 
             function activerBouton(ceBouton)
@@ -126,7 +144,7 @@
                     if (fill == false)
                     {
                         thisId.className = 'button_Select';
-                        stroke = true;
+                        fill = true;
                     }
                     else
                     {
@@ -231,6 +249,7 @@
                     saveOriginXForGen = mouseX;
                     saveOriginYForGen = mouseY;
                     ctx.closePath();
+                    ctx.lineWidth = 10;
                     ctx.strokeStyle = 'rgb( '+red+', '+green+', '+blue+')';
                     ctx.stroke();
                     test++;
@@ -248,7 +267,7 @@
                     document.getElementById('code').innerHTML += 'ctx.beginPath();<br>ctx.moveTo('+originX+', '+originY+');<br>ctx.lineTo('+saveOriginXForGen+', '+saveOriginYForGen+');<br>ctx.closePath();'
                     if (stroke === true)
                     {
-                        document.getElementById('code').innerHTML += 'ctx.strokeStyle = "rgb( '+red+', '+green+', '+blue+')";<br>ctx.stroke();';
+                        document.getElementById('code').innerHTML += 'ctx.lineWidth = 10;<br>ctx.strokeStyle = "rgb( '+redStroke+', '+greenStroke+', '+blueStroke+')";<br>ctx.stroke();';
                     }
                     if (fill === true)
                     {
@@ -284,7 +303,7 @@
                     ctx.putImageData(saveCanvas, 0, 0);
                     ctx.lineTo(mouseX, mouseY);
                     ctx.closePath();
-                    ctx.strokeStyle = 'rgb( '+red+', '+green+', '+blue+')';
+                    ctx.strokeStyle = 'rgb( '+redStroke+', '+greenStroke+', '+blueStroke+')';
                     ctx.stroke();
                     test++;
                     console.log('setInterval Cycle: '+test+' en cours: '+dessinEnCours+' tempoDessin: '+tempoDessin+' indice: '+saveMousePointsIndice);
@@ -309,7 +328,8 @@
                     ctx.closePath();
                     if (stroke === true)
                     {
-                        ctx.strokeStyle = 'rgb( '+red+', '+green+', '+blue+')';
+                        ctx.lineWidth = 10;
+                        ctx.strokeStyle = 'rgb( '+redStroke+', '+greenStroke+', '+blueStroke+')';
                         ctx.stroke();
                     }
                     if (fill === true)
@@ -341,7 +361,7 @@
                     document.getElementById('code').innerHTML += 'ctx.closePath();<br>';
                     if (stroke === true)
                     {
-                        document.getElementById('code').innerHTML += 'ctx.strokeStyle = "rgb( '+red+', '+green+', '+blue+')";<br>ctx.stroke();';
+                        document.getElementById('code').innerHTML += 'ctx.lineWidth = 10;<br>ctx.strokeStyle = "rgb( '+redStroke+', '+greenStroke+', '+blueStroke+')";<br>ctx.stroke();';
                     }
                     if (fill === true)
                     {
@@ -391,7 +411,8 @@
                     ctx.rect(originX, originY, saveOriginXForGen - originX, saveOriginYForGen - originY);
                     if (stroke === true)
                     {
-                        ctx.strokeStyle = 'rgb( '+red+', '+green+', '+blue+')';
+                        ctx.lineWidth = 10;
+                        ctx.strokeStyle = 'rgb( '+redStroke+', '+greenStroke+', '+blueStroke+')';
                         ctx.stroke();
                     }
                     if (fill === true)
@@ -406,7 +427,7 @@
                     document.getElementById('code').innerHTML += 'ctx.beginPath();<br>ctx.rect( '+originX+', '+originY+', '+saveOriginXForGen+', '+saveOriginYForGen+');<br>'
                     if (stroke === true)
                     {
-                        document.getElementById('code').innerHTML += 'ctx.strokeStyle = "rgb( '+red+', '+green+', '+blue+')";<br>ctx.stroke();';
+                        document.getElementById('code').innerHTML += 'ctx.lineWidth = 10;<br>ctx.strokeStyle = "rgb( '+redStroke+', '+greenStroke+', '+blueStroke+')";<br>ctx.stroke();';
                     }
                     if (fill === true)
                     {
