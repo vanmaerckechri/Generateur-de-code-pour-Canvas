@@ -158,7 +158,11 @@
                     drawLineForm();
                 }
                 if (boutonSelection == boutonDrawRect)
-                {
+                {   
+                    if (dessinEnCours == 1)
+                    {
+                        dessinEnCours = 2;
+                    }
                     drawRectangle();
                 }
             }
@@ -294,6 +298,7 @@
             {
                 if (dessinEnCours == 0)
                 {
+                    saveCanvasUndoLineForm = ctx.getImageData(0, 0, canvas.width, canvas.height);
                     originX = mouseX;
                     originY = mouseY;
                     dessinEnCours = 1;
@@ -304,31 +309,49 @@
                    /* ctx.clearRect(0, 0, canvas.width, canvas.height)
                     ctx.restore();*/
                     ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    ctx.putImageData(saveCanvas, 0, 0);
+                    ctx.putImageData(saveCanvasUndoLineForm, 0, 0);
                     ctx.beginPath();
                     ctx.moveTo(originX, originY);
                     ctx.lineTo(mouseX, originY);
                     ctx.lineTo(mouseX, mouseY);
                     ctx.lineTo(originX, mouseY);
-
-
                     saveOriginXForGen = mouseX;
                     saveOriginYForGen = mouseY;
                     ctx.closePath();
-                    ctx.stroke();
+                        if (paint == "stroke")
+                        {
+                            ctx.stroke();
+                        }
+                        else
+                        {
+                            ctx.fill();
+                        }                    
                     }, 100);
-                    console.log('ok');
                 }
+
                 if (dessinEnCours == 2)
                 {
-                    ctx.closePath();
-                    saveCanvas = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.putImageData(saveCanvasUndoLineForm, 0, 0);
+                    ctx.beginPath();
+                    ctx.rect(originX, originY, saveOriginXForGen - originX, saveOriginYForGen - originY);
+                    if (paint == "stroke")
+                    {
+                        ctx.stroke();
+                    }
+                    else
+                    {
+                        ctx.fill();
+                    }                       
                     clearInterval(tempoDessin);
                     dessinEnCours = 0;
-                    saveCanvasUndoLineForm = ctx.getImageData(0, 0, canvas.width, canvas.height);
                     document.getElementById('code').removeChild(document.getElementById('lastChild'));
-                    document.getElementById('code').innerHTML += 'ctx.beginPath();<br>ctx.moveTo('+originX+', '+originY+');<br>ctx.lineTo('+saveOriginXForGen+', '+saveOriginYForGen+');<br>ctx.closePath();<br>ctx.stroke();<br>';
+
+                    document.getElementById('code').innerHTML += 'ctx.beginPath();<br>ctx.rect( '+originX+', '+originY+', '+saveOriginXForGen+', '+saveOriginYForGen+');<br>ctx.'+paint+'();<br>';
+
                     document.getElementById('code').innerHTML += '<span id="lastChild">&lt;/script&gt;</span>';
+                    saveCanvasUndoLineForm = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
                 }
             }
     </script>
