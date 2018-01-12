@@ -18,10 +18,10 @@
         <button id="drawRectangle" class="button_unselect" onclick="activerBouton(this)">
             Draw a Rectangle
         </button>
-        <button id="fillOption" class="button_unselect" onclick="changePaintOption()">
+        <button id="fillOption" class="button_unselect" onclick="changePaintOption(this, 'fill')">
             Fill
         </button>
-        <button id="strokeOption" class="button_Select" onclick="changePaintOption()">
+        <button id="strokeOption" class="button_Select" onclick="changePaintOption(this, 'stroke')">
             Stroke
         </button>
         <label for="colorR">% Rouge</label>
@@ -60,7 +60,8 @@
             var saveCanvas = ctx.getImageData(0, 0, canvas.width, canvas.height);
             var saveCanvasUndoLineForm = ctx.getImageData(0, 0, canvas.width, canvas.height);
             var test = 0;
-            var paint = "stroke";
+            var stroke = true;
+            var fill = false;
             var red = 0;
             var green = 0;
             var blue = 0;
@@ -105,19 +106,33 @@
                 }
             }
 
-            function changePaintOption()
+            function changePaintOption(thisId, option)
             {
-                if (paint == "stroke")
+                if (thisId == document.getElementById('strokeOption'))
                 {
-                    document.getElementById('strokeOption').className = 'button_unselect';
-                    document.getElementById('fillOption').className = 'button_Select';
-                    paint = "fill";
+                    if (stroke == false)
+                    {
+                        thisId.className = 'button_Select';
+                        stroke = true;
+                    }
+                    else
+                    {
+                        thisId.className = 'button_unselect';
+                        stroke = false;
+                    }
                 }
-                else
+                if (thisId == document.getElementById('fillOption'))
                 {
-                    document.getElementById('fillOption').className = 'button_unselect';
-                    document.getElementById('strokeOption').className = 'button_Select';
-                    paint = "stroke";
+                    if (fill == false)
+                    {
+                        thisId.className = 'button_Select';
+                        stroke = true;
+                    }
+                    else
+                    {
+                        thisId.className = 'button_unselect';
+                        fill = false;
+                    }
                 }
             }
 
@@ -154,7 +169,6 @@
             {
                 mouseX = getX(event);
                 mouseY = getY(event);
-                console.log(paint);
             }
 
             function detecterOutil()
@@ -231,7 +245,15 @@
                     dessinEnCours = 0;
                     saveCanvasUndoLineForm = ctx.getImageData(0, 0, canvas.width, canvas.height);
                     document.getElementById('code').removeChild(document.getElementById('lastChild'));
-                    document.getElementById('code').innerHTML += 'ctx.beginPath();<br>ctx.moveTo('+originX+', '+originY+');<br>ctx.lineTo('+saveOriginXForGen+', '+saveOriginYForGen+');<br>ctx.closePath();ctx.'+paint+'Style = "rgb( '+red+', '+green+', '+blue+')";<br>ctx.stroke();<br>';
+                    document.getElementById('code').innerHTML += 'ctx.beginPath();<br>ctx.moveTo('+originX+', '+originY+');<br>ctx.lineTo('+saveOriginXForGen+', '+saveOriginYForGen+');<br>ctx.closePath();'
+                    if (stroke === true)
+                    {
+                        document.getElementById('code').innerHTML += 'ctx.strokeStyle = "rgb( '+red+', '+green+', '+blue+')";<br>ctx.stroke();';
+                    }
+                    if (fill === true)
+                    {
+                        document.getElementById('code').innerHTML += 'ctx.fillStyle = "rgb( '+red+', '+green+', '+blue+')";<br>ctx.fill();';
+                    }
                     document.getElementById('code').innerHTML += '<span id="lastChild">&lt;/script&gt;</span>';
                 }
             }
@@ -285,12 +307,12 @@
                     }
                     ctx.lineTo(saveMousePoints[0][0], saveMousePoints[1][0]);
                     ctx.closePath();
-                    if (paint == "stroke")
+                    if (stroke === true)
                     {
                         ctx.strokeStyle = 'rgb( '+red+', '+green+', '+blue+')';
                         ctx.stroke();
                     }
-                    else
+                    if (fill === true)
                     {
                         ctx.fillStyle = 'rgb( '+red+', '+green+', '+blue+')';
                         ctx.fill();
@@ -317,8 +339,14 @@
                         parentGenerator.appendChild(document.createElement('br'));
                     }
                     document.getElementById('code').innerHTML += 'ctx.closePath();<br>';
-                    document.getElementById('code').innerHTML += 'ctx.'+paint+'Style = "rgb( '+red+', '+green+', '+blue+')";<br>';
-                    document.getElementById('code').innerHTML += 'ctx.'+paint+'();<br>';
+                    if (stroke === true)
+                    {
+                        document.getElementById('code').innerHTML += 'ctx.strokeStyle = "rgb( '+red+', '+green+', '+blue+')";<br>ctx.stroke();';
+                    }
+                    if (fill === true)
+                    {
+                        document.getElementById('code').innerHTML += 'ctx.fillStyle = "rgb( '+red+', '+green+', '+blue+')";<br>ctx.fill();';
+                    }
                     document.getElementById('code').innerHTML += '<span id="lastChild">&lt;/script&gt;</span>';
                     saveCanvasUndoLineForm = ctx.getImageData(0, 0, canvas.width, canvas.height);
                     saveMousePoints = [[],[]];
@@ -361,12 +389,12 @@
                     ctx.putImageData(saveCanvasUndoLineForm, 0, 0);
                     ctx.beginPath();
                     ctx.rect(originX, originY, saveOriginXForGen - originX, saveOriginYForGen - originY);
-                    if (paint == "stroke")
+                    if (stroke === true)
                     {
                         ctx.strokeStyle = 'rgb( '+red+', '+green+', '+blue+')';
                         ctx.stroke();
                     }
-                    else
+                    if (fill === true)
                     {
                         ctx.fillStyle = 'rgb( '+red+', '+green+', '+blue+')';
                         ctx.fill();                       
@@ -375,8 +403,15 @@
                     dessinEnCours = 0;
                     document.getElementById('code').removeChild(document.getElementById('lastChild'));
 
-                    document.getElementById('code').innerHTML += 'ctx.beginPath();<br>ctx.rect( '+originX+', '+originY+', '+saveOriginXForGen+', '+saveOriginYForGen+');<br>ctx.'+paint+'Style = "rgb( '+red+', '+green+', '+blue+')";<br>ctx.'+paint+'();<br>';
-
+                    document.getElementById('code').innerHTML += 'ctx.beginPath();<br>ctx.rect( '+originX+', '+originY+', '+saveOriginXForGen+', '+saveOriginYForGen+');<br>'
+                    if (stroke === true)
+                    {
+                        document.getElementById('code').innerHTML += 'ctx.strokeStyle = "rgb( '+red+', '+green+', '+blue+')";<br>ctx.stroke();';
+                    }
+                    if (fill === true)
+                    {
+                        document.getElementById('code').innerHTML += 'ctx.fillStyle = "rgb( '+red+', '+green+', '+blue+')";<br>ctx.fill();';
+                    }
                     document.getElementById('code').innerHTML += '<span id="lastChild">&lt;/script&gt;</span>';
                     saveCanvasUndoLineForm = ctx.getImageData(0, 0, canvas.width, canvas.height);
 
