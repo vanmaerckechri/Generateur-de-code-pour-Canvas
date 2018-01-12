@@ -65,6 +65,14 @@
             var green = 0;
             var blue = 0;
 
+            window.onload = function()
+            {                
+                let slider = document.getElementsByClassName("slider");
+                red = slider[0].value = 0;
+                green = slider[1].value = 0;
+                blue = slider[2].value = 0;
+            };
+
             function changeColor()
             {
                 let slider = document.getElementsByClassName("slider");
