@@ -24,20 +24,22 @@
         <button id="strokeOption" class="button_Select" onclick="changePaintOption(this, 'stroke')">
             Stroke
         </button>
+        <h2>Stroke</h2>
+        <div id="colorStroke"></div>
         <label for="strokeColorR">% Rouge</label>
         <input type="range" min="1" max="255" value="0" class="slider" id="strokeColorR" onmouseup="changeColor()">
         <label for="strokeColorG">% Green</label>
         <input type="range" min="1" max="255" value="0" class="slider" id="strokeColorG" onmouseup="changeColor()">
         <label for="strokeColorB">% Blue</label>
         <input type="range" min="1" max="255" value="0" class="slider" id="strokeColorB" onmouseup="changeColor()">
-        <div id="colorStroke">Stroke</div>
+        <h2>Fill</h2>
+        <div id="color"></div>
         <label for="colorR">% Rouge</label>
         <input type="range" min="1" max="255" value="0" class="slider" id="colorR" onmouseup="changeColor()">
         <label for="colorG">% Green</label>
         <input type="range" min="1" max="255" value="0" class="slider" id="colorG" onmouseup="changeColor()">
         <label for="colorB">% Blue</label>
         <input type="range" min="1" max="255" value="0" class="slider" id="colorB" onmouseup="changeColor()">
-        <div id="color">Fill</div>
     </div>
     <div id="canvasRelative">
         <canvas id="scene" width="700" height="700" style="background-color: pink;">
@@ -75,16 +77,22 @@
             var redStroke = 0;
             var greenStroke = 0;
             var blueStroke = 0;
+            var canvasWidth = "700px";
+            var canvasHeight = "700px";
 
             window.onload = function()
             {                
                 let slider = document.getElementsByClassName("slider");
-                red = slider[0].value = 0;
-                green = slider[1].value = 0;
-                blue = slider[2].value = 0;
-                redStroke = slider[3].value = 0;
-                greenStroke = slider[4].value = 0;
-                blueStroke = slider[5].value = 0;
+                redStroke = slider[0].value = 0;
+                greenStroke = slider[1].value = 0;
+                blueStroke = slider[2].value = 0;
+                red = slider[3].value = 0;
+                green = slider[4].value = 0;
+                blue = slider[5].value = 0;
+                canvasWidth = prompt('width canvas');
+                canvasHeight = prompt('height canvas');
+                canvas.width = canvasWidth;
+                canvas.height = canvasHeight;
             };
 
             function changeColor()
@@ -92,12 +100,12 @@
                 let slider = document.getElementsByClassName("slider");
                 let colorActu = document.getElementById('color');
                 let colorActuStroke = document.getElementById('colorStroke');
-                red = slider[0].value;
-                green = slider[1].value;
-                blue = slider[2].value;
-                redStroke = slider[3].value;
-                greenStroke = slider[4].value;
-                blueStroke = slider[5].value;
+                redStroke = slider[0].value;
+                greenStroke = slider[1].value;
+                blueStroke = slider[2].value;
+                red = slider[3].value;
+                green = slider[4].value;
+                blue = slider[5].value;
                 colorActu.style.backgroundColor = 'rgb( '+red+', '+green+', '+blue+')';
                 colorActuStroke.style.backgroundColor = 'rgb( '+redStroke+', '+greenStroke+', '+blueStroke+')';
             }
@@ -250,7 +258,7 @@
                     saveOriginYForGen = mouseY;
                     ctx.closePath();
                     ctx.lineWidth = 10;
-                    ctx.strokeStyle = 'rgb( '+red+', '+green+', '+blue+')';
+                    ctx.strokeStyle = 'rgb( '+redStroke+', '+greenStroke+', '+blueStroke+')';
                     ctx.stroke();
                     test++;
                     console.log('setInterval Cycle: '+test+' en cours: '+dessinEnCours);
@@ -398,7 +406,7 @@
                     saveOriginXForGen = mouseX;
                     saveOriginYForGen = mouseY;
                     ctx.closePath();
-                    ctx.strokeStyle = 'rgb( '+red+', '+green+', '+blue+')';                    
+                    ctx.strokeStyle = 'rgb( '+redStroke+', '+greenStroke+', '+blueStroke+')';                    
                     ctx.stroke();
                     }, 100);
                 }

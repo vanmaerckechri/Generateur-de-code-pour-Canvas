@@ -1,8 +1,9 @@
 @import "variables";
 #interface
 {
-	min-width: 100px;
-	height: 700px;
+	min-width: 150px;
+	max-width: 150px;
+	min-height: 700px;
 	background-color: green;
 }
 .button_unselect
@@ -29,6 +30,7 @@
 #code
 {
 	min-width: 150px;
+	max-width: 150px;
 	height: 700px;
 	background-color: green;
 	overflow-y: scroll;
