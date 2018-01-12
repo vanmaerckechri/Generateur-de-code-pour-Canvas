@@ -18,6 +18,7 @@
         <button id="drawRectangle" class="button_unselect" onclick="activerBouton(this)">
             Draw a Rectangle
         </button>
+        <hr>
         <button id="fillOption" class="button_unselect" onclick="changePaintOption(this, 'fill')">
             Fill
         </button>
@@ -77,8 +78,8 @@
             var redStroke = 0;
             var greenStroke = 0;
             var blueStroke = 0;
-            var canvasWidth = "700px";
-            var canvasHeight = "700px";
+            var canvasWidth;
+            var canvasHeight;
 
             window.onload = function()
             {                
@@ -91,6 +92,11 @@
                 blue = slider[5].value = 0;
                 canvasWidth = prompt('width canvas');
                 canvasHeight = prompt('height canvas');
+                if (isNaN(parseFloat(canvasWidth)) || isNaN(parseFloat(canvasHeight)))
+                {
+                    canvasWidth = 700;
+                    canvasHeight = 700;
+                }
                 canvas.width = canvasWidth;
                 canvas.height = canvasHeight;
             };
