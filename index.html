@@ -25,11 +25,11 @@
             Stroke
         </button>
         <label for="colorR">% Rouge</label>
-        <input type="range" min="1" max="255" value="0" class="slider" id="colorR" oninput    ="changeColor()">
+        <input type="range" min="1" max="255" value="0" class="slider" id="colorR" onmouseup="changeColor()">
         <label for="colorR">% Green</label>
-        <input type="range" min="1" max="255" value="0" class="slider" id="colorG" oninput="changeColor()">
+        <input type="range" min="1" max="255" value="0" class="slider" id="colorG" onmouseup="changeColor()">
         <label for="colorR">% Blue</label>
-        <input type="range" min="1" max="255" value="0" class="slider" id="colorB" oninput="changeColor()">
+        <input type="range" min="1" max="255" value="0" class="slider" id="colorB" onmouseup="changeColor()">
         <div id="color"></div>
     </div>
     <div id="canvasRelative">
@@ -146,6 +146,7 @@
             {
                 mouseX = getX(event);
                 mouseY = getY(event);
+                console.log(paint);
             }
 
             function detecterOutil()
@@ -208,6 +209,7 @@
                     saveOriginXForGen = mouseX;
                     saveOriginYForGen = mouseY;
                     ctx.closePath();
+                    ctx.strokeStyle = 'rgb( '+red+', '+green+', '+blue+')';
                     ctx.stroke();
                     test++;
                     console.log('setInterval Cycle: '+test+' en cours: '+dessinEnCours);
@@ -221,10 +223,11 @@
                     dessinEnCours = 0;
                     saveCanvasUndoLineForm = ctx.getImageData(0, 0, canvas.width, canvas.height);
                     document.getElementById('code').removeChild(document.getElementById('lastChild'));
-                    document.getElementById('code').innerHTML += 'ctx.beginPath();<br>ctx.moveTo('+originX+', '+originY+');<br>ctx.lineTo('+saveOriginXForGen+', '+saveOriginYForGen+');<br>ctx.closePath();<br>ctx.stroke();<br>';
+                    document.getElementById('code').innerHTML += 'ctx.beginPath();<br>ctx.moveTo('+originX+', '+originY+');<br>ctx.lineTo('+saveOriginXForGen+', '+saveOriginYForGen+');<br>ctx.closePath();ctx.'+paint+'Style = "rgb( '+red+', '+green+', '+blue+')";<br>ctx.stroke();<br>';
                     document.getElementById('code').innerHTML += '<span id="lastChild">&lt;/script&gt;</span>';
                 }
             }
+
 
             function drawLineForm()
             {
@@ -251,16 +254,7 @@
                     ctx.putImageData(saveCanvas, 0, 0);
                     ctx.lineTo(mouseX, mouseY);
                     ctx.closePath();
-                    if (paint == "stroke")
-                    {
-                        ctx.stroke();
-                        ctx.strokeStyle = 'rgb( '+red+', '+green+', '+blue+')';
-                    }
-                    else
-                    {
-                        ctx.fill();
-                        ctx.fillStyle = 'rgb( '+red+', '+green+', '+blue+')';
-                    }
+                    ctx.strokeStyle = 'rgb( '+red+', '+green+', '+blue+')';
                     ctx.stroke();
                     test++;
                     console.log('setInterval Cycle: '+test+' en cours: '+dessinEnCours+' tempoDessin: '+tempoDessin+' indice: '+saveMousePointsIndice);
@@ -274,29 +268,26 @@
                 if (dessinEnCours == 4)
                 {
                     clearInterval(tempoDessin);
-                    console.log('setInterval Cycle: '+test+' en cours: '+dessinEnCours+' tempoDessin: '+tempoDessin+' indice: '+saveMousePointsIndice);
                     ctx.putImageData(saveCanvasUndoLineForm, 0, 0);
                     ctx.beginPath();
                     ctx.moveTo(saveMousePoints[0][0], saveMousePoints[1][0]);
                     for (i = 1; i < saveMousePoints[0].length; i++)
                     {
-                        console.log(saveMousePoints[0],[i]);
                         ctx.lineTo(saveMousePoints[0][i], saveMousePoints[1][i]);
                     }
                     ctx.lineTo(saveMousePoints[0][0], saveMousePoints[1][0]);
                     ctx.closePath();
                     if (paint == "stroke")
                     {
-                        ctx.stroke();
                         ctx.strokeStyle = 'rgb( '+red+', '+green+', '+blue+')';
+                        ctx.stroke();
                     }
                     else
                     {
-                        ctx.fill();
                         ctx.fillStyle = 'rgb( '+red+', '+green+', '+blue+')';
+                        ctx.fill();
                     }
                     saveMousePointsIndice = -1;
-                    console.log(saveMousePoints);
                     dessinEnCours = 5;
                 }
                 if (dessinEnCours == 5)
@@ -351,16 +342,8 @@
                     saveOriginXForGen = mouseX;
                     saveOriginYForGen = mouseY;
                     ctx.closePath();
-                        if (paint == "stroke")
-                        {
-                            ctx.stroke();
-                            ctx.strokeStyle = 'rgb( '+red+', '+green+', '+blue+')';
-                        }
-                        else
-                        {
-                            ctx.fill();
-                            ctx.fillStyle = 'rgb( '+red+', '+green+', '+blue+')';
-                        }                    
+                    ctx.strokeStyle = 'rgb( '+red+', '+green+', '+blue+')';                    
+                    ctx.stroke();
                     }, 100);
                 }
 
@@ -372,13 +355,13 @@
                     ctx.rect(originX, originY, saveOriginXForGen - originX, saveOriginYForGen - originY);
                     if (paint == "stroke")
                     {
-                        ctx.stroke();
                         ctx.strokeStyle = 'rgb( '+red+', '+green+', '+blue+')';
+                        ctx.stroke();
                     }
                     else
                     {
-                        ctx.fill();
                         ctx.fillStyle = 'rgb( '+red+', '+green+', '+blue+')';
+                        ctx.fill();                       
                     }                       
                     clearInterval(tempoDessin);
                     dessinEnCours = 0;
