@@ -21,6 +21,9 @@
         <button id="drawCircle" class="button_unselect" onclick="activerBouton(this)">
             Draw a Circle
         </button>
+        <canvas id="circleOption" width="150" height="50" style="background-color: pink;">
+        </canvas>
+        <input type="range" min="0" max="20" value="20" class="sliderCircle" id="circleOpt" onmousemove="changeCircleOption()">
         <hr>
         <button id="fillOption" class="button_unselect" onclick="changePaintOption(this, 'fill')">
             Fill
@@ -31,19 +34,19 @@
         <h2>Stroke</h2>
         <div id="colorStroke"></div>
         <label for="strokeColorR">% Rouge</label>
-        <input type="range" min="1" max="255" value="0" class="slider" id="strokeColorR" onmouseup="changeColor()">
+        <input type="range" min="1" max="255" value="0" class="slider" id="strokeColorR" onmousemove="changeColor()">
         <label for="strokeColorG">% Green</label>
-        <input type="range" min="1" max="255" value="0" class="slider" id="strokeColorG" onmouseup="changeColor()">
+        <input type="range" min="1" max="255" value="0" class="slider" id="strokeColorG" onmousemove="changeColor()">
         <label for="strokeColorB">% Blue</label>
-        <input type="range" min="1" max="255" value="0" class="slider" id="strokeColorB" onmouseup="changeColor()">
+        <input type="range" min="1" max="255" value="0" class="slider" id="strokeColorB" onmousemove="changeColor()">
         <h2>Fill</h2>
         <div id="color"></div>
         <label for="colorR">% Rouge</label>
-        <input type="range" min="1" max="255" value="0" class="slider" id="colorR" onmouseup="changeColor()">
+        <input type="range" min="1" max="255" value="0" class="slider" id="colorR" onmousemove="changeColor()">
         <label for="colorG">% Green</label>
-        <input type="range" min="1" max="255" value="0" class="slider" id="colorG" onmouseup="changeColor()">
+        <input type="range" min="1" max="255" value="0" class="slider" id="colorG" onmousemove="changeColor()">
         <label for="colorB">% Blue</label>
-        <input type="range" min="1" max="255" value="0" class="slider" id="colorB" onmouseup="changeColor()">
+        <input type="range" min="1" max="255" value="0" class="slider" id="colorB" onmousemove="changeColor()">
     </div>
     <div id="canvasRelative">
         <canvas id="scene" width="700" height="700" style="background-color: pink;">
@@ -61,6 +64,8 @@
 
             var canvas = document.getElementById('scene');
             var ctx = canvas.getContext('2d');
+            var canvasCircle = document.getElementById('circleOption');
+            var ctxCircle = canvasCircle.getContext('2d');
             var boutonSelection = document.getElementById('drawLine');
             var dessinEnCours = 0;
             var mouseX;
@@ -83,10 +88,12 @@
             var blueStroke = 0;
             var canvasWidth;
             var canvasHeight;
-            let circleByCenter = false;
-            let circleCenterX;
-            let circleCenterY;
-            let circleRadius;
+            var circleByCenter = false;
+            var circleCenterX;
+            var circleCenterY;
+            var circleRadius;
+            var circleAngle = 2;
+
 
             window.onload = function()
             {                
@@ -106,7 +113,24 @@
                 }
                 canvas.width = canvasWidth;
                 canvas.height = canvasHeight;
+                changeCircleOption();
             };
+
+            function circleOption()
+            {
+                ctxCircle.clearRect(0, 0, canvasCircle.width, canvasCircle.height);
+                ctxCircle.beginPath();
+                ctxCircle.lineWidth = 5;
+                ctxCircle.arc(canvasCircle.width / 2, canvasCircle.height / 2, (canvasCircle.height -10) / 2, 0, circleAngle*Math.PI);
+                ctxCircle.stroke();
+            }
+
+            function changeCircleOption()
+            {
+                let slider = document.getElementById('circleOpt');
+                circleAngle = (slider.value)/10;
+                circleOption();
+            }
 
             function changeColor()
             {
@@ -504,7 +528,7 @@
                         ctx.clearRect(0, 0, canvas.width, canvas.height);
                         ctx.putImageData(canvasSaveBetweenTwoShapes, 0, 0);
                         ctx.beginPath();
-                        ctx.arc(circleCenterX, circleCenterY, circleRadius, 0, 2*Math.PI);
+                        ctx.arc(circleCenterX, circleCenterY, circleRadius, 0, circleAngle*Math.PI);
                         if (stroke === true)
                         {
                             ctx.lineWidth = 10;
@@ -524,7 +548,7 @@
                     ctx.clearRect(0, 0, canvas.width, canvas.height);
                     ctx.putImageData(canvasSaveBetweenTwoShapes, 0, 0);
                     ctx.beginPath();
-                    ctx.arc(circleCenterX, circleCenterY, circleRadius, 0,2*Math.PI);
+                    ctx.arc(circleCenterX, circleCenterY, circleRadius, 0, circleAngle*Math.PI);
                     if (stroke === true)
                     {
                         ctx.lineWidth = 10;

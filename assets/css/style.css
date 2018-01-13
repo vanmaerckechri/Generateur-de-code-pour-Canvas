@@ -59,7 +59,7 @@ h2 {
 #canvasRelative {
   position: relative; }
 
-.slider {
+.slider, .sliderCircle {
   width: 100%; }
 
 #color, #colorStroke {
