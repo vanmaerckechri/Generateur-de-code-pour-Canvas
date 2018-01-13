@@ -35,6 +35,8 @@ h2 {
 
 #interface {
   width: 100%; }
+  #interface #lineOptionWidth {
+    width: 50px; }
 
 .button_unselect {
   display: flex;

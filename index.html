@@ -22,6 +22,7 @@
         </div>
         <div class="menuRow">
             <div id="colorStroke"></div>
+            <input id="lineOptionWidth" type="number" min="1" onclick="changeLineWidth()" onmousemove="changeLineWidth()">
             <input type="range" min="1" max="255" value="0" class="slider" id="strokeColorR" onmousemove="changeColor()">
             <input type="range" min="1" max="255" value="0" class="slider" id="strokeColorG" onmousemove="changeColor()">
             <input type="range" min="1" max="255" value="0" class="slider" id="strokeColorB" onmousemove="changeColor()">
@@ -75,6 +76,7 @@
             var circleCenterY;
             var circleRadius;
             var circleAngle = 2;
+            var lineOptionWidth = 3;
 
 
             window.onload = function()
@@ -95,6 +97,7 @@
                 }
                 canvas.width = canvasWidth;
                 canvas.height = canvasHeight;
+                document.getElementById('lineOptionWidth').value = 3;
                // changeCircleOption();
             };
 
@@ -128,6 +131,22 @@
                 colorActu.style.backgroundColor = 'rgb( '+red+', '+green+', '+blue+')';
                 colorActuStroke.style.backgroundColor = 'rgb( '+redStroke+', '+greenStroke+', '+blueStroke+')';
             }
+
+            function changeLineWidth()
+            {
+            	let lineWidthId = document.getElementById('lineOptionWidth');
+            	lineWidthId.value = (lineWidthId.value <= 0 || isNaN(lineWidthId.value)) ? 1 : lineWidthId.value;
+            	lineOptionWidth = document.getElementById('lineOptionWidth').value;
+            }
+
+            document.getElementById('lineOptionWidth').addEventListener('keypress', function (e)
+            {
+	    		var key = e.which || e.keyCode;
+	    		if (key === 13)
+	    		{
+	    			changeLineWidth();
+	    		}
+	    	});
 
             function activerBouton(ceBouton)
             {
@@ -222,6 +241,7 @@
                 let boutonDrawLineForm = document.getElementById('drawLineForm');
                 let boutonDrawRect = document.getElementById('drawRectangle');
                 let boutonDrawCircle = document.getElementById('drawCircle');
+                changeLineWidth();
 
                 if (stroke == false && fill == false)
                 {
@@ -288,7 +308,7 @@
                         ctx.lineTo(mouseX, mouseY);
                         saveOriginXForGen = mouseX;
                         saveOriginYForGen = mouseY;
-                        ctx.lineWidth = 10;
+                        ctx.lineWidth = lineOptionWidth;
                         if (stroke === true)
                         {
                             ctx.strokeStyle = 'rgb( '+redStroke+', '+greenStroke+', '+blueStroke+')';
@@ -314,7 +334,7 @@
                     document.getElementById('code').innerHTML += 'ctx.beginPath();<br>ctx.moveTo('+originX+', '+originY+');<br>ctx.lineTo('+saveOriginXForGen+', '+saveOriginYForGen+');<br>'
                     if (stroke === true)
                     {
-                        document.getElementById('code').innerHTML += 'ctx.lineWidth = 10;<br>ctx.strokeStyle = "rgb( '+redStroke+', '+greenStroke+', '+blueStroke+')";<br>ctx.stroke();<br>';
+                        document.getElementById('code').innerHTML += 'ctx.lineWidth = '+lineOptionWidth+';<br>ctx.strokeStyle = "rgb( '+redStroke+', '+greenStroke+', '+blueStroke+')";<br>ctx.stroke();<br>';
                     }
                     if (fill === true && stroke === false)
                     {
@@ -350,6 +370,7 @@
                         ctx.putImageData(canvasSaveDuringCreationShape, 0, 0);
                         ctx.lineTo(mouseX, mouseY);
                         ctx.closePath();
+                        ctx.lineWidth = lineOptionWidth;
                         ctx.strokeStyle = 'rgb( '+redStroke+', '+greenStroke+', '+blueStroke+')';
                         ctx.stroke();
                         test++;
@@ -375,7 +396,7 @@
                     ctx.closePath();
                     if (stroke === true)
                     {
-                        ctx.lineWidth = 10;
+                        ctx.lineWidth = lineOptionWidth;
                         ctx.strokeStyle = 'rgb( '+redStroke+', '+greenStroke+', '+blueStroke+')';
                         ctx.stroke();
                     }
@@ -408,7 +429,7 @@
                     document.getElementById('code').innerHTML += 'ctx.closePath();<br>';
                     if (stroke === true)
                     {
-                        document.getElementById('code').innerHTML += 'ctx.lineWidth = 10;<br>ctx.strokeStyle = "rgb( '+redStroke+', '+greenStroke+', '+blueStroke+')";<br>ctx.stroke();<br>';
+                        document.getElementById('code').innerHTML += 'ctx.lineWidth = '+lineOptionWidth+';<br>ctx.strokeStyle = "rgb( '+redStroke+', '+greenStroke+', '+blueStroke+')";<br>ctx.stroke();<br>';
                     }
                     if (fill === true)
                     {
@@ -441,7 +462,7 @@
                         ctx.rect(originX, originY, saveOriginXForGen - originX, saveOriginYForGen - originY);
                         if (stroke === true)
                         {
-                            ctx.lineWidth = 10;
+                            ctx.lineWidth = lineOptionWidth;
                             ctx.strokeStyle = 'rgb( '+redStroke+', '+greenStroke+', '+blueStroke+')';
                             ctx.stroke();
                         }
@@ -461,7 +482,7 @@
                     ctx.rect(originX, originY, saveOriginXForGen - originX, saveOriginYForGen - originY);
                     if (stroke === true)
                     {
-                        ctx.lineWidth = 10;
+                        ctx.lineWidth = lineOptionWidth;
                         ctx.strokeStyle = 'rgb( '+redStroke+', '+greenStroke+', '+blueStroke+')';
                         ctx.stroke();
                     }
@@ -478,7 +499,7 @@
                     document.getElementById('code').innerHTML += 'ctx.beginPath();<br>ctx.rect( '+originX+', '+originY+', '+rectDestX+', '+rectDestY+');<br>'
                     if (stroke === true)
                     {
-                        document.getElementById('code').innerHTML += 'ctx.lineWidth = 10;<br>ctx.strokeStyle = "rgb( '+redStroke+', '+greenStroke+', '+blueStroke+')";<br>ctx.stroke();<br>';
+                        document.getElementById('code').innerHTML += 'ctx.lineWidth = '+lineOptionWidth+';<br>ctx.strokeStyle = "rgb( '+redStroke+', '+greenStroke+', '+blueStroke+')";<br>ctx.stroke();<br>';
                     }
                     if (fill === true)
                     {
@@ -513,7 +534,7 @@
                         ctx.arc(circleCenterX, circleCenterY, circleRadius, 0, circleAngle*Math.PI);
                         if (stroke === true)
                         {
-                            ctx.lineWidth = 10;
+                            ctx.lineWidth = lineOptionWidth;
                             ctx.strokeStyle = 'rgb( '+redStroke+', '+greenStroke+', '+blueStroke+')';
                             ctx.stroke();
                         }
@@ -533,7 +554,7 @@
                     ctx.arc(circleCenterX, circleCenterY, circleRadius, 0, circleAngle*Math.PI);
                     if (stroke === true)
                     {
-                        ctx.lineWidth = 10;
+                        ctx.lineWidth = lineOptionWidth;
                         ctx.strokeStyle = 'rgb( '+redStroke+', '+greenStroke+', '+blueStroke+')';
                         ctx.stroke();
                     }
@@ -549,7 +570,7 @@
                     document.getElementById('code').innerHTML += 'ctx.beginPath();<br>ctx.arc( '+circleCenterX+', '+circleCenterY+', '+circleRadius+', 0, '+2*Math.PI+');<br>'
                     if (stroke === true)
                     {
-                        document.getElementById('code').innerHTML += 'ctx.lineWidth = 10;<br>ctx.strokeStyle = "rgb( '+redStroke+', '+greenStroke+', '+blueStroke+')";<br>ctx.stroke();<br>';
+                        document.getElementById('code').innerHTML += 'ctx.lineWidth = '+lineOptionWidth+';<br>ctx.strokeStyle = "rgb( '+redStroke+', '+greenStroke+', '+blueStroke+')";<br>ctx.stroke();<br>';
                     }
                     if (fill === true)
                     {
