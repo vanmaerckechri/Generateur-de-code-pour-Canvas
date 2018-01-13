@@ -15,21 +15,25 @@
             <button id="drawLineForm" class="button_unselect" onclick="activerBouton(this)">Shape Lines</button>
             <button id="drawRectangle" class="button_unselect" onclick="activerBouton(this)">Rectangle</button>
             <button id="drawCircle" class="button_unselect" onclick="activerBouton(this)">Circle</button>
-            <button id="strokeOption" class="button_Select" onclick="changePaintOption(this, 'stroke')">Stroke</button>
-            <button id="fillOption" class="button_unselect" onclick="changePaintOption(this, 'fill')">Fill</button>
         <!--    <canvas id="circleOption" width="50" height="50"></canvas>
             <input type="range" min="0" max="20" value="20" class="sliderCircle" id="circleOpt" onmousemove="changeCircleOption()"> -->
         </div>
         <div class="menuRow">
-            <div id="colorStroke"></div>
-            <input id="lineOptionWidth" type="number" min="1" onclick="changeLineWidth()" onmousemove="changeLineWidth()">
-            <input type="range" min="1" max="255" value="0" class="slider" id="strokeColorR" onmousemove="changeColor()">
-            <input type="range" min="1" max="255" value="0" class="slider" id="strokeColorG" onmousemove="changeColor()">
-            <input type="range" min="1" max="255" value="0" class="slider" id="strokeColorB" onmousemove="changeColor()">
-            <div id="color"></div>
-            <input type="range" min="1" max="255" value="0" class="slider" id="colorR" onmousemove="changeColor()">
-            <input type="range" min="1" max="255" value="0" class="slider" id="colorG" onmousemove="changeColor()">
-            <input type="range" min="1" max="255" value="0" class="slider" id="colorB" onmousemove="changeColor()">
+        	<div class="sousOptionsContainer">
+        		<button id="strokeOption" class="button_Select" onclick="changePaintOption(this, 'stroke')">Stroke</button>
+	            <div id="colorStroke"></div>
+	            <input id="lineOptionWidth" type="number" min="1" onclick="changeLineWidth()" onmousemove="changeLineWidth()">
+	            <input type="range" min="1" max="255" value="0" class="slider" id="strokeColorR" onmousemove="changeColor()">
+	            <input type="range" min="1" max="255" value="0" class="slider" id="strokeColorG" onmousemove="changeColor()">
+	            <input type="range" min="1" max="255" value="0" class="slider" id="strokeColorB" onmousemove="changeColor()">
+	        </div>
+	        <div class="sousOptionsContainer">
+		        <button id="fillOption" class="button_unselect" onclick="changePaintOption(this, 'fill')">Fill</button>
+	            <div id="color"></div>
+	            <input type="range" min="1" max="255" value="0" class="slider" id="colorR" onmousemove="changeColor()">
+	            <input type="range" min="1" max="255" value="0" class="slider" id="colorG" onmousemove="changeColor()">
+	            <input type="range" min="1" max="255" value="0" class="slider" id="colorB" onmousemove="changeColor()">
+	        </div>
         </div>
     </div>
     <div id="canvasRelative">

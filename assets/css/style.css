@@ -9,7 +9,8 @@ html, body, header, nav, footer, section, div, span, h1, h2, h3, p, a, blockquot
   font-weight: normal; }
 
 html {
-  height: 100%; }
+  height: 100%;
+  background-color: #c8c8c8; }
 
 body {
   margin-left: auto;
@@ -24,7 +25,10 @@ canvas {
   border: 3px solid black; }
 
 button {
-  width: 100px; }
+  margin-left: 2px;
+  margin-right: 2px;
+  width: 100px;
+  height: 33px; }
 
 input {
   margin-left: 2px;
@@ -35,25 +39,126 @@ h2 {
 
 #interface {
   width: 100%; }
-  #interface #lineOptionWidth {
-    width: 50px; }
-
-.button_unselect {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 50px;
-  font-weight: bold;
-  background-color: white;
-  color: black; }
-
-.button_Select {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 50px;
-  background-color: black;
-  color: white; }
+  #interface .menuRow {
+    margin-bottom: 4px;
+    width: 100%;
+    height: 33px;
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+    #interface .menuRow .button_unselect {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      background-color: white;
+      color: black; }
+    #interface .menuRow .button_Select {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: black;
+      color: white; }
+    #interface .menuRow .sousOptionsContainer {
+      margin-left: 2px;
+      margin-right: 2px;
+      display: flex;
+      align-items: center; }
+      #interface .menuRow .sousOptionsContainer #color, #interface .menuRow .sousOptionsContainer #colorStroke {
+        margin-left: 2px;
+        margin-right: 2px;
+        border: 1px solid black;
+        width: 33px;
+        height: 33px;
+        background-color: black; }
+      #interface .menuRow .sousOptionsContainer #lineOptionWidth {
+        width: 50px; }
+      #interface .menuRow .sousOptionsContainer #strokeColorR, #interface .menuRow .sousOptionsContainer #colorR {
+        -webkit-appearance: none;
+        appearance: none; }
+        #interface .menuRow .sousOptionsContainer #strokeColorR::-moz-range-track, #interface .menuRow .sousOptionsContainer #colorR::-moz-range-track {
+          background-color: red; }
+        #interface .menuRow .sousOptionsContainer #strokeColorR::-webkit-slider-thumb, #interface .menuRow .sousOptionsContainer #colorR::-webkit-slider-thumb {
+          margin-top: -9px;
+          -webkit-appearance: none;
+          border-radius: 50%;
+          border: 1px solid white;
+          width: 20px;
+          height: 20px;
+          background: red;
+          cursor: pointer;
+          color: black; }
+        #interface .menuRow .sousOptionsContainer #strokeColorR::-webkit-slider-runnable-track, #interface .menuRow .sousOptionsContainer #colorR::-webkit-slider-runnable-track {
+          width: 100%;
+          height: 3px;
+          cursor: pointer;
+          background: black; }
+        #interface .menuRow .sousOptionsContainer #strokeColorR::-ms-fill-lower, #interface .menuRow .sousOptionsContainer #colorR::-ms-fill-lower {
+          background: black;
+          border-radius: 50px; }
+        #interface .menuRow .sousOptionsContainer #strokeColorR::-ms-fill-upper, #interface .menuRow .sousOptionsContainer #colorR::-ms-fill-upper {
+          background: black;
+          border-radius: 50px; }
+        #interface .menuRow .sousOptionsContainer #strokeColorR::-ms-thumb, #interface .menuRow .sousOptionsContainer #colorR::-ms-thumb {
+          margin-top: 0px; }
+      #interface .menuRow .sousOptionsContainer #strokeColorG, #interface .menuRow .sousOptionsContainer #colorG {
+        -webkit-appearance: none;
+        appearance: none; }
+        #interface .menuRow .sousOptionsContainer #strokeColorG::-moz-range-track, #interface .menuRow .sousOptionsContainer #colorG::-moz-range-track {
+          background-color: green; }
+        #interface .menuRow .sousOptionsContainer #strokeColorG::-webkit-slider-thumb, #interface .menuRow .sousOptionsContainer #colorG::-webkit-slider-thumb {
+          margin-top: -9px;
+          -webkit-appearance: none;
+          border-radius: 50%;
+          border: 1px solid white;
+          width: 20px;
+          height: 20px;
+          background: green;
+          cursor: pointer;
+          color: black; }
+        #interface .menuRow .sousOptionsContainer #strokeColorG::-webkit-slider-runnable-track, #interface .menuRow .sousOptionsContainer #colorG::-webkit-slider-runnable-track {
+          width: 100%;
+          height: 3px;
+          cursor: pointer;
+          background: black; }
+        #interface .menuRow .sousOptionsContainer #strokeColorG::-ms-fill-lower, #interface .menuRow .sousOptionsContainer #colorG::-ms-fill-lower {
+          background: black;
+          border-radius: 50px; }
+        #interface .menuRow .sousOptionsContainer #strokeColorG::-ms-fill-upper, #interface .menuRow .sousOptionsContainer #colorG::-ms-fill-upper {
+          background: black;
+          border-radius: 50px; }
+        #interface .menuRow .sousOptionsContainer #strokeColorG::-ms-thumb, #interface .menuRow .sousOptionsContainer #colorG::-ms-thumb {
+          margin-top: 0px; }
+      #interface .menuRow .sousOptionsContainer #strokeColorB, #interface .menuRow .sousOptionsContainer #colorB {
+        -webkit-appearance: none;
+        appearance: none; }
+        #interface .menuRow .sousOptionsContainer #strokeColorB::-moz-range-track, #interface .menuRow .sousOptionsContainer #colorB::-moz-range-track {
+          background-color: blue; }
+        #interface .menuRow .sousOptionsContainer #strokeColorB::-webkit-slider-thumb, #interface .menuRow .sousOptionsContainer #colorB::-webkit-slider-thumb {
+          margin-top: -9px;
+          -webkit-appearance: none;
+          border-radius: 50%;
+          border: 1px solid white;
+          width: 20px;
+          height: 20px;
+          background: blue;
+          cursor: pointer;
+          color: black; }
+        #interface .menuRow .sousOptionsContainer #strokeColorB::-webkit-slider-runnable-track, #interface .menuRow .sousOptionsContainer #colorB::-webkit-slider-runnable-track {
+          width: 100%;
+          height: 3px;
+          cursor: pointer;
+          background: black; }
+        #interface .menuRow .sousOptionsContainer #strokeColorB::-ms-fill-lower, #interface .menuRow .sousOptionsContainer #colorB::-ms-fill-lower {
+          background: black;
+          border-radius: 50px; }
+        #interface .menuRow .sousOptionsContainer #strokeColorB::-ms-fill-upper, #interface .menuRow .sousOptionsContainer #colorB::-ms-fill-upper {
+          background: black;
+          border-radius: 50px; }
+        #interface .menuRow .sousOptionsContainer #strokeColorB::-ms-thumb, #interface .menuRow .sousOptionsContainer #colorB::-ms-thumb {
+          margin-top: 0px; }
+    #interface .menuRow .slider, #interface .menuRow .sliderCircle {
+      width: 50px; }
 
 #code {
   padding: 10px;
@@ -61,118 +166,15 @@ h2 {
   background-color: black;
   color: green;
   font-size: 16px;
-  font-weight: bold; }
+  font-weight: bold;
+  -webkit-user-select: all;
+  -moz-user-select: all;
+  -ms-user-select: all;
+  user-select: all; }
   #code span {
     font-weight: inherit; }
 
 #canvasRelative {
   position: relative; }
-
-.slider, .sliderCircle {
-  width: 50px; }
-
-#color, #colorStroke {
-  border: 1px solid black;
-  width: 50px;
-  height: 25px;
-  background-color: black; }
-
-.menuRow {
-  margin-bottom: 4px;
-  display: flex;
-  justify-content: center; }
-
-.slideContainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center; }
-
-#strokeColorR, #colorR {
-  -webkit-appearance: none;
-  appearance: none; }
-  #strokeColorR::-moz-range-track, #colorR::-moz-range-track {
-    background-color: red; }
-  #strokeColorR::-webkit-slider-thumb, #colorR::-webkit-slider-thumb {
-    margin-top: -9px;
-    -webkit-appearance: none;
-    border-radius: 50%;
-    border: 1px solid white;
-    width: 20px;
-    height: 20px;
-    background: red;
-    cursor: pointer;
-    color: black; }
-  #strokeColorR::-webkit-slider-runnable-track, #colorR::-webkit-slider-runnable-track {
-    width: 100%;
-    height: 3px;
-    cursor: pointer;
-    background: black; }
-  #strokeColorR::-ms-fill-lower, #colorR::-ms-fill-lower {
-    background: black;
-    border-radius: 50px; }
-  #strokeColorR::-ms-fill-upper, #colorR::-ms-fill-upper {
-    background: black;
-    border-radius: 50px; }
-  #strokeColorR::-ms-thumb, #colorR::-ms-thumb {
-    margin-top: 0px; }
-
-#strokeColorG, #colorG {
-  -webkit-appearance: none;
-  appearance: none; }
-  #strokeColorG::-moz-range-track, #colorG::-moz-range-track {
-    background-color: green; }
-  #strokeColorG::-webkit-slider-thumb, #colorG::-webkit-slider-thumb {
-    margin-top: -9px;
-    -webkit-appearance: none;
-    border-radius: 50%;
-    border: 1px solid white;
-    width: 20px;
-    height: 20px;
-    background: green;
-    cursor: pointer;
-    color: black; }
-  #strokeColorG::-webkit-slider-runnable-track, #colorG::-webkit-slider-runnable-track {
-    width: 100%;
-    height: 3px;
-    cursor: pointer;
-    background: black; }
-  #strokeColorG::-ms-fill-lower, #colorG::-ms-fill-lower {
-    background: black;
-    border-radius: 50px; }
-  #strokeColorG::-ms-fill-upper, #colorG::-ms-fill-upper {
-    background: black;
-    border-radius: 50px; }
-  #strokeColorG::-ms-thumb, #colorG::-ms-thumb {
-    margin-top: 0px; }
-
-#strokeColorB, #colorB {
-  -webkit-appearance: none;
-  appearance: none; }
-  #strokeColorB::-moz-range-track, #colorB::-moz-range-track {
-    background-color: blue; }
-  #strokeColorB::-webkit-slider-thumb, #colorB::-webkit-slider-thumb {
-    margin-top: -9px;
-    -webkit-appearance: none;
-    border-radius: 50%;
-    border: 1px solid white;
-    width: 20px;
-    height: 20px;
-    background: blue;
-    cursor: pointer;
-    color: black; }
-  #strokeColorB::-webkit-slider-runnable-track, #colorB::-webkit-slider-runnable-track {
-    width: 100%;
-    height: 3px;
-    cursor: pointer;
-    background: black; }
-  #strokeColorB::-ms-fill-lower, #colorB::-ms-fill-lower {
-    background: black;
-    border-radius: 50px; }
-  #strokeColorB::-ms-fill-upper, #colorB::-ms-fill-upper {
-    background: black;
-    border-radius: 50px; }
-  #strokeColorB::-ms-thumb, #colorB::-ms-thumb {
-    margin-top: 0px; }
 
 /*# sourceMappingURL=style.css.map */
