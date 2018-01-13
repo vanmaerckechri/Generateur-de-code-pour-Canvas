@@ -18,6 +18,9 @@
         <button id="drawRectangle" class="button_unselect" onclick="activerBouton(this)">
             Draw a Rectangle
         </button>
+        <button id="drawCircle" class="button_unselect" onclick="activerBouton(this)">
+            Draw a Circle
+        </button>
         <hr>
         <button id="fillOption" class="button_unselect" onclick="changePaintOption(this, 'fill')">
             Fill
@@ -80,6 +83,10 @@
             var blueStroke = 0;
             var canvasWidth;
             var canvasHeight;
+            let circleByCenter = false;
+            let circleCenterX;
+            let circleCenterY;
+            let circleRadius;
 
             window.onload = function()
             {                
@@ -90,8 +97,8 @@
                 red = slider[3].value = 0;
                 green = slider[4].value = 0;
                 blue = slider[5].value = 0;
-                canvasWidth = prompt('width canvas');
-                canvasHeight = prompt('height canvas');
+               // canvasWidth = prompt('width canvas');
+               // canvasHeight = prompt('height canvas');
                 if (isNaN(parseFloat(canvasWidth)) || isNaN(parseFloat(canvasHeight)))
                 {
                     canvasWidth = 700;
@@ -201,7 +208,6 @@
             {
                 mouseX = getX(event);
                 mouseY = getY(event);
-                console.log(mouseX);
             }
 
             function detecterOutil()
@@ -209,6 +215,7 @@
                 let boutonDrawLine = document.getElementById('drawLine');
                 let boutonDrawLineForm = document.getElementById('drawLineForm');
                 let boutonDrawRect = document.getElementById('drawRectangle');
+                let boutonDrawCircle = document.getElementById('drawCircle');
 
                 if (stroke == false && fill == false)
                 {
@@ -247,6 +254,14 @@
                     }
                     drawRectangle();
                 }
+                if (boutonSelection == boutonDrawCircle)
+                {   
+                    if (dessinEnCours == 1)
+                    {
+                        dessinEnCours = 2;
+                    }
+                    drawCircle();
+                }
             }
 
             function drawLine()
@@ -260,21 +275,19 @@
                 if (dessinEnCours == 1)
                 {
                     tempoDessin = setInterval(function(){
-                   /* ctx.clearRect(0, 0, canvas.width, canvas.height)
-                    ctx.restore();*/
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    ctx.putImageData(canvasSaveDuringCreationShape, 0, 0);
-                    ctx.beginPath();
-                    ctx.moveTo(originX, originY);
-                    ctx.lineTo(mouseX, mouseY);
-                    saveOriginXForGen = mouseX;
-                    saveOriginYForGen = mouseY;
-                    ctx.closePath();
-                    ctx.lineWidth = 10;
-                    ctx.strokeStyle = 'rgb( '+redStroke+', '+greenStroke+', '+blueStroke+')';
-                    ctx.stroke();
-                    test++;
-                    console.log('setInterval Cycle: '+test+' en cours: '+dessinEnCours);
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                        ctx.putImageData(canvasSaveDuringCreationShape, 0, 0);
+                        ctx.beginPath();
+                        ctx.moveTo(originX, originY);
+                        ctx.lineTo(mouseX, mouseY);
+                        saveOriginXForGen = mouseX;
+                        saveOriginYForGen = mouseY;
+                        ctx.closePath();
+                        ctx.lineWidth = 10;
+                        ctx.strokeStyle = 'rgb( '+redStroke+', '+greenStroke+', '+blueStroke+')';
+                        ctx.stroke();
+                        test++;
+                        console.log('setInterval Cycle: '+test+' en cours: '+dessinEnCours);
                     }, 100);
                 }
                 if (dessinEnCours == 2)
@@ -319,15 +332,15 @@
                 if (dessinEnCours == 2)
                 {
                     tempoDessin = setInterval(function(){
-                    ctx.beginPath();
-                    ctx.moveTo(saveMousePoints[0][saveMousePointsIndice], saveMousePoints[1][saveMousePointsIndice]);
-                    ctx.putImageData(canvasSaveDuringCreationShape, 0, 0);
-                    ctx.lineTo(mouseX, mouseY);
-                    ctx.closePath();
-                    ctx.strokeStyle = 'rgb( '+redStroke+', '+greenStroke+', '+blueStroke+')';
-                    ctx.stroke();
-                    test++;
-                    console.log('setInterval Cycle: '+test+' en cours: '+dessinEnCours+' tempoDessin: '+tempoDessin+' indice: '+saveMousePointsIndice);
+                        ctx.beginPath();
+                        ctx.moveTo(saveMousePoints[0][saveMousePointsIndice], saveMousePoints[1][saveMousePointsIndice]);
+                        ctx.putImageData(canvasSaveDuringCreationShape, 0, 0);
+                        ctx.lineTo(mouseX, mouseY);
+                        ctx.closePath();
+                        ctx.strokeStyle = 'rgb( '+redStroke+', '+greenStroke+', '+blueStroke+')';
+                        ctx.stroke();
+                        test++;
+                        console.log('setInterval Cycle: '+test+' en cours: '+dessinEnCours+' tempoDessin: '+tempoDessin+' indice: '+saveMousePointsIndice);
                     }, 100);
                 }
                 if (dessinEnCours == 3)
@@ -407,26 +420,24 @@
                 if (dessinEnCours == 1)
                 {
                     tempoDessin = setInterval(function(){
-                   /* ctx.clearRect(0, 0, canvas.width, canvas.height)
-                    ctx.restore();*/
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    ctx.putImageData(canvasSaveBetweenTwoShapes, 0, 0);
-                    ctx.beginPath();
-                    ctx.moveTo(originX, originY);
-                    saveOriginXForGen = mouseX;
-                    saveOriginYForGen = mouseY;
-                    ctx.rect(originX, originY, saveOriginXForGen - originX, saveOriginYForGen - originY);
-                    if (stroke === true)
-                    {
-                        ctx.lineWidth = 10;
-                        ctx.strokeStyle = 'rgb( '+redStroke+', '+greenStroke+', '+blueStroke+')';
-                        ctx.stroke();
-                    }
-                    if (fill === true)
-                    {
-                        ctx.fillStyle = 'rgb( '+red+', '+green+', '+blue+')';
-                        ctx.fill();
-                    }
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                        ctx.putImageData(canvasSaveBetweenTwoShapes, 0, 0);
+                        ctx.beginPath();
+                        ctx.moveTo(originX, originY);
+                        saveOriginXForGen = mouseX;
+                        saveOriginYForGen = mouseY;
+                        ctx.rect(originX, originY, saveOriginXForGen - originX, saveOriginYForGen - originY);
+                        if (stroke === true)
+                        {
+                            ctx.lineWidth = 10;
+                            ctx.strokeStyle = 'rgb( '+redStroke+', '+greenStroke+', '+blueStroke+')';
+                            ctx.stroke();
+                        }
+                        if (fill === true)
+                        {
+                            ctx.fillStyle = 'rgb( '+red+', '+green+', '+blue+')';
+                            ctx.fill();
+                        }
                     }, 10);
                 }
 
@@ -462,7 +473,65 @@
                     }
                     document.getElementById('code').innerHTML += '<span id="lastChild">&lt;/script&gt;</span>';
                     canvasSaveBetweenTwoShapes = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                }
+            }
+            function drawCircle()
+            {
+                if (dessinEnCours == 0)
+                {
+                    canvasSaveBetweenTwoShapes = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    originX = mouseX;
+                    originY = mouseY;
+                    dessinEnCours = 1;
+                }
+                if (dessinEnCours == 1)
+                {
+                    tempoDessin = setInterval(function(){
+                        circleRadius = Math.sqrt(Math.pow(mouseX - originX, 2) + Math.pow(mouseY - originY, 2))/2;
+                        circleRadius = parseInt(circleRadius);
+                        if (circleByCenter === false)
+                        {
+                            circleCenterX = originX + ((mouseX - originX)/2);
+                            circleCenterY = originY + ((mouseY - originY)/2);
+                        }
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                        ctx.putImageData(canvasSaveBetweenTwoShapes, 0, 0);
+                        ctx.beginPath();
+                        ctx.arc(circleCenterX, circleCenterY, circleRadius, 0,2*Math.PI);
+                        if (stroke === true)
+                        {
+                            ctx.lineWidth = 10;
+                            ctx.strokeStyle = 'rgb( '+redStroke+', '+greenStroke+', '+blueStroke+')';
+                            ctx.stroke();
+                        }
+                        if (fill === true)
+                        {
+                            ctx.fillStyle = 'rgb( '+red+', '+green+', '+blue+')';
+                            ctx.fill();
+                        }
+                    }, 10);
+                }
 
+                if (dessinEnCours == 2)
+                {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.putImageData(canvasSaveBetweenTwoShapes, 0, 0);
+                    ctx.beginPath();
+                    ctx.arc(circleCenterX, circleCenterY, circleRadius, 0,2*Math.PI);
+                    if (stroke === true)
+                    {
+                        ctx.lineWidth = 10;
+                        ctx.strokeStyle = 'rgb( '+redStroke+', '+greenStroke+', '+blueStroke+')';
+                        ctx.stroke();
+                    }
+                    if (fill === true)
+                    {
+                        ctx.fillStyle = 'rgb( '+red+', '+green+', '+blue+')';
+                        ctx.fill();                       
+                    }                       
+                    clearInterval(tempoDessin);
+                    dessinEnCours = 0;
+                    canvasSaveBetweenTwoShapes = ctx.getImageData(0, 0, canvas.width, canvas.height);
                 }
             }
     </script>
