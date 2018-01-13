@@ -8,10 +8,23 @@ body
 	margin-left: auto;
 	margin-right: auto;
 	width: 960px;
-	height: 100%;
 	display: flex;
+	flex-direction: column;
 	justify-content: space-between;
-	align-items: flex-start;
+	align-items: center;
+}
+canvas
+{
+	border: 3px solid black;
+}
+button
+{
+	width: 100px;
+}
+input
+{
+	margin-left: 2px;
+	margin-right: 2px;
 }
 h2
 {

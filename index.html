@@ -4,53 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Générateur de Crises de Nerfs</title>
+    <title>Générateur de Code pour le Canvas</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+    <h1></h1>
     <div id="interface">
-        <button id="drawLine" class="button_Select" onclick="activerBouton(this)">
-            Draw Line
-        </button>
-        <button id="drawLineForm" class="button_unselect" onclick="activerBouton(this)">
-            Draw Form with Lines
-        </button>
-        <button id="drawRectangle" class="button_unselect" onclick="activerBouton(this)">
-            Draw a Rectangle
-        </button>
-        <button id="drawCircle" class="button_unselect" onclick="activerBouton(this)">
-            Draw a Circle
-        </button>
-        <canvas id="circleOption" width="150" height="50" style="background-color: pink;">
-        </canvas>
-        <input type="range" min="0" max="20" value="20" class="sliderCircle" id="circleOpt" onmousemove="changeCircleOption()">
-        <hr>
-        <button id="fillOption" class="button_unselect" onclick="changePaintOption(this, 'fill')">
-            Fill
-        </button>
-        <button id="strokeOption" class="button_Select" onclick="changePaintOption(this, 'stroke')">
-            Stroke
-        </button>
-        <h2>Stroke</h2>
-        <div id="colorStroke"></div>
-        <label for="strokeColorR">% Rouge</label>
-        <input type="range" min="1" max="255" value="0" class="slider" id="strokeColorR" onmousemove="changeColor()">
-        <label for="strokeColorG">% Green</label>
-        <input type="range" min="1" max="255" value="0" class="slider" id="strokeColorG" onmousemove="changeColor()">
-        <label for="strokeColorB">% Blue</label>
-        <input type="range" min="1" max="255" value="0" class="slider" id="strokeColorB" onmousemove="changeColor()">
-        <h2>Fill</h2>
-        <div id="color"></div>
-        <label for="colorR">% Rouge</label>
-        <input type="range" min="1" max="255" value="0" class="slider" id="colorR" onmousemove="changeColor()">
-        <label for="colorG">% Green</label>
-        <input type="range" min="1" max="255" value="0" class="slider" id="colorG" onmousemove="changeColor()">
-        <label for="colorB">% Blue</label>
-        <input type="range" min="1" max="255" value="0" class="slider" id="colorB" onmousemove="changeColor()">
+        <div class="menuRow">
+            <button id="drawLine" class="button_Select" onclick="activerBouton(this)">Line</button>
+            <button id="drawLineForm" class="button_unselect" onclick="activerBouton(this)">Shape Lines</button>
+            <button id="drawRectangle" class="button_unselect" onclick="activerBouton(this)">Rectangle</button>
+            <button id="drawCircle" class="button_unselect" onclick="activerBouton(this)">Circle</button>
+            <button id="strokeOption" class="button_Select" onclick="changePaintOption(this, 'stroke')">Stroke</button>
+            <button id="fillOption" class="button_unselect" onclick="changePaintOption(this, 'fill')">Fill</button>
+        <!--    <canvas id="circleOption" width="50" height="50"></canvas>
+            <input type="range" min="0" max="20" value="20" class="sliderCircle" id="circleOpt" onmousemove="changeCircleOption()"> -->
+        </div>
+        <div class="menuRow">
+            <div id="colorStroke"></div>
+            <input type="range" min="1" max="255" value="0" class="slider" id="strokeColorR" onmousemove="changeColor()">
+            <input type="range" min="1" max="255" value="0" class="slider" id="strokeColorG" onmousemove="changeColor()">
+            <input type="range" min="1" max="255" value="0" class="slider" id="strokeColorB" onmousemove="changeColor()">
+            <div id="color"></div>
+            <input type="range" min="1" max="255" value="0" class="slider" id="colorR" onmousemove="changeColor()">
+            <input type="range" min="1" max="255" value="0" class="slider" id="colorG" onmousemove="changeColor()">
+            <input type="range" min="1" max="255" value="0" class="slider" id="colorB" onmousemove="changeColor()">
+        </div>
     </div>
     <div id="canvasRelative">
-        <canvas id="scene" width="700" height="700" style="background-color: pink;">
-        </canvas>
+        <canvas id="scene" width="700" height="700"></canvas>
     </div>
     <code id="code">
         &lt;canvas id="scene" width="700" height="700"&gt;<br>
@@ -64,8 +46,8 @@
 
             var canvas = document.getElementById('scene');
             var ctx = canvas.getContext('2d');
-            var canvasCircle = document.getElementById('circleOption');
-            var ctxCircle = canvasCircle.getContext('2d');
+           /*var canvasCircle = document.getElementById('circleOption');
+            var ctxCircle = canvasCircle.getContext('2d');*/
             var boutonSelection = document.getElementById('drawLine');
             var dessinEnCours = 0;
             var mouseX;
@@ -113,10 +95,10 @@
                 }
                 canvas.width = canvasWidth;
                 canvas.height = canvasHeight;
-                changeCircleOption();
+               // changeCircleOption();
             };
 
-            function circleOption()
+          /*  function circleOption()
             {
                 ctxCircle.clearRect(0, 0, canvasCircle.width, canvasCircle.height);
                 ctxCircle.beginPath();
@@ -130,7 +112,7 @@
                 let slider = document.getElementById('circleOpt');
                 circleAngle = (slider.value)/10;
                 circleOption();
-            }
+            }*/
 
             function changeColor()
             {
@@ -312,7 +294,7 @@
                             ctx.strokeStyle = 'rgb( '+redStroke+', '+greenStroke+', '+blueStroke+')';
                             ctx.stroke();
                         }
-                        if (fill === true)
+                        if (fill === true && stroke === false)
                         {
                             ctx.strokeStyle = 'rgb( '+red+', '+green+', '+blue+')';
                             ctx.stroke();
@@ -334,7 +316,7 @@
                     {
                         document.getElementById('code').innerHTML += 'ctx.lineWidth = 10;<br>ctx.strokeStyle = "rgb( '+redStroke+', '+greenStroke+', '+blueStroke+')";<br>ctx.stroke();<br>';
                     }
-                    if (fill === true)
+                    if (fill === true && stroke === false)
                     {
                         document.getElementById('code').innerHTML += 'ctx.strokeStyle = "rgb( '+red+', '+green+', '+blue+')";<br>ctx.stroke();<br>';
                     }
