@@ -9,7 +9,7 @@
 </head>
 <body>
     <div id="interface">
-        <button id="drawLine" class="button_unselect" onclick="activerBouton(this)">
+        <button id="drawLine" class="button_Select" onclick="activerBouton(this)">
             Draw Line
         </button>
         <button id="drawLineForm" class="button_unselect" onclick="activerBouton(this)">
@@ -58,7 +58,7 @@
 
             var canvas = document.getElementById('scene');
             var ctx = canvas.getContext('2d');
-            var boutonSelection = "aucun";
+            var boutonSelection = document.getElementById('drawLine');
             var dessinEnCours = 0;
             var mouseX;
             var mouseY;
@@ -67,8 +67,8 @@
             var originX;
             var originY;
             var tempoDessin = 0;
-            var saveCanvas = ctx.getImageData(0, 0, canvas.width, canvas.height);
-            var saveCanvasUndoLineForm = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            var canvasSaveDuringCreationShape = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            var canvasSaveBetweenTwoShapes = ctx.getImageData(0, 0, canvas.width, canvas.height);
             var test = 0;
             var stroke = true;
             var fill = false;
@@ -128,13 +128,13 @@
                 if (boutonSelection != 'aucun')
                 {
                     saveMousePoints = [[],[]];
-                    ctx.putImageData(saveCanvasUndoLineForm, 0, 0);
-                    saveCanvas = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    ctx.putImageData(canvasSaveBetweenTwoShapes, 0, 0);
+                    canvasSaveDuringCreationShape = ctx.getImageData(0, 0, canvas.width, canvas.height);
                     dessinEnCours = 0;
                     saveMousePointsIndice = -1;
                     boutonSelection.className = "button_unselect";
                     clearInterval(tempoDessin);
-                    ctx.putImageData(saveCanvas, 0, 0);
+                    ctx.putImageData(canvasSaveDuringCreationShape, 0, 0);
                 }
             }
 
@@ -201,6 +201,7 @@
             {
                 mouseX = getX(event);
                 mouseY = getY(event);
+                console.log(mouseX);
             }
 
             function detecterOutil()
@@ -208,6 +209,12 @@
                 let boutonDrawLine = document.getElementById('drawLine');
                 let boutonDrawLineForm = document.getElementById('drawLineForm');
                 let boutonDrawRect = document.getElementById('drawRectangle');
+
+                if (stroke == false && fill == false)
+                {
+                    stroke = true;
+                    document.getElementById('strokeOption').className = "button_Select";
+                }
 
                 if (boutonSelection == boutonDrawLine)
                 {
@@ -222,12 +229,12 @@
                     clearInterval(tempoDessin);
                     if (mouseX >= saveMousePoints[0][0] - 10 && mouseX <= saveMousePoints[0][0] + 10 && mouseY >= saveMousePoints[1][0] - 10 && mouseY <= saveMousePoints[1][0] + 10 && dessinEnCours == 2)
                     {
-                        saveCanvas = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                        canvasSaveDuringCreationShape = ctx.getImageData(0, 0, canvas.width, canvas.height);
                         dessinEnCours = 3;
                     }
                     if (dessinEnCours == 2)
                     {
-                        saveCanvas = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                        canvasSaveDuringCreationShape = ctx.getImageData(0, 0, canvas.width, canvas.height);
                         dessinEnCours = 1;
                     }
                     drawLineForm();
@@ -256,7 +263,7 @@
                    /* ctx.clearRect(0, 0, canvas.width, canvas.height)
                     ctx.restore();*/
                     ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    ctx.putImageData(saveCanvas, 0, 0);
+                    ctx.putImageData(canvasSaveDuringCreationShape, 0, 0);
                     ctx.beginPath();
                     ctx.moveTo(originX, originY);
                     ctx.lineTo(mouseX, mouseY);
@@ -273,10 +280,10 @@
                 if (dessinEnCours == 2)
                 {
                     ctx.closePath();
-                    saveCanvas = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    canvasSaveDuringCreationShape = ctx.getImageData(0, 0, canvas.width, canvas.height);
                     clearInterval(tempoDessin);
                     dessinEnCours = 0;
-                    saveCanvasUndoLineForm = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    canvasSaveBetweenTwoShapes = ctx.getImageData(0, 0, canvas.width, canvas.height);
                     document.getElementById('code').removeChild(document.getElementById('lastChild'));
                     document.getElementById('code').innerHTML += 'ctx.beginPath();<br>ctx.moveTo('+originX+', '+originY+');<br>ctx.lineTo('+saveOriginXForGen+', '+saveOriginYForGen+');<br>ctx.closePath();'
                     if (stroke === true)
@@ -296,7 +303,7 @@
             {
                 if (dessinEnCours == 0)
                 {
-                    saveCanvasUndoLineForm = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    canvasSaveBetweenTwoShapes = ctx.getImageData(0, 0, canvas.width, canvas.height);
                     dessinEnCours = 1;
                 }
                 if (dessinEnCours == 1)
@@ -306,7 +313,7 @@
                     saveMousePoints[0].push(originX);
                     saveMousePoints[1].push(originY);
                     saveMousePointsIndice++;
-                    saveCanvas = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    canvasSaveDuringCreationShape = ctx.getImageData(0, 0, canvas.width, canvas.height);
                     dessinEnCours = 2;
                 }
                 if (dessinEnCours == 2)
@@ -314,7 +321,7 @@
                     tempoDessin = setInterval(function(){
                     ctx.beginPath();
                     ctx.moveTo(saveMousePoints[0][saveMousePointsIndice], saveMousePoints[1][saveMousePointsIndice]);
-                    ctx.putImageData(saveCanvas, 0, 0);
+                    ctx.putImageData(canvasSaveDuringCreationShape, 0, 0);
                     ctx.lineTo(mouseX, mouseY);
                     ctx.closePath();
                     ctx.strokeStyle = 'rgb( '+redStroke+', '+greenStroke+', '+blueStroke+')';
@@ -331,7 +338,7 @@
                 if (dessinEnCours == 4)
                 {
                     clearInterval(tempoDessin);
-                    ctx.putImageData(saveCanvasUndoLineForm, 0, 0);
+                    ctx.putImageData(canvasSaveBetweenTwoShapes, 0, 0);
                     ctx.beginPath();
                     ctx.moveTo(saveMousePoints[0][0], saveMousePoints[1][0]);
                     for (i = 1; i < saveMousePoints[0].length; i++)
@@ -382,7 +389,7 @@
                         document.getElementById('code').innerHTML += 'ctx.fillStyle = "rgb( '+red+', '+green+', '+blue+')";<br>ctx.fill();';
                     }
                     document.getElementById('code').innerHTML += '<span id="lastChild">&lt;/script&gt;</span>';
-                    saveCanvasUndoLineForm = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    canvasSaveBetweenTwoShapes = ctx.getImageData(0, 0, canvas.width, canvas.height);
                     saveMousePoints = [[],[]];
                     dessinEnCours = 0;
                 }
@@ -392,7 +399,7 @@
             {
                 if (dessinEnCours == 0)
                 {
-                    saveCanvasUndoLineForm = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    canvasSaveBetweenTwoShapes = ctx.getImageData(0, 0, canvas.width, canvas.height);
                     originX = mouseX;
                     originY = mouseY;
                     dessinEnCours = 1;
@@ -403,24 +410,30 @@
                    /* ctx.clearRect(0, 0, canvas.width, canvas.height)
                     ctx.restore();*/
                     ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    ctx.putImageData(saveCanvasUndoLineForm, 0, 0);
+                    ctx.putImageData(canvasSaveBetweenTwoShapes, 0, 0);
                     ctx.beginPath();
                     ctx.moveTo(originX, originY);
-                    ctx.lineTo(mouseX, originY);
-                    ctx.lineTo(mouseX, mouseY);
-                    ctx.lineTo(originX, mouseY);
                     saveOriginXForGen = mouseX;
                     saveOriginYForGen = mouseY;
-                    ctx.closePath();
-                    ctx.strokeStyle = 'rgb( '+redStroke+', '+greenStroke+', '+blueStroke+')';                    
-                    ctx.stroke();
-                    }, 100);
+                    ctx.rect(originX, originY, saveOriginXForGen - originX, saveOriginYForGen - originY);
+                    if (stroke === true)
+                    {
+                        ctx.lineWidth = 10;
+                        ctx.strokeStyle = 'rgb( '+redStroke+', '+greenStroke+', '+blueStroke+')';
+                        ctx.stroke();
+                    }
+                    if (fill === true)
+                    {
+                        ctx.fillStyle = 'rgb( '+red+', '+green+', '+blue+')';
+                        ctx.fill();
+                    }
+                    }, 10);
                 }
 
                 if (dessinEnCours == 2)
                 {
                     ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    ctx.putImageData(saveCanvasUndoLineForm, 0, 0);
+                    ctx.putImageData(canvasSaveBetweenTwoShapes, 0, 0);
                     ctx.beginPath();
                     ctx.rect(originX, originY, saveOriginXForGen - originX, saveOriginYForGen - originY);
                     if (stroke === true)
@@ -448,7 +461,7 @@
                         document.getElementById('code').innerHTML += 'ctx.fillStyle = "rgb( '+red+', '+green+', '+blue+')";<br>ctx.fill();';
                     }
                     document.getElementById('code').innerHTML += '<span id="lastChild">&lt;/script&gt;</span>';
-                    saveCanvasUndoLineForm = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    canvasSaveBetweenTwoShapes = ctx.getImageData(0, 0, canvas.width, canvas.height);
 
                 }
             }
