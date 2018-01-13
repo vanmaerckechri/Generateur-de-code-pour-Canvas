@@ -3,7 +3,7 @@
 ## Contexte
 
 Réalisé durant la formation [Becode](http://www.becode.org/).
-Découverte du Canvas sous HTML5 en réalisant divers petits exercices à l'aide de javascript. Le dessin à l'aide de coordonnées étant trop laborieux => réalisation d'une interface graphique et d'un générateur de code.
+Découverte du Canvas sous HTML5 en réalisant divers petits exercices à l'aide de javascript. Le dessin à base de coordonnées étant trop laborieux => réalisation d'une interface graphique et d'un générateur de code.
   
 ## Mises à Jour
   
