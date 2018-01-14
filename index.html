@@ -11,7 +11,8 @@
     <h1></h1>
     <div id="interface">
         <div class="menuRow">
-            <button id="drawLine" class="button_Select" onclick="activerBouton(this)">Line</button>
+        	<button id="drawBrush" class="button_Select" onclick="activerBouton(this)">Brush</button>
+            <button id="drawLine" class="button_unselect" onclick="activerBouton(this)">Line</button>
             <button id="drawLineForm" class="button_unselect" onclick="activerBouton(this)">Shape Lines</button>
             <button id="drawRectangle" class="button_unselect" onclick="activerBouton(this)">Rectangle</button>
             <button id="drawCircle" class="button_unselect" onclick="activerBouton(this)">Circle</button>
@@ -53,7 +54,7 @@
             var ctx = canvas.getContext('2d');
            /*var canvasCircle = document.getElementById('circleOption');
             var ctxCircle = canvasCircle.getContext('2d');*/
-            var boutonSelection = document.getElementById('drawLine');
+            var boutonSelection = document.getElementById('drawBrush');
             var dessinEnCours = 0;
             var mouseX;
             var mouseY;
@@ -102,6 +103,7 @@
                 canvas.width = canvasWidth;
                 canvas.height = canvasHeight;
                 document.getElementById('lineOptionWidth').value = 3;
+                gestionEvent();
                // changeCircleOption();
             };
 
@@ -120,6 +122,22 @@
                 circleAngle = (slider.value)/10;
                 circleOption();
             }*/
+
+            function gestionEvent()
+            {
+            	if (boutonSelection == document.getElementById('drawBrush'))
+            	{
+            		canvas.addEventListener('mousedown', detecterOutil, false);
+            		canvas.addEventListener('mouseup', stopBrush, false);
+            		canvas.removeEventListener('click', detecterOutil, false);
+            	}
+            	else
+            	{
+            		canvas.addEventListener('click', detecterOutil, false);
+            		canvas.removeEventListener('mousedown', detecterOutil, false);
+            		canvas.removeEventListener('mouseup', stopBrush, false);
+            	}
+            }
 
             function changeColor()
             {
@@ -157,6 +175,7 @@
                 desactiverBouton();
                 ceBouton.className = "button_Select";
                 boutonSelection = ceBouton;
+                gestionEvent();
             }
 
             function desactiverBouton()
@@ -203,8 +222,7 @@
                     }
                 }
             }
-
-            canvas.addEventListener('click', detecterOutil, false);
+ 
             addEventListener('mousemove', saveMouseXY);
 
             function getX(event)
@@ -241,6 +259,7 @@
 
             function detecterOutil()
             {
+            	let boutonDrawBrush = document.getElementById('drawBrush');
                 let boutonDrawLine = document.getElementById('drawLine');
                 let boutonDrawLineForm = document.getElementById('drawLineForm');
                 let boutonDrawRect = document.getElementById('drawRectangle');
@@ -252,7 +271,19 @@
                     stroke = true;
                     document.getElementById('strokeOption').className = "button_Select";
                 }
-
+                if (boutonSelection == boutonDrawBrush)
+                {
+                	if (dessinEnCours == 0)
+                	{
+                	   	originX = mouseX;
+                   		originY = mouseY;
+					}
+                    if (dessinEnCours == 1)
+                    {
+                        dessinEnCours = 2;
+                    }
+                    drawBrush();
+                }
                 if (boutonSelection == boutonDrawLine)
                 {
                     if (dessinEnCours == 1)
@@ -294,6 +325,54 @@
                 }
             }
 
+            function stopBrush()
+            {
+            	clearInterval(tempoDessin);
+            	originX = mouseX;
+                originY = mouseY;
+                dessinEnCours = 0;
+                if (stroke === true)
+                {
+                    document.getElementById('code').innerHTML += 'ctx.lineWidth = '+lineOptionWidth+';<br>ctx.strokeStyle = "rgb( '+redStroke+', '+greenStroke+', '+blueStroke+')";<br>ctx.stroke();<br>';
+                }
+                if (fill === true && stroke === false)
+                {
+                   document.getElementById('code').innerHTML += 'ctx.lineWidth = '+lineOptionWidth+';<br>ctx.strokeStyle = "rgb( '+red+', '+green+', '+blue+')";<br>ctx.stroke();<br>';
+                }
+                document.getElementById('code').innerHTML += '<span id="lastChild">&lt;/script&gt;</span>';
+            }
+
+			function drawBrush()
+            {
+                if (dessinEnCours == 0)
+                {
+                	ctx.beginPath();
+                    ctx.moveTo(originX, originY);
+                  	document.getElementById('code').removeChild(document.getElementById('lastChild'));
+                    document.getElementById('code').innerHTML += 'ctx.beginPath();<br>ctx.moveTo('+originX+', '+originY+');<br>';
+                    dessinEnCours = 1;
+                }
+               	if (dessinEnCours == 1)
+                {
+                    tempoDessin = setInterval(function(){
+                    ctx.lineTo(mouseX, mouseY);
+                    ctx.lineWidth = lineOptionWidth;
+                    if (stroke === true)
+                    {
+                        ctx.strokeStyle = 'rgb( '+redStroke+', '+greenStroke+', '+blueStroke+')';
+                        ctx.stroke();
+                    }
+                    if (fill === true && stroke === false)
+                    {
+                        ctx.strokeStyle = 'rgb( '+red+', '+green+', '+blue+')';
+                        ctx.stroke();
+                    }
+                    canvasSaveBetweenTwoShapes = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+					document.getElementById('code').innerHTML += 'ctx.lineTo('+mouseX+', '+mouseY+');<br>';
+                    }, 10);
+                }
+            }
             function drawLine()
             {
                 if (dessinEnCours == 0)
