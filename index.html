@@ -16,6 +16,8 @@
             <button id="drawLineForm" class="button_unselect" onclick="activerBouton(this)">Shape Lines</button>
             <button id="drawRectangle" class="button_unselect" onclick="activerBouton(this)">Rectangle</button>
             <button id="drawCircle" class="button_unselect" onclick="activerBouton(this)">Circle</button>
+            <button id="undo" class="button_unselect" onclick="activerUndo(this)">Undo</button>
+            <button id="redo" class="button_unselect" onclick="activerRedo(this)">Redo</button>
         <!--    <canvas id="circleOption" width="50" height="50"></canvas>
             <input type="range" min="0" max="20" value="20" class="sliderCircle" id="circleOpt" onmousemove="changeCircleOption()"> -->
         </div>
@@ -82,6 +84,8 @@
             var circleRadius;
             var circleAngle = 2;
             var lineOptionWidth = 3;
+            var undoRedo = [];
+            var undoIndex = -1;
 
 
             window.onload = function()
@@ -104,6 +108,7 @@
                 canvas.height = canvasHeight;
                 document.getElementById('lineOptionWidth').value = 3;
                 gestionEvent();
+                addUndo();
                // changeCircleOption();
             };
 
@@ -122,6 +127,38 @@
                 circleAngle = (slider.value)/10;
                 circleOption();
             }*/
+
+            function activerUndo()
+            {
+            	if (undoIndex > 0)
+            	{
+            		undoIndex--;
+            		let restoreUndo = undoRedo[undoIndex];
+            		ctx.clearRect(0, 0, canvas.width, canvas.height);
+            		ctx.putImageData(restoreUndo, 0, 0);
+            	}
+            }
+
+            function addUndo()
+            {
+            	let saveThisStep = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            	console.log(undoRedo.length);
+            	if (undoRedo.length < 10)
+            	{
+            		undoRedo.push(saveThisStep);
+            		undoIndex++;
+            	}
+            	else
+            	{
+            		for (let i = 0; i < undoRedo.length; i++)
+            		{
+						undoRedo[i] = undoRedo[i+1];
+            		}
+            		undoRedo[undoIndex] = saveThisStep;
+            		let deleteRedo = 9 - undoIndex;
+            		undoRedo.splice(undoIndex, deleteRedo);
+            	}
+            }
 
             function gestionEvent()
             {
@@ -341,6 +378,7 @@
                 }
                 document.getElementById('code').innerHTML += '//BRUSH - END<br>';
                 document.getElementById('code').innerHTML += '<span id="lastChild">&lt;/script&gt;</span>';
+                addUndo();
             }
 
 			function drawBrush()
