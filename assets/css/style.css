@@ -46,6 +46,8 @@ h2 {
     display: flex;
     justify-content: center;
     align-items: center; }
+    #interface .menuRow #undo, #interface .menuRow #redo {
+      width: 40px; }
     #interface .menuRow .button_unselect {
       display: flex;
       justify-content: center;
