@@ -85,7 +85,7 @@
             var circleAngle = 2;
             var lineOptionWidth = 3;
             var undoRedo = [];
-            var undoIndex = -1;
+            var undoIndex = 0;
 
 
             window.onload = function()
@@ -130,6 +130,8 @@
 
             function activerUndo()
             {
+            	            		            	console.log(undoIndex);
+
             	if (undoIndex > 0)
             	{
             		undoIndex--;
@@ -138,26 +140,37 @@
             		ctx.putImageData(restoreUndo, 0, 0);
             	}
             }
+            function activerRedo()
+            {
+            	if (undoIndex + 1 < undoRedo.length)
+            	{
+            		undoIndex++;
+            		let restoreUndo = undoRedo[undoIndex];
+            		ctx.clearRect(0, 0, canvas.width, canvas.height);
+            		ctx.putImageData(restoreUndo, 0, 0);
+            	}
+            }
 
             function addUndo()
             {
+           	    console.log(undoIndex);
             	let saveThisStep = ctx.getImageData(0, 0, canvas.width, canvas.height);
-            	console.log(undoRedo.length);
-            	if (undoRedo.length < 10)
+
+            	if (undoIndex < 9)
             	{
-            		undoRedo.push(saveThisStep);
-            		undoIndex++;
-            	}
+            		let deleteRedo = 9 - undoIndex;
+            		            		undoIndex++;
+
+            		undoRedo.splice(undoIndex, deleteRedo);
+				}
             	else
             	{
             		for (let i = 0; i < undoRedo.length; i++)
-            		{
+	            	{
 						undoRedo[i] = undoRedo[i+1];
-            		}
-            		undoRedo[undoIndex] = saveThisStep;
-            		let deleteRedo = 9 - undoIndex;
-            		undoRedo.splice(undoIndex, deleteRedo);
-            	}
+	            	}
+	            }
+            	undoRedo[undoIndex] = saveThisStep;
             }
 
             function gestionEvent()
