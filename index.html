@@ -85,7 +85,7 @@
             var circleAngle = 2;
             var lineOptionWidth = 3;
             var undoRedo = [];
-            var undoIndex = 0;
+            var undoIndex = -1;
 
 
             window.onload = function()
@@ -130,8 +130,6 @@
 
             function activerUndo()
             {
-            	            		            	console.log(undoIndex);
-
             	if (undoIndex > 0)
             	{
             		undoIndex--;
@@ -153,14 +151,12 @@
 
             function addUndo()
             {
-           	    console.log(undoIndex);
             	let saveThisStep = ctx.getImageData(0, 0, canvas.width, canvas.height);
 
             	if (undoIndex < 9)
             	{
             		let deleteRedo = 9 - undoIndex;
-            		            		undoIndex++;
-
+            		undoIndex++;
             		undoRedo.splice(undoIndex, deleteRedo);
 				}
             	else
