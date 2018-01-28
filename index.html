@@ -85,6 +85,7 @@
             var circleAngle = 2;
             var lineOptionWidth = 3;
             var undoRedo = [];
+            var undoRedoCode = [];
             var undoIndex = -1;
 
 
@@ -136,6 +137,7 @@
             		let restoreUndo = undoRedo[undoIndex];
             		ctx.clearRect(0, 0, canvas.width, canvas.height);
             		ctx.putImageData(restoreUndo, 0, 0);
+            		document.getElementById('code').innerHTML = undoRedoCode[undoIndex];
             	}
             }
             function activerRedo()
@@ -146,6 +148,7 @@
             		let restoreUndo = undoRedo[undoIndex];
             		ctx.clearRect(0, 0, canvas.width, canvas.height);
             		ctx.putImageData(restoreUndo, 0, 0);
+            		document.getElementById('code').innerHTML = undoRedoCode[undoIndex];
             	}
             }
 
@@ -158,15 +161,18 @@
             		let deleteRedo = 9 - undoIndex;
             		undoIndex++;
             		undoRedo.splice(undoIndex, deleteRedo);
+					undoRedoCode.splice(undoIndex, deleteRedo);
 				}
             	else
             	{
             		for (let i = 0; i < undoRedo.length; i++)
 	            	{
 						undoRedo[i] = undoRedo[i+1];
+						undoRedoCode[i] = undoRedoCode[i+1];
 	            	}
 	            }
             	undoRedo[undoIndex] = saveThisStep;
+            	undoRedoCode[undoIndex] = document.getElementById('code').innerHTML;
             }
 
             function gestionEvent()
