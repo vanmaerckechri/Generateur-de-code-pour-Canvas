@@ -43,12 +43,6 @@
         <canvas id="scene" width="700" height="700"></canvas>
     </div>
     <code id="code">
-        &lt;canvas id="scene" width="700" height="700"&gt;<br>
-        &lt;/canvas&gt;<br>
-        &lt;script type="text/javascript"&gt;<br>
-            var canvas = document.getElementById('scene');<br>
-            var ctx = canvas.getContext('2d');<br>
-        <span id="lastChild">&lt;/script&gt;<br></span>
     </code>
     <script type="text/javascript">
 
@@ -109,6 +103,7 @@
                 canvas.height = canvasHeight;
                 document.getElementById('lineOptionWidth').value = 3;
                 gestionEvent();
+                initCode();
                 addUndo();
                // changeCircleOption();
             };
@@ -128,6 +123,11 @@
                 circleAngle = (slider.value)/10;
                 circleOption();
             }*/
+
+            function initCode()
+            {
+            	document.getElementById('code').innerHTML += '&lt;canvas id="scene" width="'+canvasWidth+'" height="'+canvasHeight+'"&gt;<br>&lt;/canvas&gt;<br>&lt;script type="text/javascript"&gt;<br>var canvas = document.getElementById("scene");<br>var ctx = canvas.getContext("2d");<br><span id="lastChild">&lt;/script&gt;<br></span>';
+            }
 
             function activerUndo()
             {
