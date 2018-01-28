@@ -479,6 +479,7 @@
                         document.getElementById('code').innerHTML += 'ctx.strokeStyle = "rgb( '+red+', '+green+', '+blue+')";<br>ctx.stroke();<br>';
                     }
                     document.getElementById('code').innerHTML += '<span id="lastChild">&lt;/script&gt;</span>';
+                    addUndo();
                 }
             }
 
@@ -577,6 +578,7 @@
                     canvasSaveBetweenTwoShapes = ctx.getImageData(0, 0, canvas.width, canvas.height);
                     saveMousePoints = [[],[]];
                     dessinEnCours = 0;
+                    addUndo();
                 }
             }
 
@@ -645,6 +647,7 @@
                     }
                     document.getElementById('code').innerHTML += '<span id="lastChild">&lt;/script&gt;</span>';
                     canvasSaveBetweenTwoShapes = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    addUndo();
                 }
             }
             function drawCircle()
@@ -716,6 +719,7 @@
                     }
                     document.getElementById('code').innerHTML += '<span id="lastChild">&lt;/script&gt;</span>';
                     canvasSaveBetweenTwoShapes = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    addUndo();
                 }
             }
     </script>
