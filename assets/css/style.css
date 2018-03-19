@@ -1,4 +1,4 @@
-html, body, header, nav, footer, section, div, span, h1, h2, h3, p, a, blockquote, cite, img, ol, ul, li, form, input, fieldset, label, legend, code {
+html, body, header, nav, footer, section, div, span, h1, h2, h3, p, a, blockquote, cite, img, ol, ul, li, form, input, fieldset, label, legend, code, button {
   margin: 0;
   padding: 0;
   border: 0;
@@ -6,7 +6,8 @@ html, body, header, nav, footer, section, div, span, h1, h2, h3, p, a, blockquot
   font-size: 100%;
   font: inherit;
   vertical-align: baseline;
-  font-weight: normal; }
+  font-weight: normal;
+  box-shadow: none; }
 
 html {
   height: 100%;
@@ -37,6 +38,22 @@ input {
 h2 {
   text-align: center; }
 
+button {
+  border: 1px solid black;
+  border-radius: 4px;
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-size: 1rem;
+  color: black;
+  font-weight: bold;
+  background-color: pink; }
+  button:hover {
+    color: white;
+    background-color: black; }
+
+h1 {
+  margin: 1rem 0;
+  font-size: 1.2rem; }
+
 #interface {
   width: 100%; }
   #interface .menuRow {
@@ -51,10 +68,7 @@ h2 {
     #interface .menuRow .button_unselect {
       display: flex;
       justify-content: center;
-      align-items: center;
-      font-weight: bold;
-      background-color: white;
-      color: black; }
+      align-items: center; }
     #interface .menuRow .button_Select {
       display: flex;
       justify-content: center;
