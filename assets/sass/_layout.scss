@@ -1,4 +1,19 @@
 @import "variables";
+header
+{
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	h1
+	{
+		flex: 1;
+	}
+	.connect
+	{
+		flex: 1;
+		background-color: red;
+	}
+}
 #interface
 {
 	width: 100%;

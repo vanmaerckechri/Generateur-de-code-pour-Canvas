@@ -16,7 +16,7 @@ html {
 body {
   margin-left: auto;
   margin-right: auto;
-  width: 960px;
+  max-width: 960px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -53,6 +53,16 @@ button {
 h1 {
   margin: 1rem 0;
   font-size: 1.2rem; }
+
+header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between; }
+  header h1 {
+    flex: 1; }
+  header .connect {
+    flex: 1;
+    background-color: red; }
 
 #interface {
   width: 100%; }
