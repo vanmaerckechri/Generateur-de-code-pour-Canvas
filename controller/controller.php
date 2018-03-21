@@ -2,7 +2,7 @@
 
 require('./model/model.php');
 
-function connectDb()
+/*function connectDb()
 {
     try
     {

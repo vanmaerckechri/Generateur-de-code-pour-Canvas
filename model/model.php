@@ -4,8 +4,6 @@ class Crud
 {
 	private $_db;
 	private $_table;
-	private $_whereDyn;
-	private $_bindparamDyn;
 
 	public function __construct(array $reqDyn)
 	{
@@ -49,30 +47,6 @@ class Crud
 		}
 	}
 
-	public function setWhere($where)
-	{
-		if (isset($where) && is_array($where))
-		{
-			$this->_whereDyn = " WHERE ";
-			$this->_bindparamDyn = "";
-			foreach ($where as $key1 => $title)
-			{
-				$index = 0;
-				$titleLength = count($title);
-				foreach ($title as $key2 => $value);
-				{
-					$this->_whereDyn .= $key1." = :".$key1.$key2." ";
-					$this->_bindparamDyn .= '$req->bindParam("'.$key1.$key2.'", "'.$value.'");';
-					if ($index < $titleLength)
-					{
-						$this->_whereDyn .= "AND ";
-					}
-				}
-				$index++;
-			}
-		}
-	}
-
 	public function connectDb($dbName)
 	{
 	    try
@@ -85,60 +59,88 @@ class Crud
 	    }
 	}
 
-	public function selectCustom($selectColumns)
+	public function prepare($from, $where)
 	{
-		if (isset($selectColumns))
+		if (isset($from) && is_array($from) && isset($where) && is_array($where))
 		{
-			//Les attributs doivent être des arrays. S'ils ne le sont pas, ils sont convertis.
-			$selectColumns = !is_array($selectColumns) ? [$selectColumns] : $selectColumns;
-
-			$columnsLength = count($selectColumns);
-			$reqDyn = "SELECT ";
-			foreach ($selectColumns as $key => $value)
+			$fromLength = count($from);
+			$prepareDyn = "SELECT ";
+			foreach ($from as $key => $value)
 			{
-				if ($key < $columnsLength - 1)
+				if ($key < $fromLength - 1)
 				{
-					$reqDyn .= $value.", ";
+					$prepareDyn .= $value.", ";
 				}
 				else
 				{
-					$reqDyn .= $value." ";
+					$prepareDyn .= $value." ";
 				}
 			}
-			$reqDyn .= "FROM ";
-			$reqDyn .= $this->_table;
-			$reqDyn .= $this->_whereDyn;
-			echo $reqDyn.'<br>';
-			$req = $this->_db->prepare($reqDyn);
-			$this->_bindparamDyn;
+			$prepareDyn .= "FROM ";
+			$prepareDyn .= $this->_table;
+			$prepareDyn .= " WHERE ";
+			$arrayMultiLength = array_sum(array_map("count", $where));
+			$index = 1;
+			foreach ($where as $key1 => $title)
+			{
+				$titleLength = count($title);
+				foreach ($title as $key2 => $value);
+				{
+					$prepareDyn .= $key1." = :".$key1.$index;
+					if ($index < $arrayMultiLength)
+					{
+						$prepareDyn .= " AND ";
+					}
+					$index++;
+				}
+			}
+
+			$req = $this->_db->prepare($prepareDyn);
+			$index = 1;
+			foreach ($where as $key1 => $title)
+			{
+				$titleLength = count($title);
+				foreach ($title as $key2 => $value);
+				{
+					$focus = ":".$key1;
+					$focus .= $index;
+					$req->bindValue($focus, $value);
+					$index++;
+				}
+			}
+			return $req;
+		}
+	}
+
+	public function selectCustom($fromDyn, $whereDyn)
+	{
+		if (isset($fromDyn) && isset($whereDyn))
+		{
+			$req = $this->prepare($fromDyn, $whereDyn);
 			$req->execute();
+
 		   	$members = $req->fetchAll();
 		   	$req->closeCursor();
 		    $req = NULL;
-
 			return $members;
 		}
 	}
 
+	/*exemple de fonction pour sortir le contenu d'une variable privée.
 	public function db() { return $this->_db; }
-	public function table()	{ return $this->_table; }
+	public function table() { return $this->_table; }*/
 }
 
-$whereDyn = array ("id" => array(0 => 1), "nick" => array(0 => "Chri"));
-$reqDyn = ["db" => "gen_code_canvas", "table" => "members", "where" => $whereDyn];
-$selectColumns = [0 => "login", 1 => "password", 2 => "mail"];
 
+//L'array nécessaire au lancement de l'instanciation.
+$dbCoordinates = ["db" => "gen_code_canvas", "table" => "members"];
+//Les arrays nécessaires à la requête custom.
+$fromDyn = [0 => "login", 1 => "password", 2 => "mail"];
+$whereDyn = array ("id" => array(0 => 1), "login" => array(0 => "Chri"));
 
-$test = new Crud($reqDyn);
-
-$members = $test->selectCustom($selectColumns);
+//Instancier l'objet avec les coordonnées de la DB.
+$test = new Crud($dbCoordinates);
+//Effectuer la selection custom avec les données 'from' et 'where'.
+$members = $test->selectCustom($fromDyn, $whereDyn);
 
 var_dump($members);
-
-
-
-////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////
-///////////////////////////
-
-
