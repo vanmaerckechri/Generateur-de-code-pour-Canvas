@@ -59,42 +59,54 @@ class Crud
 	    }
 	}
 
-	public function prepare($from, $where)
+	public function prepare($from, $where, $typeReq)
 	{
-		if (isset($from) && is_array($from) && isset($where) && is_array($where))
+		if (isset($from) && is_array($from) && isset($where) && is_array($where) && isset($typeReq))
 		{
+			$prepareDyn = $typeReq." ";
+			$prepareDyn .= $typeReq == "INSERT INTO" ?  $this->_table." " : "";
+			$prepareDyn .= $typeReq == "INSERT INTO" ?  "( " : "";
+
 			$fromLength = count($from);
-			$prepareDyn = "SELECT ";
 			foreach ($from as $key => $value)
 			{
-				if ($key < $fromLength - 1)
+				$prepareDyn .= $value;
+				if ($key < $fromLength -1)
 				{
-					$prepareDyn .= $value.", ";
+					$prepareDyn .= ", ";
 				}
 				else
 				{
-					$prepareDyn .= $value." ";
+					$prepareDyn .= $typeReq == "INSERT INTO" ?  ") " : "";
+					$prepareDyn .= $typeReq == "SELECT" ? " " : "";
 				}
 			}
-			$prepareDyn .= "FROM ";
-			$prepareDyn .= $this->_table;
-			$prepareDyn .= " WHERE ";
+
+			$prepareDyn .= $typeReq == "SELECT" ? "FROM " : "";
+			$prepareDyn .= $typeReq == "SELECT" ?  $this->_table : "";
+			$prepareDyn .= $typeReq == "SELECT" ? " WHERE ": "";
+			$prepareDyn .= $typeReq == "INSERT INTO" ? "VALUES " : "";
+
 			$arrayMultiLength = array_sum(array_map("count", $where));
 			$index = 1;
+			$prepareDyn .= $typeReq == "INSERT INTO" ?  "( " : "";
 			foreach ($where as $key1 => $title)
 			{
 				$titleLength = count($title);
 				foreach ($title as $key2 => $value);
 				{
-					$prepareDyn .= $key1." = :".$key1.$index;
+					$prepareDyn .= $typeReq == "SELECT" ? $key1." = :".$key1.$index : "";
+					$prepareDyn .= $typeReq == "INSERT INTO" ? ":".$key1.$index : "";
 					if ($index < $arrayMultiLength)
 					{
-						$prepareDyn .= " AND ";
+						$prepareDyn .= $typeReq == "SELECT" ? " AND " : "";
+						$prepareDyn .= $typeReq == "INSERT INTO" ? ", " : "";
 					}
 					$index++;
 				}
 			}
-
+			$prepareDyn .= $typeReq == "INSERT INTO" ?  ") " : "";
+			echo $prepareDyn;
 			$req = $this->_db->prepare($prepareDyn);
 			$index = 1;
 			foreach ($where as $key1 => $title)
@@ -116,13 +128,25 @@ class Crud
 	{
 		if (isset($fromDyn) && isset($whereDyn))
 		{
-			$req = $this->prepare($fromDyn, $whereDyn);
+			$req = $this->prepare($fromDyn, $whereDyn, 'SELECT');
 			$req->execute();
 
 		   	$members = $req->fetchAll();
 		   	$req->closeCursor();
 		    $req = NULL;
 			return $members;
+		}
+	}
+
+	public function insertCustom($fromDyn, $whereDyn)
+	{
+		if (isset($fromDyn) && isset($whereDyn))
+		{
+			$req = $this->prepare($fromDyn, $whereDyn, 'INSERT INTO');
+			$req->execute();
+
+		   	$req->closeCursor();
+		    $req = NULL;
 		}
 	}
 
@@ -135,12 +159,13 @@ class Crud
 //L'array nécessaire au lancement de l'instanciation.
 $dbCoordinates = ["db" => "gen_code_canvas", "table" => "members"];
 //Les arrays nécessaires à la requête custom.
-$fromDyn = [0 => "login", 1 => "password", 2 => "mail"];
-$whereDyn = array ("id" => array(0 => 1), "login" => array(0 => "Chri"));
+	$fromDyn = [0 => "login", 1 => "password", 2 => "mail"];
+	//$whereDyn = array ("id" => array(0 => 1), "login" => array(0 => "Chri"));
+	$whereDyn = array ("login" => array(0 => "testlogin"), "password" => array(0 => "testpsw"), "mail" => array(0 => "testmail"));
 
 //Instancier l'objet avec les coordonnées de la DB.
 $test = new Crud($dbCoordinates);
 //Effectuer la selection custom avec les données 'from' et 'where'.
-$members = $test->selectCustom($fromDyn, $whereDyn);
+	$members = $test->insertCustom($fromDyn, $whereDyn);
 
 var_dump($members);
