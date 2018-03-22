@@ -92,14 +92,13 @@ class Crud
 			$prepareDyn .= $typeReq == "INSERT INTO" ?  "( " : "";
 			foreach ($where as $key1 => $title)
 			{
-				$titleLength = count($title);
-				foreach ($title as $key2 => $value);
+				foreach ($title as $key2 => $value)
 				{
 					$prepareDyn .= $typeReq == "SELECT" ? $key1." = :".$key1.$index : "";
 					$prepareDyn .= $typeReq == "INSERT INTO" ? ":".$key1.$index : "";
 					if ($index < $arrayMultiLength)
 					{
-						$prepareDyn .= $typeReq == "SELECT" ? " AND " : "";
+						$prepareDyn .= $typeReq == "SELECT" ? " OR " : "";
 						$prepareDyn .= $typeReq == "INSERT INTO" ? ", " : "";
 					}
 					$index++;
@@ -111,8 +110,7 @@ class Crud
 			$index = 1;
 			foreach ($where as $key1 => $title)
 			{
-				$titleLength = count($title);
-				foreach ($title as $key2 => $value);
+				foreach ($title as $key2 => $value)
 				{
 					$focus = ":".$key1;
 					$focus .= $index;
@@ -159,13 +157,22 @@ class Crud
 //L'array nécessaire au lancement de l'instanciation.
 $dbCoordinates = ["db" => "gen_code_canvas", "table" => "members"];
 //Les arrays nécessaires à la requête custom.
-	$fromDyn = [0 => "login", 1 => "password", 2 => "mail"];
-	//$whereDyn = array ("id" => array(0 => 1), "login" => array(0 => "Chri"));
-	$whereDyn = array ("login" => array(0 => "testlogin"), "password" => array(0 => "testpsw"), "mail" => array(0 => "testmail"));
 
-//Instancier l'objet avec les coordonnées de la DB.
+
+//DOCUMENTATION
+
+//1. Instancier l'objet avec les coordonnées de la DB.
 $test = new Crud($dbCoordinates);
-//Effectuer la selection custom avec les données 'from' et 'where'.
-	$members = $test->insertCustom($fromDyn, $whereDyn);
 
-var_dump($members);
+//2. Effectuer une requete custom avec les données 'from' et 'where'.
+//FROM ou équivalent de la requete => '$fromDyn': valeur = nom colonne.
+//WHERE ou équivalent de la de la requete => '$whereDyn': nom array enfant = nom colonne. valeur(s) de l'array enfant = contenu colonne.
+	//exemple de requete SELECT.
+		$fromDyn = array ("login", "password", "mail");
+		$whereDyn = array ("id" => array(1, 3));
+		$members = $test->selectCustom($fromDyn, $whereDyn);
+	//exemple de requete INSERT.
+		/*$fromDyn = array ("login", "password", "mail");
+		$whereDyn = array ("login" => array("testlogin"), "password" => array("testpsw"), "mail" => array("testmail"));
+		$members = $test->insertCustom($fromDyn, $whereDyn);*/
+	var_dump($members);
