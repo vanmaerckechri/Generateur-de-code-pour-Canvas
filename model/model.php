@@ -59,87 +59,108 @@ class Crud
 	    }
 	}
 
-	public function prepare($from, $where, $typeReq)
+	public function prepare($columns, $where, $typeReq)
 	{
-		if (isset($from) && is_array($from) && isset($where) && is_array($where) && isset($typeReq))
+		if (isset($columns) && is_array($columns) && isset($where) && is_array($where) && isset($typeReq))
 		{
 			$prepareDyn = $typeReq." ";
 			$prepareDyn .= $typeReq == "INSERT INTO" || $typeReq == "UPDATE" ?  $this->_table." " : "";
 			$prepareDyn .= $typeReq == "INSERT INTO" ?  "( " : "";
 			$prepareDyn .= $typeReq == "UPDATE" ? "SET " : "";
 
-			$fromLength = count($from);
-			foreach ($from as $key => $value)
+			$columnsLength = count($columns);
+			foreach ($columns as $key => $value)
 			{
-				$prepareDyn .= $typeReq == "UPDATE" ? $key : $value.", ";
-				if ($key < $fromLength)
+				$prepareDyn .= $typeReq == "UPDATE" || $typeReq == "INSERT INTO" ? $key : $value;
+				if ($key < $columnsLength)
 				{
-					$prepareDyn .= $typeReq != "UPDATE" ? ", " : " = :";
+					$prepareDyn .= $typeReq == "INSERT INTO" || $typeReq == "SELECT" ? ", " : " = :";
 					$prepareDyn .= $typeReq == "UPDATE" ? $key.", " : "";
 				}
 			}
 
+			$prepareDyn = substr($prepareDyn, 0, strlen($prepareDyn) - 2);
+			$prepareDyn .= " ";
 			$prepareDyn .= $typeReq == "INSERT INTO" ?  ") " : " ";
-			if ($typeReq == "UPDATE")
-			{
-				$prepareDyn = substr($prepareDyn, 0, strlen($prepareDyn) - 3);
-				$prepareDyn .= " ";
-			}
-
 			$prepareDyn .= $typeReq == "SELECT" ? "FROM " : "";
 			$prepareDyn .= $typeReq == "SELECT" ?  $this->_table : "";
 			$prepareDyn .= $typeReq != "INSERT INTO" ? " WHERE ": "";
 			$prepareDyn .= $typeReq == "INSERT INTO" ? "VALUES " : "";
-
-			$arrayMultiLength = array_sum(array_map("count", $where));
-			$index = 1;
 			$prepareDyn .= $typeReq == "INSERT INTO" ?  "( " : "";
 
-			foreach ($where as $key1 => $title)
+			if ($typeReq == "SELECT" || $typeReq == "UPDATE")
 			{
-				foreach ($title as $key2 => $value)
+				$arrayMultiLength = array_sum(array_map("count", $where));
+				$index = 1;
+				foreach ($where as $key1 => $title)
 				{
-					$prepareDyn .= $typeReq != "INSERT INTO" ? $key1." = :".$key1.$index : "";
-					$prepareDyn .= $typeReq == "INSERT INTO" ? ":".$key1.$index : "";
-					if ($index < $arrayMultiLength)
+					foreach ($title as $key2 => $value)
 					{
-						$prepareDyn .= $typeReq != "INSERT INTO" ? " OR " : "";
-						$prepareDyn .= $typeReq == "INSERT INTO" ? ", " : "";
+						$prepareDyn .= $typeReq != "INSERT INTO" ? $key1." = :".$key1.$index : "";
+						if ($index < $arrayMultiLength)
+						{
+							$prepareDyn .= $typeReq != "INSERT INTO" ? " OR " : "";
+						}
+						$index++;
 					}
-					$index++;
 				}
+			}
+			if ($typeReq == "INSERT INTO")
+			{
+				foreach ($columns as $key => $value)
+				{
+					$prepareDyn .= ":".$key.", ";
+				}
+				$prepareDyn = substr($prepareDyn, 0, strlen($prepareDyn) - 2);
+				$prepareDyn .= " ";			
 			}
 			$prepareDyn .= $typeReq == "INSERT INTO" ?  ") " : "";
 			$req = $this->_db->prepare($prepareDyn);
-
-			//bindParam.
-			if ($typeReq == "UPDATE")
+			echo $prepareDyn;
+			//BINDPARAM.
+			if ($typeReq == "SELECT")
 			{
-				foreach ($from as $key => $value)
+				$index = 1;
+				foreach ($where as $key1 => $title)
 				{
-					$req->bindValue($key, $value[0]);
+					foreach ($title as $key2 => $value)
+					{
+						$focus = ":".$key1;
+						$focus .= $index;
+						$req->bindValue($focus, $value);
+						$index++;
+					}
 				}
 			}
-			$index = 1;
-			foreach ($where as $key1 => $title)
+			if ($typeReq == "UPDATE" || $typeReq == "INSERT INTO")
 			{
-				foreach ($title as $key2 => $value)
+				foreach ($columns as $key => $value)
 				{
-					$focus = ":".$key1;
-					$focus .= $index;
-					$req->bindValue($focus, $value);
-					$index++;
+					$key = ":".$key;
+					$req->bindValue($key, $value[0]);
+					echo '<br>$req->bindValue('.$key.', '.$value[0].')';
+				}
+				$index = 1;
+				foreach ($where as $key1 => $title)
+				{
+					foreach ($title as $key2 => $value)
+					{
+						$focus = ":".$key1.$index;
+						$req->bindValue($focus, $value);
+						echo '<br>$req->bindValue('.$focus.', '.$value.')';
+						$index++;
+					}
 				}
 			}
 			return $req;
 		}
 	}
 
-	public function selectCustom($fromDyn, $whereDyn)
+	public function selectCustom($columns, $whereDyn)
 	{
-		if (isset($fromDyn) && isset($whereDyn))
+		if (isset($columns) && isset($whereDyn))
 		{
-			$req = $this->prepare($fromDyn, $whereDyn, 'SELECT');
+			$req = $this->prepare($columns, $whereDyn, 'SELECT');
 			$req->execute();
 
 		   	$members = $req->fetchAll();
@@ -149,11 +170,11 @@ class Crud
 		}
 	}
 
-	public function insertCustom($fromDyn, $whereDyn)
+	public function insertCustom($columns, $whereDyn)
 	{
-		if (isset($fromDyn) && isset($whereDyn))
+		if (isset($columns) && isset($whereDyn))
 		{
-			$req = $this->prepare($fromDyn, $whereDyn, 'INSERT INTO');
+			$req = $this->prepare($columns, $whereDyn, 'INSERT INTO');
 			$req->execute();
 
 		   	$req->closeCursor();
@@ -161,11 +182,11 @@ class Crud
 		}
 	}
 
-	public function updateCustom($fromDyn, $whereDyn)
+	public function updateCustom($columns, $whereDyn)
 	{
-		if (isset($fromDyn) && isset($whereDyn))
+		if (isset($columns) && isset($whereDyn))
 		{
-			$req = $this->prepare($fromDyn, $whereDyn, 'UPDATE');
+			$req = $this->prepare($columns, $whereDyn, 'UPDATE');
 			$req->execute();
 
 		   	$req->closeCursor();
@@ -185,19 +206,18 @@ $dbCoordinates = ["db" => "gen_code_canvas", "table" => "members"];
 $test = new Crud($dbCoordinates);
 
 //3. Effectuer une requete custom avec les données 'from' et 'where'.
-//FROM ou équivalent de la requete => '$fromDyn': valeur = nom colonne.
+//FROM ou équivalent de la requete => '$columns': valeur = nom colonne.
 //WHERE ou équivalent de la de la requete => '$whereDyn': nom array enfant = nom colonne. valeur(s) de l'array enfant = contenu colonne.
 	//exemple de requete SELECT.
-		/*$fromDyn = array ("login", "password", "mail");
+		$columns = array ("login", "password", "mail");
 		$whereDyn = array ("id" => array(1, 3));
-		$members = $test->selectCustom($fromDyn, $whereDyn);*/
+		$members = $test->selectCustom($columns, $whereDyn);
 	//exemple de requete INSERT.
-		/*$fromDyn = array ("login", "password", "mail");
-		$whereDyn = array ("login" => array("testlogin"), "password" => array("testpsw"), "mail" => array("testmail"));
-		$members = $test->insertCustom($fromDyn, $whereDyn);*/
+		/*$columns = array ("login" => array("testlogin"), "password" => array("testpsw"), "mail" => array("testmail"));
+		$whereDyn = array();
+		$members = $test->insertCustom($columns, $whereDyn);*/
 	//exemple de requete UPDATE.
-		//!Pour les update, les valeurs à mettre à jour se trouvent en indice 0 dans le '$fromDyn' et non dans le '$whereDyn'.
-		$fromDyn = array ("login" => array("log"), "password" => array("pas"), "mail" => array("em"));
+		/*$columns = array ("login" => array("ttt"), "password" => array("ppp"), "mail" => array("mmm"));
 		$whereDyn = array ("id" => array(1, 3));
-		$members = $test->updateCustom($fromDyn, $whereDyn);
+		$members = $test->updateCustom($columns, $whereDyn);*/
 	var_dump($members);
