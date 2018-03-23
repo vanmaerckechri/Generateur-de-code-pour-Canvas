@@ -59,6 +59,59 @@ class Crud
 	    }
 	}
 
+	public function execute($columns, $where, $typeReq, $req)
+	{
+		//BINDPARAM.
+		if ($typeReq == "SELECT" || $typeReq == "DELETE")
+		{
+			$index = 1;
+			foreach ($where as $key1 => $title)
+			{
+				foreach ($title as $key2 => $value)
+				{
+					$focus = ":".$key1;
+					$focus .= $index;
+					$req->bindValue($focus, $value);
+					$index++;
+				}
+			}
+		$req->execute();
+		}
+		if ($typeReq == "UPDATE" || $typeReq == "INSERT INTO")
+		{
+			//on boucle n fois (n = le nombre de valeur du plus grand array)
+			$counts = array_map('count', $columns);
+			$biggestArray = array_flip($counts)[max($counts)];
+			$loopLength = count($columns[$biggestArray]);
+			for ($i = 0; $i < $loopLength; $i++)
+			{
+				$index = 1;
+				foreach ($where as $key1 => $title)
+				{
+					foreach ($title as $key2 => $value)
+					{
+						$focus = ":".$key1.$index;
+						$req->bindValue($focus, $value);
+						$index++;
+					}
+				}
+				foreach ($columns as $key1 => $value)
+				{
+					$key = ":".$key1;
+					if (isset($value[$i]))
+					{
+						$req->bindValue($key1, $value[$i]);
+					}
+					else
+					{
+						$req->bindValue($key1, '');
+					}
+				}
+				$req->execute();
+			}
+		}
+	}
+
 	public function prepare($columns, $where, $typeReq)
 	{
 		if (isset($columns) && is_array($columns) && isset($where) && is_array($where) && isset($typeReq))
@@ -117,43 +170,7 @@ class Crud
 			}
 			$prepareDyn .= $typeReq == "INSERT INTO" ?  ") " : "";
 			$req = $this->_db->prepare($prepareDyn);
-			echo $prepareDyn;
-			//BINDPARAM.
-			if ($typeReq == "SELECT" || $typeReq == "DELETE")
-			{
-				$index = 1;
-				foreach ($where as $key1 => $title)
-				{
-					foreach ($title as $key2 => $value)
-					{
-						$focus = ":".$key1;
-						$focus .= $index;
-						$req->bindValue($focus, $value);
-						echo '$req->bindValue('.$focus.', '.$value.')';
-						$index++;
-					}
-				}
-			}
-			if ($typeReq == "UPDATE" || $typeReq == "INSERT INTO")
-			{
-				foreach ($columns as $key => $value)
-				{
-					$key = ":".$key;
-					$req->bindValue($key, $value[0]);
-					echo '<br>$req->bindValue('.$key.', '.$value[0].')';
-				}
-				$index = 1;
-				foreach ($where as $key1 => $title)
-				{
-					foreach ($title as $key2 => $value)
-					{
-						$focus = ":".$key1.$index;
-						$req->bindValue($focus, $value);
-						echo '<br>$req->bindValue('.$focus.', '.$value.')';
-						$index++;
-					}
-				}
-			}
+			$this->execute($columns, $where, $typeReq, $req);
 			return $req;
 		}
 	}
@@ -163,7 +180,6 @@ class Crud
 		if (isset($columns) && isset($whereDyn))
 		{
 			$req = $this->prepare($columns, $whereDyn, 'SELECT');
-			$req->execute();
 
 		   	$members = $req->fetchAll();
 		   	$req->closeCursor();
@@ -177,7 +193,6 @@ class Crud
 		if (isset($columns) && isset($whereDyn))
 		{
 			$req = $this->prepare($columns, $whereDyn, 'INSERT INTO');
-			$req->execute();
 
 		   	$req->closeCursor();
 		    $req = NULL;
@@ -189,7 +204,6 @@ class Crud
 		if (isset($columns) && isset($whereDyn))
 		{
 			$req = $this->prepare($columns, $whereDyn, 'UPDATE');
-			$req->execute();
 
 		   	$req->closeCursor();
 		    $req = NULL;
@@ -201,13 +215,11 @@ class Crud
 		if (isset($columns) && isset($whereDyn))
 		{
 			$req = $this->prepare($columns, $whereDyn, 'DELETE');
-			$req->execute();
 
 		   	$req->closeCursor();
 		    $req = NULL;
 		}
 	}
-
 	/*exemple de fonction pour sortir le contenu d'une variable privée.
 	public function db() { return $this->_db; }
 	public function table() { return $this->_table; }*/
@@ -219,23 +231,29 @@ class Crud
 $dbCoordinates = ["db" => "gen_code_canvas", "table" => "members"];
 $test = new Crud($dbCoordinates);
 
-//3. Effectuer une requete custom avec les données 'from' et 'where'.
-//FROM ou équivalent de la requete => '$columns': valeur = nom colonne.
-//WHERE ou équivalent de la de la requete => '$whereDyn': nom array enfant = nom colonne. valeur(s) de l'array enfant = contenu colonne.
+//2. Effectuer une requete custom avec les données 'columns|bindparam' et 'where'.
+
+	//exemple: $columns = array ("COLUMN NAME" => array("VALUE"), "OTHER COLUMN NAME" => array("OTHER VALUE"), "OTHER COLUMN NAME" => array("OTHER VALUE", "AGAIN OTHER VALUE"), ...)
+
 	//exemple de requete SELECT.
-		/*$columns = array ("login", "password", "mail");
-		$whereDyn = array ("id" => array(2, 5));
-		$members = $test->select($columns, $whereDyn);*/
+		$columns = array ("login", "password", "mail");
+		$whereDyn = array ("id" => array(220, 222));
+		$members = $test->select($columns, $whereDyn);
+
 	//exemple de requete INSERT.
-		/*$columns = array ("login" => array("testlogin"), "password" => array("testpsw"), "mail" => array("testmail"));
+		/*$columns = array ("login" => array("name1", "name2"), "password" => array("pwd1", "pwd2", "pw3"), "mail" => array("mail1", "mail2"));
 		$whereDyn = array();
 		$members = $test->insert($columns, $whereDyn);*/
+
 	//exemple de requete UPDATE.
 		/*$columns = array ("login" => array("ttt"), "password" => array("ppp"), "mail" => array("mmm"));
 		$whereDyn = array ("id" => array(2, 5));
 		$members = $test->update($columns, $whereDyn);*/
+
 	//exemple de requete DELETE.
 		/*$columns = array ();
 		$whereDyn = array ("id" => array(1, 3));
 		$members = $test->delete($columns, $whereDyn);*/
-	var_dump($members);
+
+	//var_dump($members);
+		var_dump($members);
