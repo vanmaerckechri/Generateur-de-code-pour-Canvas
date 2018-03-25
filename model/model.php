@@ -71,56 +71,56 @@ class Crud
 	{
 		if (is_string($DbHost))
 		{
-			$this->_dbHost = $DbHost;
+			$this->_dbHost = htmlspecialchars($DbHost);
 		}
 	}
 	private function setDbPort($dbPort)
 	{
-		if (is_string($dbPort))
+		if (is_int($dbPort))
 		{
-			$this->_dbPort = $dbPort;
+			$this->_dbPort = htmlspecialchars($dbPort);
 		}
 	}
 	private function setDbName($dbName)
 	{
 		if (is_string($dbName))
 		{
-			$this->_dbName = $dbName;
+			$this->_dbName = htmlspecialchars($dbName);
 		}
 	}
 	private function setDbCharset($dbCharset)
 	{
 		if (is_string($dbCharset))
 		{
-			$this->_dbCharset = $dbCharset;
+			$this->_dbCharset = htmlspecialchars($dbCharset);
 		}
 	}
 	private function setDbLogin($dbLogin)
 	{
 		if (is_string($dbLogin))
 		{
-			$this->_dbLogin = $dbLogin;
+			$this->_dbLogin = htmlspecialchars($dbLogin);
 		}
 	}
 	private function setDbPwd($dbPwd)
 	{
 		if (is_string($dbPwd))
 		{
-			$this->_dbPwd = $dbPwd;
+			$this->_dbPwd = htmlspecialchars($dbPwd);
 		}
 	}
 	private function setTable($table)
 	{
 		if (is_string($table))
 		{
-			$this->_table = $table;
+			$this->_table = htmlspecialchars($table);
 		}
 	}
 	private function setColumns($selectColumns)
 	{
 		if (is_array($selectColumns))
 		{
-			$this->_columns = $selectColumns;
+			$this->_columns = htmlspecialchars($selectColumns);
 		}
 	}
 
@@ -332,14 +332,14 @@ class Authentification
 	{
 		if (is_string($sessionLogin))
 		{
-			$this->_sessionLogin = $sessionLogin;
+			$this->_sessionLogin = htmlspecialchars($sessionLogin);
 		}
 	}
 	private function setSessionPwd($sessionPwd)
 	{
 		if (is_string($sessionPwd))
 		{
-			$this->_sessionPwd = $sessionPwd;
+			$this->_sessionPwd = htmlspecialchars($sessionPwd);
 		}
 	}
     private function startSession()
