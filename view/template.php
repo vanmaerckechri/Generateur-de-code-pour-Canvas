@@ -8,6 +8,6 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
-<!--<header><?=$header?></header>-->
+<header><?=$header?></header>
 <body><?=$content?></body>
 </html>

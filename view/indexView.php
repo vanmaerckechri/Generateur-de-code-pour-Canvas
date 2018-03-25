@@ -43,5 +43,5 @@
 <script src="assets/js/shapes.js"></script>
 <script src="assets/js/init.js"></script>
 <?php $content = ob_get_clean(); ?>
-
+<?php require('./view/headerView.php'); ?>
 <?php require('./view/template.php'); ?>
