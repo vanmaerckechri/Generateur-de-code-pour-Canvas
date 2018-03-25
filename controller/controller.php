@@ -1,64 +1,20 @@
 <?php
 
 require('./model/model.php');
+//Récupérer les valeurs 'login' et 'pwd' de session
+$auth = new Authentification();
+$sessionLoginInfo = $auth->sessionInfo();
+//Utiliser les informations de session en condition lors d'une requête 'select' pour voir si le membre existe.
+$dbCoordinates = ["dbHost" => "localhost", "dbPort" => "", "dbName" => "gen_code_canvas", "dbCharset" => "utf8", "dbLogin" => "root", "dbPwd" => "", "table" => "members"];
+$crud = new Crud($dbCoordinates);
+$columns = array ("id");
+$whereDyn = array ("login" => array($sessionLoginInfo[0]), "password" => array($sessionLoginInfo[1]));
+$operator = "AND";
+$memberExist = $crud->select($columns, $whereDyn, $operator);
+//Passer la variable 'sessionAuthOk' en 'true' ou 'false' pour autoriser ou non ce qui sera chargé sur la page.
+$sessionAuthOk = $auth->testConnection($memberExist);
 
-/*function connectDb()
-{
-    try
-    {
-    	$db = new PDO('mysql:host=localhost; dbname=gen_code_canvas; charset=utf8', 'root', '');
-    	return $db;
-    }
-    catch (Exception $e)
-    {
-      	die('Erreur : ' . $e->getMessage());
-    }
-}
-
-function startSession()
-{
-	session_start();
-	if(!isset($_SESSION['ip']))
-	{
-	  	$_SESSION['ip'] = $_SERVER['REMOTE_ADDR'];
-	}
-	if($_SESSION['ip']!=$_SERVER['REMOTE_ADDR'])
-	{
-	  	header('Location: index.php?sms=Vous avez été déconnecté pour des raisons de sécurité!');
-	  	$_SESSION = array();
-	  	exit;
-	}
-}
-
-/*function testSessionLog($from)
-{
-	startSession();
-
-	$db = connectDb();
-    $login = isset($_SESSION['login']) ? $_SESSION['login'] : '';
-    $password = isset($_SESSION['password']) ? $_SESSION['password'] : '';
-
-    $columns = ['login', 'password'];
-    $table = 'members';
-	$members = selectColumnsFromDb($columns, $table, $db);
-	$membersLength = count($members);
-	//var_dump($members);
-
-	for ($i = 0; $i < $membersLength; $i++)
-	{
-        if ($login == $members[$i][0] && $password == $members[$i][1])
-        {
-        	return;
-        }
-    }
-   	$_SESSION = array();
-	session_destroy();
-	if ($from != 'index')
-	{
-    	header("Location: index.php");
-    }
-}*/
-
+echo $sessionAuthOk;
 
 function home()
 {
