@@ -346,7 +346,7 @@ class Authentification
     {
         session_start();
 
-        //temporaire
+        //temporaire pour tester le resultat positif de la requete testConnection!
         $_SESSION['login'] = "name1";
 		$_SESSION['password'] = "pwd1";
 		//-------------
@@ -364,7 +364,7 @@ class Authentification
     }
     public function sessionInfo()
     {
-    	$sessionInfo = [$this->_sessionLogin, $this->_sessionPwd];
+    	$sessionInfo = ['login' => $this->_sessionLogin, 'password' => $this->_sessionPwd];
     	return $sessionInfo;
     }
 

@@ -8,7 +8,7 @@ $sessionLoginInfo = $auth->sessionInfo();
 $dbCoordinates = ["dbHost" => "localhost", "dbPort" => "", "dbName" => "gen_code_canvas", "dbCharset" => "utf8", "dbLogin" => "root", "dbPwd" => "", "table" => "members"];
 $crud = new Crud($dbCoordinates);
 $columns = array ("id");
-$whereDyn = array ("login" => array($sessionLoginInfo[0]), "password" => array($sessionLoginInfo[1]));
+$whereDyn = array ("login" => array($sessionLoginInfo['login']), "password" => array($sessionLoginInfo['password']));
 $operator = "AND";
 $memberExist = $crud->select($columns, $whereDyn, $operator);
 //Passer la variable 'sessionAuthOk' en 'true' ou 'false' pour autoriser ou non ce qui sera chargé sur la page.
