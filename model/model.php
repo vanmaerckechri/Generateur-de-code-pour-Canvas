@@ -371,9 +371,52 @@ class Authentification
             exit;
         }
     }
+    public function filterInputs()
+    {
+    	$sms = "";
+    	if (isset($_POST['login']) && (!empty($_POST['login'])))
+		{
+			$login = htmlspecialchars($_POST['login']);
+			if (!ctype_alnum($login))
+			{
+				$sms = "<br>Veuillez entrer un login valide! Celui-ci doit être composé de lettres et/ou de chiffres";
+			}
+		}
+		else
+		{
+			$sms = "<br>Veuillez entrer un login!";
+		}
+
+		if (isset($_POST['pwd']) && (!empty($_POST['pwd'])))
+		{
+			$pwd = htmlspecialchars($_POST['pwd']);
+			if (!ctype_alnum($pwd))
+			{
+				$sms .= "<br>Veuillez entrer un password valide! Celui-ci doit être composé de lettres et/ou de chiffres";
+			}
+		}
+		else
+		{
+			$sms .= "<br>Veuillez entrer un password!";
+		}
+
+		if (isset($_POST['mail']) && (!empty($_POST['mail'])))
+		{
+			$mail = htmlspecialchars($_POST['mail']);
+			if (!filter_var($mail, FILTER_VALIDATE_EMAIL))
+			{
+				$sms .= "<br>Veuillez entrer un password valide! Celui-ci doit être composé de lettres et/ou de chiffres";
+			}
+		}
+		else
+		{
+			$sms .= "<br>Veuillez entrer un mail!";
+		}
+		return $sms;
+    }
     public function updateCheckSession()
     {
-    	if (isset($_POST['login']) && isset($_POST['pwd']))
+    	if (isset($_POST['login']) && isset($_POST['pwd']) && !isset($_POST['mail']))
 		{
 			$this->_sessionLogin = htmlspecialchars($_POST['login']);
 			$_SESSION['login'] = $this->_sessionLogin;
