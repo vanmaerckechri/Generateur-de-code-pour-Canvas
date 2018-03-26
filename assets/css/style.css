@@ -23,7 +23,8 @@ body {
   align-items: center; }
 
 canvas {
-  border: 3px solid black; }
+  border: 3px solid black;
+  background-color: white; }
 
 button {
   margin-left: 2px;
@@ -59,10 +60,31 @@ header {
   display: flex;
   justify-content: space-between; }
   header h1 {
-    flex: 1; }
+    flex: 3; }
   header .connect {
     flex: 1;
-    background-color: red; }
+    display: flex;
+    justify-content: flex-end;
+    align-items: center; }
+    header .connect a {
+      margin-left: .5rem;
+      padding: .2rem .5rem;
+      text-decoration: none;
+      color: orange;
+      background-color: black; }
+      header .connect a:hover {
+        color: white; }
+
+#main h2 {
+  margin: 2rem 0; }
+#main form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; }
+  #main form label {
+    margin-bottom: .5rem; }
+  #main form input {
+    margin-bottom: 1rem; }
 
 #interface {
   width: 100%; }

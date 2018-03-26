@@ -7,6 +7,10 @@ if (isset($_GET['action']))
 	{
     	home();
     }
+    else if ($_GET['action'] == 'log')
+    {
+    	auth();
+    }
 }
 else
 {

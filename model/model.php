@@ -4,7 +4,7 @@
 //1. Instancier l'objet avec les coordonnées de la DB.
 
 	//exemple:
-	/*$dbCoordinates = ["dbHost" => "localhost", "dbPort" => "", "dbName" => "gen_code_canvas", "dbCharset" => "utf8", "dbLogin" => "root", "dbPwd" => "", "table" => "members"];
+	/*$dbCoordinates = ["dbHost" => "localhost", "dbPort" => "", "dbName" => "gen_code_canvas", "dbCharset" => "utf8", "dbLogin" => "root", "dbPwd" => "", "table" => "members", "tableSec" => ""];
 	$test = new Crud($dbCoordinates);*/
 
 //2. Effectuer une requete custom avec les données 'columns|bindparam' et 'where'.
@@ -46,6 +46,7 @@ class Crud
 	private $_dbPwd;
 
 	private $_table;
+	private $_tableSec;
 
 	public function __construct(array $reqDyn)
 	{
@@ -114,6 +115,13 @@ class Crud
 		if (is_string($table))
 		{
 			$this->_table = htmlspecialchars($table);
+		}
+	}
+	private function setTableSec($tableSec)
+	{
+		if (is_string($tableSec))
+		{
+			$this->_tableSec = htmlspecialchars($tableSec);
 		}
 	}
 	private function setColumns($selectColumns)

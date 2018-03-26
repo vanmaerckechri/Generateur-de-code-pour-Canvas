@@ -1,3 +1,5 @@
+<?php require('./view/headerView.php'); ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>

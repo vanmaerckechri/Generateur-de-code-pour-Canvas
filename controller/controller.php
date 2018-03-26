@@ -20,3 +20,7 @@ function home()
 {
     require('./view/indexView.php');
 }
+function auth()
+{
+	require('./view/logView.php');
+}

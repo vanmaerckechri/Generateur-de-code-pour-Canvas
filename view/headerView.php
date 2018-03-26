@@ -1,13 +1,23 @@
 <?php ob_start(); ?>
 <header>
     <h1>Générateur de Code pour le Canvas</h1>
-    <?php 
-    	if ($GLOBALS['sessionAuthOk'] === TRUE)
-    	{
-    ?>
-    		<div class="connect"></div>
-    <?php
-		}
-    ?>
+    <div class="connect">
+    	<a href="index.php?action=home">home</a>
+	    <?php 
+	    	if ($GLOBALS['sessionAuthOk'] === TRUE)
+	    	{
+	    ?>
+				<a href="index.php?action=log&log=in">Login</a>
+				<a href="index.php?action=log&log=reg">Register</a>
+	    <?php
+			}
+			else
+			{
+		?>
+				<a href="index.php?action=log&log=out">Logout</a>
+	    <?php
+			}
+	    ?>
+	</div>
 </header>
 <?php $header = ob_get_clean(); ?>
