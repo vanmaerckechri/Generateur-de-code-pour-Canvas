@@ -324,17 +324,24 @@ class Authentification
     	$this->startSession();
     	$this->hydrate();
     }
-
 	private function hydrate()
   	{
   		if (isset($_SESSION['login']))
   		{
       		$this->setSessionLogin($_SESSION['login']);
-  		}  		
+  		}
+  		else
+		{
+			$this->_sessionLogin = '';
+		}
   		if (isset($_SESSION['password']))
   		{
       		$this->setSessionPwd($_SESSION['password']);
   		}
+  		else
+		{
+			$this->_sessionPwd = '';
+		}
   	}
 	private function setSessionLogin($sessionLogin)
 	{
@@ -348,17 +355,11 @@ class Authentification
 		if (is_string($sessionPwd))
 		{
 			$this->_sessionPwd = htmlspecialchars($sessionPwd);
-		}
+		}	
 	}
-    private function startSession()
+    public function startSession()
     {
         session_start();
-
-        //temporaire pour tester le resultat positif de la requete testConnection!
-        $_SESSION['login'] = "name1";
-		$_SESSION['password'] = "pwd1";
-		//-------------
-
         if(!isset($_SESSION['ip']))
         {
             $_SESSION['ip'] = $_SERVER['REMOTE_ADDR'];
@@ -370,12 +371,28 @@ class Authentification
             exit;
         }
     }
-    public function sessionInfo()
+    public function updateCheckSession()
     {
+    	if (isset($_POST['login']) && isset($_POST['pwd']))
+		{
+			$this->_sessionLogin = htmlspecialchars($_POST['login']);
+			$_SESSION['login'] = $this->_sessionLogin;
+			$pwd = htmlspecialchars($_POST['pwd']);
+    		$this->_sessionPwd = hash('sha256', $pwd);
+    		$_SESSION['password'] = $this->_sessionPwd;
+		}
     	$sessionInfo = ['login' => $this->_sessionLogin, 'password' => $this->_sessionPwd];
     	return $sessionInfo;
     }
-
+    public function disconnect()
+    {
+    	if (!empty($_SESSION))
+    	{
+	        $_SESSION = array();
+	        session_destroy();
+	        return FALSE;
+	    }
+    }
     public function testConnection($memberExist)
     {
     	if (!empty($memberExist))
@@ -384,9 +401,7 @@ class Authentification
         }
         else
         {
-        	$_SESSION = array();
-        	session_destroy();
-        	return FALSE;
+        	$this->disconnect();
         }
     }
 }

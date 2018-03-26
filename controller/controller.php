@@ -3,7 +3,7 @@
 require('./model/model.php');
 //Récupérer les valeurs 'login' et 'pwd' de session
 $auth = new Authentification();
-$sessionLoginInfo = $auth->sessionInfo();
+$sessionLoginInfo = $auth->updateCheckSession();
 //Utiliser les informations de session en condition lors d'une requête 'select' pour voir si le membre existe.
 $dbCoordinates = ["dbHost" => "localhost", "dbPort" => "", "dbName" => "gen_code_canvas", "dbCharset" => "utf8", "dbLogin" => "root", "dbPwd" => "", "table" => "members"];
 $crud = new Crud($dbCoordinates);
@@ -23,4 +23,8 @@ function home()
 function auth()
 {
 	require('./view/logView.php');
+}
+if (isset($_GET['log']) && $_GET['log'] === 'out')
+{
+    $sessionAuthOk = $auth->disconnect();
 }

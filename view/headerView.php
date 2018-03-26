@@ -7,15 +7,15 @@
 	    	if ($GLOBALS['sessionAuthOk'] === TRUE)
 	    	{
 	    ?>
-				<a href="index.php?action=log&log=in">Login</a>
-				<a href="index.php?action=log&log=reg">Register</a>
+	    		<a href="index.php?action=log&log=out">Logout</a>
 	    <?php
 			}
 			else
 			{
 		?>
-				<a href="index.php?action=log&log=out">Logout</a>
-	    <?php
+				<a href="index.php?action=log&log=in">Login</a>
+				<a href="index.php?action=log&log=reg">Register</a>
+		<?php
 			}
 	    ?>
 	</div>

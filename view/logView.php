@@ -36,5 +36,16 @@ else if (($_GET['log'] === "in"))
 	<?php 
 	$content = ob_get_clean();
 }
+else if (($_GET['log'] === "out"))
+{
+	ob_start();
+	?>
+	<div id="main">		
+		<h2>Déconnection</h2>
+		<p>Vous avez été déconnecté</p>
+	</div>
+	<?php 
+	$content = ob_get_clean();
+}
 
 require('./view/template.php'); ?>
