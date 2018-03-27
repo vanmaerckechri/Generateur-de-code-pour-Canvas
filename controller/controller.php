@@ -37,27 +37,29 @@ if (isset($_POST['register']))
 	}
 }
 
-//Tentatives d'authentification.
+//TENTATIVES D'AUTHENTIFICATION.
 $auth->auth();
 //Récupérer les valeurs 'login' et 'pwd' de session
 $sessionLoginInfo = $auth->sessionInfo();
+//Chargement DB.
 //pour la version en ligne//require('humhum.php');
-//Verifier si ces valeurs correspondent à l'un des membres de la db.
 $dbCoordinates = ["dbHost" => "localhost", "dbPort" => "", "dbName" => "gen_code_canvas", "dbCharset" => "utf8", "dbLogin" => "root", "dbPwd" => "", "table" => "members"];
 $crud = new Crud($dbCoordinates);
 $columns = array ("id");
 $whereDyn = array ("login" => array($sessionLoginInfo['login']), "password" => array($sessionLoginInfo['password']));
 $operator = "AND";
+//Verifier si ces valeurs correspondent à l'un des membres de la DB.
 $memberExist = $crud->select($columns, $whereDyn, $operator);
 //Passer la variable 'sessionAuthOk' en 'true' ou 'false' pour afficher les options de membres.
 $sessionAuthOk = $auth->testConnexion($memberExist);
 
-//Deco volontaire.
+//DECO VOLONTAIRE!
 if (isset($_GET['log']) && $_GET['log'] === 'out')
 {
     $sessionAuthOk = $auth->disconnect();
 }
 
+//VIEWS!
 function home()
 {
     require('./view/indexView.php');
