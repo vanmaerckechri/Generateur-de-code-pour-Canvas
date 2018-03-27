@@ -1,5 +1,4 @@
 <?php
-
 require('./model/model.php');
 $auth = new Authentification();
 
@@ -28,6 +27,8 @@ if (isset($_POST['register']))
 			$whereDyn = array();
 			$operator = "";
 			$crud->insert($columns, $whereDyn, $operator);
+			$_SESSION['smsAuth'] = "Vous venez de recevoir un lien de validation dans votre boîte mail!";
+			header('Location: index.php?action=log&log=in');
 		}
 		else
 		{
@@ -65,6 +66,3 @@ function auth()
 {
 	require('./view/logView.php');
 }
-
-echo $sessionAuthOk;
-

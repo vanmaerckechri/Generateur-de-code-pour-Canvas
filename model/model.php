@@ -362,7 +362,7 @@ class Authentification
 	}
 	private function setSessionSms()
 	{
-		$_SESSION['smsAuth'] = "";
+		$_SESSION['smsAuth'] = $_SESSION['smsAuth'] == "Vous venez de recevoir un lien de validation dans votre boîte mail!" ? "Vous venez de recevoir un lien de validation dans votre boîte mail! " : "";
 		$_SESSION['smsLogin'] = "";
 		$_SESSION['smsPwd'] = "";
 		$_SESSION['smsMail'] = "";
@@ -463,7 +463,7 @@ class Authentification
         }
         else
         {
-        	$_SESSION['smsAuth'] = isset($_POST['auth']) ? "Login ou password incorrect!" : "";
+        	$_SESSION['smsAuth'] = isset($_POST['auth']) ? "Login ou password incorrect!" : $_SESSION['smsAuth'];
         }
     }
     public function memberAlreadyExist($pseudoOrMail, $InputLogin, $inputMail)
