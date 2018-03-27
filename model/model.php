@@ -362,7 +362,12 @@ class Authentification
 	}
 	private function setSessionSms()
 	{
+		if (!isset($_SESSION['smsAuth']))
+		{
+			$_SESSION['smsAuth'] = "";
+		}
 		$_SESSION['smsAuth'] = $_SESSION['smsAuth'] == "Vous venez de recevoir un lien de validation dans votre boîte mail!" ? "Vous venez de recevoir un lien de validation dans votre boîte mail! " : "";
+
 		$_SESSION['smsLogin'] = "";
 		$_SESSION['smsPwd'] = "";
 		$_SESSION['smsMail'] = "";
