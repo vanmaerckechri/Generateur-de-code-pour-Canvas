@@ -371,59 +371,48 @@ class Authentification
             exit;
         }
     }
-    public function filterInputs()
+    public function filterInputs($value, $type)
     {
-    	$sms = "";
-    	if (isset($_POST['login']) && (!empty($_POST['login'])))
+    	$result = FALSE;
+    	if (isset($value) && (!empty($value)))
 		{
-			$login = htmlspecialchars($_POST['login']);
-			if (!ctype_alnum($login))
+			$filter = htmlspecialchars($value);
+			if ($type = "alnum")
 			{
-				$sms = "<br>Veuillez entrer un login valide! Celui-ci doit être composé de lettres et/ou de chiffres";
+				if (ctype_alnum($filter))
+				{
+					$result = $filter;
+				}
+			}
+			elseif ($type = "mail")
+			{
+				if (filter_var($filter, FILTER_VALIDATE_EMAIL))
+				{
+					$result = $filter;
+				}
 			}
 		}
-		else
-		{
-			$sms = "<br>Veuillez entrer un login!";
-		}
-
-		if (isset($_POST['pwd']) && (!empty($_POST['pwd'])))
-		{
-			$pwd = htmlspecialchars($_POST['pwd']);
-			if (!ctype_alnum($pwd))
-			{
-				$sms .= "<br>Veuillez entrer un password valide! Celui-ci doit être composé de lettres et/ou de chiffres";
-			}
-		}
-		else
-		{
-			$sms .= "<br>Veuillez entrer un password!";
-		}
-
-		if (isset($_POST['mail']) && (!empty($_POST['mail'])))
-		{
-			$mail = htmlspecialchars($_POST['mail']);
-			if (!filter_var($mail, FILTER_VALIDATE_EMAIL))
-			{
-				$sms .= "<br>Veuillez entrer un password valide! Celui-ci doit être composé de lettres et/ou de chiffres";
-			}
-		}
-		else
-		{
-			$sms .= "<br>Veuillez entrer un mail!";
-		}
-		return $sms;
+		return $result;
     }
-    public function updateCheckSession()
+    public function updateSession()
     {
-    	if (isset($_POST['login']) && isset($_POST['pwd']) && !isset($_POST['mail']))
+    	if (isset($_POST['login']) && isset($_POST['pwd']) && isset($_POST['auth']))
 		{
-			$this->_sessionLogin = htmlspecialchars($_POST['login']);
-			$_SESSION['login'] = $this->_sessionLogin;
-			$pwd = htmlspecialchars($_POST['pwd']);
-    		$this->_sessionPwd = hash('sha256', $pwd);
-    		$_SESSION['password'] = $this->_sessionPwd;
+
+			$login = $this->filterInputs($_POST['login'], "alnum");
+			$pwd = $this->filterInputs($_POST['pwd'], "alnum");
+			if ($login != FALSE && $pwd != FALSE)
+			{
+				$this->_sessionLogin = $login;
+				$_SESSION['login'] = $this->_sessionLogin;
+
+	    		$this->_sessionPwd = hash('sha256', $pwd);
+	    		$_SESSION['password'] = $this->_sessionPwd;
+	    	}
 		}
+    }
+    public function sessionInfo()
+    {
     	$sessionInfo = ['login' => $this->_sessionLogin, 'password' => $this->_sessionPwd];
     	return $sessionInfo;
     }
