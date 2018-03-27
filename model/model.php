@@ -384,7 +384,7 @@ class Authentification
 					$result = $filter;
 				}
 			}
-			elseif ($type = "mail")
+			if ($type = "mail")
 			{
 				if (filter_var($filter, FILTER_VALIDATE_EMAIL))
 				{
@@ -394,7 +394,24 @@ class Authentification
 		}
 		return $result;
     }
-    public function updateSession()
+    public function register()
+    {
+    	$newMemberDatas = array();
+    	if (isset($_POST['login']) && isset($_POST['pwd']) && isset($_POST['mail']))
+		{
+			$login = $this->filterInputs($_POST['login'], "alnum");
+			$pwd = $this->filterInputs($_POST['pwd'], "alnum");
+			$mail = $this->filterInputs($_POST['mail'], "mail");
+			if ($login != FALSE && $pwd != FALSE && $mail != FALSE)
+			{
+	    		$pwd = hash('sha256', $pwd);
+	    		$activate = hash('sha256', $mail);
+				array_push($newMemberDatas, $login, $pwd, $mail, $activate);
+	    	}
+		}
+		return $newMemberDatas;
+    }
+    public function auth()
     {
     	if (isset($_POST['login']) && isset($_POST['pwd']) && isset($_POST['auth']))
 		{

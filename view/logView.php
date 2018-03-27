@@ -11,7 +11,7 @@ if (isset($_GET['log']) && $_GET['log'] === "reg")
 	        <input type="text" name="login" id="login" autofocus required>
 	  		<label for="pwd">password</label>
 	        <input type="password" name="pwd" id="pwd" required>
-	        <label for="email">email</label>
+	        <label for="mail">email</label>
 	        <input type="email" name="mail" id="mail" required>
 	        <input type="hidden" name="register" id="register" value="1">
 	  		<input class="submit" type="submit" value="valider">
