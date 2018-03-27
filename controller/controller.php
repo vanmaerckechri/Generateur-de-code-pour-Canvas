@@ -15,7 +15,7 @@ if (isset($_POST['register']))
 		$dbCoordinates = ["dbHost" => "localhost", "dbPort" => "", "dbName" => "gen_code_canvas", "dbCharset" => "utf8", "dbLogin" => "root", "dbPwd" => "", "table" => "members"];
 		$crud = new Crud($dbCoordinates);
 		//Verification membre pas encore présent dans la DB.
-		$columns = array ("id");
+		$columns = array ("login", "mail");
 		$whereDyn = array ("login" => array($newMemberDatas[0]), "mail" => array($newMemberDatas[2]));
 		$operator = "OR";
 		$memberAlreadyExist = $crud->select($columns, $whereDyn, $operator);
@@ -28,6 +28,10 @@ if (isset($_POST['register']))
 			$whereDyn = array();
 			$operator = "";
 			$crud->insert($columns, $whereDyn, $operator);
+		}
+		else
+		{
+			$auth->memberAlreadyExist($memberAlreadyExist, $newMemberDatas[0], $newMemberDatas[2]);
 		}
 	}
 }

@@ -214,7 +214,8 @@ class Crud
 			$prepareDyn .= $typeReq == "INSERT INTO" ?  "( " : "";
 			$prepareDyn .= $typeReq == "UPDATE" ? "SET " : "";
 			foreach ($columns as $key => $value)
-			{
+			{	
+				$forSelectGroupBy = $value;
 				$prepareDyn .= $typeReq == "UPDATE" || $typeReq == "INSERT INTO" ? $key : $value;
 				if ($key < $columnsLength)
 				{
@@ -262,6 +263,7 @@ class Crud
 				$prepareDyn .= " ";			
 			}
 			$prepareDyn .= $typeReq == "INSERT INTO" ?  ") " : "";
+			$prepareDyn .= $typeReq == "SELECT" ? " GROUP BY ".$forSelectGroupBy : "";
 			$req = $this->_db->prepare($prepareDyn);
 			$this->execute($columns, $where, $typeReq, $req);
 			return $req;
@@ -342,6 +344,7 @@ class Authentification
 		{
 			$this->_sessionPwd = '';
 		}
+		$this->setSessionSms();
   	}
 	private function setSessionLogin($sessionLogin)
 	{
@@ -356,6 +359,13 @@ class Authentification
 		{
 			$this->_sessionPwd = htmlspecialchars($sessionPwd);
 		}	
+	}
+	private function setSessionSms()
+	{
+		$_SESSION['smsAuth'] = "";
+		$_SESSION['smsLogin'] = "";
+		$_SESSION['smsPwd'] = "";
+		$_SESSION['smsMail'] = "";
 	}
     public function startSession()
     {
@@ -408,6 +418,9 @@ class Authentification
 	    		$activate = hash('sha256', $mail);
 				array_push($newMemberDatas, $login, $pwd, $mail, $activate);
 	    	}
+	    	$_SESSION['smsLogin'] = $login == FALSE ? "Le login ne peut être composé que de lettres et de chiffres" : "";
+	    	$_SESSION['smsPwd'] = $pwd == FALSE ? "Le password ne peut être composé que de lettres et de chiffres" : "";
+	    	$_SESSION['smsMail'] = $mail == FALSE ? "Veuillez entrer une adresse mail valide!" : "";
 		}
 		return $newMemberDatas;
     }
@@ -450,7 +463,24 @@ class Authentification
         }
         else
         {
-        	$this->disconnect();
+        	$_SESSION['smsAuth'] = isset($_POST['auth']) ? "Login ou password incorrect!" : "";
         }
+    }
+    public function memberAlreadyExist($pseudoOrMail, $InputLogin, $inputMail)
+    {
+    	foreach ($pseudoOrMail as $column => $values)
+    	{
+    		foreach ($values as $key => $value)
+	    	{
+	    		if ($value == $InputLogin)
+	    		{
+	    			$_SESSION['smsLogin'] = "Ce Login existe déjà";
+	    		}
+	    		if ($value == $inputMail)
+	    		{
+	    			$_SESSION['smsMail'] = "Cette adresse mail existe déjà";
+	    		}
+	    	}
+    	}
     }
 }

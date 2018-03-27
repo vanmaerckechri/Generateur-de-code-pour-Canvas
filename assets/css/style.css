@@ -55,6 +55,9 @@ h1 {
   margin: 1rem 0;
   font-size: 1.2rem; }
 
+.sms {
+  color: red; }
+
 header {
   width: 100%;
   display: flex;
@@ -82,9 +85,11 @@ header {
   flex-direction: column;
   align-items: flex-start; }
   #main form label {
-    margin-bottom: .5rem; }
+    margin-top: .5rem; }
   #main form input {
-    margin-bottom: 1rem; }
+    margin-top: 1rem; }
+  #main form .submit {
+    padding: .2rem .5rem; }
 
 #interface {
   width: 100%; }

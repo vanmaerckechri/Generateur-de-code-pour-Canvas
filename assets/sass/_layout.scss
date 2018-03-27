@@ -41,11 +41,15 @@ header
 		align-items: flex-start;
 		label
 		{
-			margin-bottom: .5rem;
+			margin-top: .5rem;
 		}
 		input
 		{
-			margin-bottom: 1rem;
+			margin-top: 1rem;
+		}
+		.submit
+		{
+			padding: .2rem .5rem;
 		}
 	}
 }

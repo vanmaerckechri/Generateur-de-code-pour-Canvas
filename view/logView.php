@@ -9,10 +9,13 @@ if (isset($_GET['log']) && $_GET['log'] === "reg")
 		<form action="index.php?action=log&log=reg" method="post">
 	  		<label for="login">Login</label>
 	        <input type="text" name="login" id="login" autofocus required>
+	       	<p class="sms"><?=$_SESSION['smsLogin']?></p>
 	  		<label for="pwd">password</label>
 	        <input type="password" name="pwd" id="pwd" required>
+	       	<p class="sms"><?=$_SESSION['smsPwd']?></p>
 	        <label for="mail">email</label>
 	        <input type="email" name="mail" id="mail" required>
+	        <p class="sms"><?=$_SESSION['smsMail']?></p>
 	        <input type="hidden" name="register" id="register" value="1">
 	  		<input class="submit" type="submit" value="valider">
 		</form>
@@ -33,6 +36,7 @@ else if (isset($_GET['log']) && $_GET['log'] === "in")
 	        <input type="password" name="pwd" id="pwd" required>
 	       	<input type="hidden" name="auth" id="auth" value="1">
 	        <input class="submit" type="submit" value="valider">
+	        <p class="sms"><?=$_SESSION['smsAuth']?></p>
 		</form>
 	</div>
 	<?php 
