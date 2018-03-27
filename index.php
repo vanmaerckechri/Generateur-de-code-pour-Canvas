@@ -7,10 +7,14 @@ if (isset($_GET['action']))
 	{
     	home();
     }
-    else if ($_GET['action'] == 'log')
+    else if ($_GET['action'] == 'log' && (!isset($GLOBALS['sessionAuthOk']) || $GLOBALS['sessionAuthOk'] === FALSE))
     {
     	auth();
     }
+    else
+	{
+		home();
+	}
 }
 else
 {

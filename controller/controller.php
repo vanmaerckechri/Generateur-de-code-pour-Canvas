@@ -45,7 +45,7 @@ $whereDyn = array ("login" => array($sessionLoginInfo['login']), "password" => a
 $operator = "AND";
 $memberExist = $crud->select($columns, $whereDyn, $operator);
 //Passer la variable 'sessionAuthOk' en 'true' ou 'false' pour afficher les options de membres.
-$sessionAuthOk = $auth->testConnection($memberExist);
+$sessionAuthOk = $auth->testConnexion($memberExist);
 
 //Deco volontaire.
 if (isset($_GET['log']) && $_GET['log'] === 'out')

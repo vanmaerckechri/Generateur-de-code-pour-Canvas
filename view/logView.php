@@ -6,7 +6,7 @@ if (isset($_GET['log']) && $_GET['log'] === "reg")
 	?>
 	<div id="main">		
 		<h2>Register</h2>
-		<form action="index.php" method="post">
+		<form action="index.php?action=log&log=reg" method="post">
 	  		<label for="login">Login</label>
 	        <input type="text" name="login" id="login" autofocus required>
 	  		<label for="pwd">password</label>
@@ -26,7 +26,7 @@ else if (isset($_GET['log']) && $_GET['log'] === "in")
 	?>
 	<div id="main">		
 		<h2>Authentification</h2>
-		<form action="index.php" method="post">
+		<form action="index.php?action=log&log=in" method="post">
 	  		<label for="login">Login</label>
 	        <input type="text" name="login" id="login" autofocus required>
 	  		<label for="pwd">password</label>

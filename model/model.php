@@ -442,7 +442,7 @@ class Authentification
 	        return FALSE;
 	    }
     }
-    public function testConnection($memberExist)
+    public function testConnexion($memberExist)
     {
     	if (!empty($memberExist))
     	{
