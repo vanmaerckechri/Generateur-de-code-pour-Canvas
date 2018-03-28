@@ -75,4 +75,7 @@ function auth()
 {
 	require('./view/logView.php');
 }
-$auth->test();
+function test()
+{
+	require('./view/galleryView.php');
+}

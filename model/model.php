@@ -512,9 +512,6 @@ class Authentification
 	    	}
     	}
     }
-    public function test()
-    {
-    }
 }
 
 class ActivationCode

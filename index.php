@@ -11,6 +11,10 @@ if (isset($_GET['action']))
     {
     	auth();
     }
+    else if ($_GET['action'] == 'gallery')
+    {
+    	test();
+    }
     else
 	{
 		home();

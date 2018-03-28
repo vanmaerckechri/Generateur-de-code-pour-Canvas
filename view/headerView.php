@@ -3,6 +3,7 @@
     <h1>Générateur de Code pour le Canvas</h1>
     <div class="connect">
     	<a href="index.php?action=home" class="submit">home</a>
+    	<a href="index.php?action=gallery" class="submit">gallery</a>
 	    <?php 
 	    	if ($GLOBALS['sessionAuthOk'] === TRUE)
 	    	{
