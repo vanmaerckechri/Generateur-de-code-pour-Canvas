@@ -521,7 +521,7 @@ class ActivationCode
 		$_SESSION['smsAuth'] = "Vous venez de recevoir un lien de validation dans votre boîte mail!";
 		$_sujet = "Lien d'Activation du Compte!";
 		$_message = '<p>Bienvenue! Pour activer votre compte veuillez cliquer sur le lien suivant.
-		<a href="https://cvm.one/index.php?code='.$code.'">https://cvm.one/index.phpcode='.$code.'</a></p>';
+		<a href="https://cvm.one/index.php?action=log&log=in&code='.$code.'">https://cvm.one/index.php?action=log&log=in&code='.$code.'</a></p>';
 		$_destinataire = $mail;
 
 		$_headers = "From: \"Générateur de Code pour Canvas\"<robot@cvm.one>\n";
