@@ -20,3 +20,8 @@ else
 {
 	home();
 }
+
+$_SESSION['smsAuth'] = "";
+$_SESSION['smsLogin'] = "";
+$_SESSION['smsMail'] = "";
+$_SESSION['smsPwd'] = "";

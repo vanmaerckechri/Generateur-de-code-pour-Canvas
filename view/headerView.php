@@ -2,19 +2,19 @@
 <header>
     <h1>Générateur de Code pour le Canvas</h1>
     <div class="connect">
-    	<a href="index.php?action=home">home</a>
+    	<a href="index.php?action=home" class="submit">home</a>
 	    <?php 
 	    	if ($GLOBALS['sessionAuthOk'] === TRUE)
 	    	{
 	    ?>
-	    		<a href="index.php?action=log&log=out">Logout</a>
+	    		<a href="index.php?action=log&log=out" class="submit">Logout</a>
 	    <?php
 			}
 			else
 			{
 		?>
-				<a href="index.php?action=log&log=in">Login</a>
-				<a href="index.php?action=log&log=reg">Register</a>
+				<a href="index.php?action=log&log=in" class="submit">Login</a>
+				<a href="index.php?action=log&log=reg" class="submit">Register</a>
 		<?php
 			}
 	    ?>

@@ -56,7 +56,26 @@ h1 {
   font-size: 1.2rem; }
 
 .sms {
+  margin-top: 1rem;
   color: red; }
+
+.submit {
+  margin-left: .5rem;
+  padding: .2rem .5rem;
+  text-decoration: none;
+  color: orange;
+  background-color: black; }
+  .submit:hover {
+    color: white; }
+
+.submitHref {
+  color: #3232af;
+  text-decoration: underline;
+  background: none; }
+  .submitHref:hover {
+    color: orange;
+    cursor: pointer;
+    background: black; }
 
 header {
   width: 100%;
@@ -69,14 +88,6 @@ header {
     display: flex;
     justify-content: flex-end;
     align-items: center; }
-    header .connect a {
-      margin-left: .5rem;
-      padding: .2rem .5rem;
-      text-decoration: none;
-      color: orange;
-      background-color: black; }
-      header .connect a:hover {
-        color: white; }
 
 #main h2 {
   margin: 2rem 0; }

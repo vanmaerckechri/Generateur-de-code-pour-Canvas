@@ -366,11 +366,18 @@ class Authentification
 		{
 			$_SESSION['smsAuth'] = "";
 		}
-		$_SESSION['smsAuth'] = $_SESSION['smsAuth'] == "Vous venez de recevoir un lien de validation dans votre boîte mail!" ? "Vous venez de recevoir un lien de validation dans votre boîte mail! " : "";
-
-		$_SESSION['smsLogin'] = "";
-		$_SESSION['smsPwd'] = "";
-		$_SESSION['smsMail'] = "";
+		if (!isset($_SESSION['smsLogin']))
+		{
+			$_SESSION['smsLogin'] = "";
+		}
+		if (!isset($_SESSION['smsPwd']))
+		{
+			$_SESSION['smsPwd'] = "";
+		}
+		if (!isset($_SESSION['smsMail']))
+		{
+			$_SESSION['smsMail'] = "";
+		}
 	}
     public function startSession()
     {
@@ -464,7 +471,24 @@ class Authentification
     {
     	if (!empty($memberExist))
     	{
-        	return TRUE;
+    		if ($memberExist[0]['activate'] == 1)
+    		{
+    			return TRUE;
+    		}
+    		else
+    		{
+    			if (!isset($_POST['register']) && isset($_POST['auth']))
+    			{
+					$_SESSION['smsAuth'] = "
+						Votre compte n'est pas activé! Veuillez vérifier votre boîte mail.<br>
+						<form action='index.php?action=log&log=in' method='post'>
+					       	<input type='hidden' name='mail' id='mail' value='".$memberExist[0]['mail']."'>
+					       	<input type='hidden' name='activecode' id='activecode' value='".$memberExist[0]['activateCode']."'>
+					       	<input type='hidden' name='sendmailactive' id='sendmailactive' value='1'>
+					        <input class='submitHref' type='submit' value=\"envoyer le code d'activation une nouvelle fois\">
+						</form>";
+				}
+    		}
         }
         else
         {
@@ -488,4 +512,26 @@ class Authentification
 	    	}
     	}
     }
+    public function test()
+    {
+    }
 }
+
+class ActivationCode
+{
+	public function sendMail($mail, $code)
+	{
+		$_SESSION['smsAuth'] = "Vous venez de recevoir un lien de validation dans votre boîte mail!";
+		$_sujet = "Lien d'Activation du Compte!";
+		$_message = '<p>Bienvenue! Pour activer votre compte veuillez cliquer sur le lien suivant.
+		<a href="https://cvm.one/index.php?code='.$code.'">https://cvm.one/index.phpcode='.$code.'</a></p>';
+		$_destinataire = $mail;
+
+		$_headers = "From: \"Générateur de Code pour Canvas\"<robot@cvm.one>\n";
+		$_headers .= "Reply-To: admin@cvm.one\n";
+		$_headers .= "Content-Type: text/html; charset=\"ISO-8859-1\"\n";
+		$_headers .= "Content-Transfer-Encoding: 8bit";
+		$_sendMail = mail($_destinataire, $_sujet, $_message, $_headers);
+	}
+}
+		

@@ -11,6 +11,7 @@ if (isset($_POST['register']))
 	if (count($newMemberDatas) == 4)
 	{
 		//Chargement DB.
+		//require('humhum.php');
 		$dbCoordinates = ["dbHost" => "localhost", "dbPort" => "", "dbName" => "gen_code_canvas", "dbCharset" => "utf8", "dbLogin" => "root", "dbPwd" => "", "table" => "members"];
 		$crud = new Crud($dbCoordinates);
 		//Verification membre pas encore présent dans la DB.
@@ -23,12 +24,13 @@ if (isset($_POST['register']))
 		{
 
 			//Enregistrement.
-			$columns = array ("login" => array($newMemberDatas[0]), "password" => array($newMemberDatas[1]), "mail" => array($newMemberDatas[2]), "activate" => array($newMemberDatas[3]));
+			$columns = array ("login" => array($newMemberDatas[0]), "password" => array($newMemberDatas[1]), "mail" => array($newMemberDatas[2]), "activateCode" => array($newMemberDatas[3]));
 			$whereDyn = array();
 			$operator = "";
 			$crud->insert($columns, $whereDyn, $operator);
-			$_SESSION['smsAuth'] = "Vous venez de recevoir un lien de validation dans votre boîte mail!";
-			header('Location: index.php?action=log&log=in');
+			$sendMail = new ActivationCode();
+			$sendMail-> sendMail($newMemberDatas[2], $newMemberDatas[3]);
+			//$_SESSION['smsAuth'] = "Vous venez de recevoir un lien de validation dans votre boîte mail!";
 		}
 		else
 		{
@@ -42,10 +44,10 @@ $auth->auth();
 //Récupérer les valeurs 'login' et 'pwd' de session
 $sessionLoginInfo = $auth->sessionInfo();
 //Chargement DB.
-//pour la version en ligne//require('humhum.php');
+//require('humhum.php');
 $dbCoordinates = ["dbHost" => "localhost", "dbPort" => "", "dbName" => "gen_code_canvas", "dbCharset" => "utf8", "dbLogin" => "root", "dbPwd" => "", "table" => "members"];
 $crud = new Crud($dbCoordinates);
-$columns = array ("id");
+$columns = array ("activateCode", "activate", "mail");
 $whereDyn = array ("login" => array($sessionLoginInfo['login']), "password" => array($sessionLoginInfo['password']));
 $operator = "AND";
 //Verifier si ces valeurs correspondent à l'un des membres de la DB.
@@ -58,7 +60,12 @@ if (isset($_GET['log']) && $_GET['log'] === 'out')
 {
     $sessionAuthOk = $auth->disconnect();
 }
-
+//SENDMAIL-SMS!
+if (isset($_POST['sendmailactive']))
+{
+	$sendMail = new ActivationCode();
+	$sendMail->sendMail($_POST['mail'], $_POST['activecode']);
+}
 //VIEWS!
 function home()
 {
@@ -68,3 +75,4 @@ function auth()
 {
 	require('./view/logView.php');
 }
+$auth->test();

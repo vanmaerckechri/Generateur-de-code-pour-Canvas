@@ -19,6 +19,7 @@ if (isset($_GET['log']) && $_GET['log'] === "reg")
 	        <input type="hidden" name="register" id="register" value="1">
 	  		<input class="submit" type="submit" value="valider">
 		</form>
+			<p class="sms"><?=$_SESSION['smsAuth']?></p>
 	</div>
 	<?php 
 	$content = ob_get_clean();
@@ -36,8 +37,8 @@ else if (isset($_GET['log']) && $_GET['log'] === "in")
 	        <input type="password" name="pwd" id="pwd" required>
 	       	<input type="hidden" name="auth" id="auth" value="1">
 	        <input class="submit" type="submit" value="valider">
-	        <p class="sms"><?=$_SESSION['smsAuth']?></p>
 		</form>
+		<p class="sms"><?=$_SESSION['smsAuth']?></p>
 	</div>
 	<?php 
 	$content = ob_get_clean();
@@ -56,5 +57,4 @@ else
 {
 	$content = "";
 }
-
 require('./view/template.php'); ?>

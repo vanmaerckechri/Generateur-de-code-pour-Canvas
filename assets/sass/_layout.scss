@@ -14,18 +14,6 @@ header
 		display: flex;
 		justify-content: flex-end;
 		align-items: center;
-		a
-		{
-			margin-left: .5rem;
-			padding: .2rem .5rem;
-			text-decoration: none;
-			color: orange;
-			background-color: black;
-			&:hover
-			{
-				color: white;
-			}
-		}
 	}
 }
 #main

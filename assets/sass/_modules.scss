@@ -20,6 +20,31 @@ h1
 	font-size: 1.2rem;
 }
 .sms
-{
+{	
+	margin-top: 1rem;
 	color: red;
+}
+.submit
+{
+	margin-left: .5rem;
+	padding: .2rem .5rem;
+	text-decoration: none;
+	color: orange;
+	background-color: black;
+	&:hover
+	{
+		color: white;
+	}
+}
+.submitHref
+{
+	color: rgb(50, 50, 175);
+	text-decoration: underline;
+	background: none;
+	&:hover
+	{
+		color: orange;
+		cursor: pointer;
+		background: black;
+	}
 }
