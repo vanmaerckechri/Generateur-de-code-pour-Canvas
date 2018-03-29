@@ -54,6 +54,23 @@ if (isset($_GET['resetpwd']) && isset($_GET['rstpwd']) && $_GET['log'] == 'reset
 		}
 	}
 }
+	//tester et enregistrer le nouveau mdp.
+if (isset($_GET['log']) && $_GET['log'] ==="newpwd" && isset($_POST['newpwd']))
+{
+	$memberDatas = $auth->register();
+	$id = Authentification::filterInputs($_POST['newpwd'], "alnum");
+	if (!empty($memberDatas[1]))
+	{
+			//Enregistrement.
+		$crud = new Crud($dbCoordinates);
+		$columns = array ("password" => array($memberDatas[1]));
+		$whereDyn = array ("id" => array($id));
+		$operator = "";
+		$crud->update($columns, $whereDyn, $operator);
+		$_SESSION['smsAuth'] = "<p class='sms'>Votre password a bien été modifié</p>";
+		$GLOBALS['resetPwd'] = TRUE;
+	}
+}
 
 //ACTIVATION D'UN COMPTE!
 if (isset($_GET['code']) && $_GET['action'] === "log" && $_GET['log'] === "in")
