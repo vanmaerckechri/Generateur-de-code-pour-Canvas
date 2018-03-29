@@ -527,14 +527,28 @@ class Authentification
     }
 }
 
-class ActivationCode
+class SendMail
 {
-	public function sendMail($mail, $code)
+	public function activeAccount($mail, $code)
 	{
 		$_SESSION['smsAuth'] = "<p class='sms'>Vous venez de recevoir un lien de validation dans votre boîte mail!</p>";
 		$_sujet = "Lien d'Activation du Compte!";
 		$_message = '<p>Bienvenue! Pour activer votre compte veuillez cliquer sur le lien suivant.
 		<a href="https://cvm.one/index.php?action=log&log=in&code='.$code.'">https://cvm.one/index.php?action=log&log=in&code='.$code.'</a></p>';
+		$_destinataire = $mail;
+
+		$_headers = "From: \"Générateur de Code pour Canvas\"<robot@cvm.one>\n";
+		$_headers .= "Reply-To: admin@cvm.one\n";
+		$_headers .= "Content-Type: text/html; charset=\"ISO-8859-1\"\n";
+		$_headers .= "Content-Transfer-Encoding: 8bit";
+		$_sendMail = mail($_destinataire, $_sujet, $_message, $_headers);
+	}
+	public function lostPassword($mail, $id, $rstpwd)
+	{
+		$_SESSION['smsAuth'] = "<p class='sms'>Un mail pour reinitialiser votre password vient de vous être envoyé!</p>";
+		$_sujet = "Password Perdu!";
+		$_message = '<p>Bienvenue! Cliquer sur le lien suivant pour reinitialiser votre password.
+		<a href="https://cvm.one/index.php?action=log&log=resetpwd&resetpwd='.$id.'&rstpwd='.$rstpwd.'">https://cvm.one/index.php?action=log&log=resetpwd&resetpwd='.$id.'&rstpwd='.$rstpwd.'</a></p>';
 		$_destinataire = $mail;
 
 		$_headers = "From: \"Générateur de Code pour Canvas\"<robot@cvm.one>\n";
