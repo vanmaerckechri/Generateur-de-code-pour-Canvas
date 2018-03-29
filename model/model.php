@@ -430,9 +430,9 @@ class Authentification
 	    		$activate = hash('sha256', $mail);
 				array_push($newMemberDatas, $login, $pwd, $mail, $activate);
 	    	}
-	    	$_SESSION['smsLogin'] = $login == FALSE ? "Le login ne peut être composé que de lettres et de chiffres" : "";
-	    	$_SESSION['smsPwd'] = $pwd == FALSE ? "Le password ne peut être composé que de lettres et de chiffres" : "";
-	    	$_SESSION['smsMail'] = $mail == FALSE ? "Veuillez entrer une adresse mail valide!" : "";
+	    	$_SESSION['smsLogin'] = $login == FALSE ? "<p class='smsAlert'>Le login ne peut être composé que de lettres et de chiffres</p" : "";
+	    	$_SESSION['smsPwd'] = $pwd == FALSE ? "<p class='smsAlert'>Le password ne peut être composé que de lettres et de chiffres</p>" : "";
+	    	$_SESSION['smsMail'] = $mail == FALSE ? "<p class='smsAlert'>Veuillez entrer une adresse mail valide!</p>" : "";
 		}
 		return $newMemberDatas;
     }
@@ -480,7 +480,7 @@ class Authentification
     			if (!isset($_POST['register']) && isset($_POST['auth']))
     			{
 					$_SESSION['smsAuth'] = "
-						Votre compte n'est pas activé! Veuillez vérifier votre boîte mail.<br>
+						<p class='smsAlert'>Votre compte n'est pas activé! Veuillez vérifier votre boîte mail.</p>
 						<form action='index.php?action=log&log=in' method='post'>
 					       	<input type='hidden' name='mail' id='mail' value='".$memberExist[0]['mail']."'>
 					       	<input type='hidden' name='activecode' id='activecode' value='".$memberExist[0]['activateCode']."'>
@@ -492,7 +492,7 @@ class Authentification
         }
         else
         {
-        	$_SESSION['smsAuth'] = isset($_POST['auth']) ? "Login ou password incorrect!" : $_SESSION['smsAuth'];
+        	$_SESSION['smsAuth'] = isset($_POST['auth']) ? "<p class='smsAlert'>Login ou password incorrect!</p>" : $_SESSION['smsAuth'];
         }
     }
     public function memberAlreadyExist($pseudoOrMail, $InputLogin, $inputMail)
@@ -503,11 +503,11 @@ class Authentification
 	    	{
 	    		if ($value == $InputLogin)
 	    		{
-	    			$_SESSION['smsLogin'] = "Ce Login existe déjà";
+	    			$_SESSION['smsLogin'] = "<p class='smsAlert'>Ce Login existe déjà</p>";
 	    		}
 	    		if ($value == $inputMail)
 	    		{
-	    			$_SESSION['smsMail'] = "Cette adresse mail existe déjà";
+	    			$_SESSION['smsMail'] = "<p class='smsAlert'>Cette adresse mail existe déjà</p>";
 	    		}
 	    	}
     	}
@@ -518,7 +518,7 @@ class ActivationCode
 {
 	public function sendMail($mail, $code)
 	{
-		$_SESSION['smsAuth'] = "Vous venez de recevoir un lien de validation dans votre boîte mail!";
+		$_SESSION['smsAuth'] = "<p class='sms'>Vous venez de recevoir un lien de validation dans votre boîte mail!</p>";
 		$_sujet = "Lien d'Activation du Compte!";
 		$_message = '<p>Bienvenue! Pour activer votre compte veuillez cliquer sur le lien suivant.
 		<a href="https://cvm.one/index.php?action=log&log=in&code='.$code.'">https://cvm.one/index.php?action=log&log=in&code='.$code.'</a></p>';

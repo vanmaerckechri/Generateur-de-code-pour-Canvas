@@ -55,9 +55,13 @@ h1 {
   margin: 1rem 0;
   font-size: 1.2rem; }
 
-.sms {
+.smsAlert {
   margin-top: 1rem;
   color: red; }
+
+.sms {
+  margin-top: 1rem;
+  color: green; }
 
 .submit {
   margin-left: .5rem;
