@@ -8,7 +8,7 @@ if (isset($_GET['log']) && $_GET['log'] === "reg")
 		<h2>Register</h2>
 		<form action="index.php?action=log&log=reg" method="post">
 	  		<label for="login">Login</label>
-	        <input type="text" name="login" id="login" autofocus required>
+	        <input type="text" name="login" id="login" value="<?php if (isset($_POST['login'])) {echo $_POST['login'];} ?>" autofocus required>
 	       	<?=$_SESSION['smsLogin']?>
 	  		<label for="pwd">password</label>
 	        <input type="password" name="pwd" id="pwd" required>
@@ -17,7 +17,7 @@ if (isset($_GET['log']) && $_GET['log'] === "reg")
 	       	<input type="password" name="pwd2" id="pwd2" required>
 	       	<?=$_SESSION['smsPwd2']?>
 	        <label for="mail">email</label>
-	        <input type="email" name="mail" id="mail" required>
+	        <input type="email" name="mail" id="mail" value="<?php if (isset($_POST['mail'])) {echo $_POST['mail'];} ?>" required>
 	        <?=$_SESSION['smsMail']?>
 	        <input type="hidden" name="register" id="register" value="1">
 	  		<input class="submit" type="submit" value="valider">
@@ -51,7 +51,7 @@ else if (isset($_GET['log']) && $_GET['log'] === "out")
 	ob_start();
 	?>
 	<div id="main">		
-		<h2>Vous avez été déconnecté</h2>
+		<h2 class="sms">Vous avez été déconnecté</h2>
 	</div>
 	<?php 
 	$content = ob_get_clean();
