@@ -13,6 +13,9 @@ if (isset($_GET['log']) && $_GET['log'] === "reg")
 	  		<label for="pwd">password</label>
 	        <input type="password" name="pwd" id="pwd" required>
 	       	<?=$_SESSION['smsPwd']?>
+	       	<label for="pwd2">répéter le password</label>
+	       	<input type="password" name="pwd2" id="pwd2" required>
+	       	<?=$_SESSION['smsPwd2']?>
 	        <label for="mail">email</label>
 	        <input type="email" name="mail" id="mail" required>
 	        <?=$_SESSION['smsMail']?>

@@ -374,6 +374,10 @@ class Authentification
 		{
 			$_SESSION['smsPwd'] = "";
 		}
+		if (!isset($_SESSION['smsPwd2']))
+		{
+			$_SESSION['smsPwd'] = "";
+		}
 		if (!isset($_SESSION['smsMail']))
 		{
 			$_SESSION['smsMail'] = "";
@@ -419,18 +423,27 @@ class Authentification
     public function register()
     {
     	$newMemberDatas = array();
-    	if (isset($_POST['login']) && isset($_POST['pwd']) && isset($_POST['mail']))
+    	if (isset($_POST['login']) && isset($_POST['pwd']) && isset($_POST['pwd2']) && isset($_POST['mail']))
 		{
 			$login = $this->filterInputs($_POST['login'], "alnum");
 			$pwd = $this->filterInputs($_POST['pwd'], "alnum");
+			$pwd2 = $this->filterInputs($_POST['pwd2'], "alnum");
 			$mail = $this->filterInputs($_POST['mail'], "mail");
-			if ($login != FALSE && $pwd != FALSE && $mail != FALSE)
+			if ($login != FALSE && $pwd != FALSE && $pwd2 != FALSE && $mail != FALSE)
 			{
-	    		$pwd = hash('sha256', $pwd);
-	    		$activate = hash('sha256', $mail);
-				array_push($newMemberDatas, $login, $pwd, $mail, $activate);
+				if ($pwd === $pwd2)
+				{
+		    		$pwd = hash('sha256', $pwd);
+		    		$activate = hash('sha256', $mail);
+					array_push($newMemberDatas, $login, $pwd, $mail, $activate);
+				}
+				else
+				{
+					$pwd2 = FALSE;
+					$_SESSION['smsPwd2'] = "<p class='smsAlert'>Les passwords sont différents!</p>";
+				}
 	    	}
-	    	$_SESSION['smsLogin'] = $login == FALSE ? "<p class='smsAlert'>Le login ne peut être composé que de lettres et de chiffres</p" : "";
+	    	$_SESSION['smsLogin'] = $login == FALSE ? "<p class='smsAlert'>Le login ne peut être composé que de lettres et de chiffres</p>" : "";
 	    	$_SESSION['smsPwd'] = $pwd == FALSE ? "<p class='smsAlert'>Le password ne peut être composé que de lettres et de chiffres</p>" : "";
 	    	$_SESSION['smsMail'] = $mail == FALSE ? "<p class='smsAlert'>Veuillez entrer une adresse mail valide!</p>" : "";
 		}

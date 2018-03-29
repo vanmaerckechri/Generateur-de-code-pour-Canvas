@@ -29,3 +29,4 @@ $_SESSION['smsAuth'] = "";
 $_SESSION['smsLogin'] = "";
 $_SESSION['smsMail'] = "";
 $_SESSION['smsPwd'] = "";
+$_SESSION['smsPwd2'] = "";
