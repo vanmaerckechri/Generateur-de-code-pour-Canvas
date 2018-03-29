@@ -11,7 +11,7 @@ if (isset($_POST['lost']) && isset($_POST['mail']) && $_GET['action'] === "log" 
 	$mail = Authentification::filterInputs($_POST['mail'], "mail");
 	$crud = new Crud($dbCoordinates);
 	//Verification email valide.
-	$columns = array ("id", "login");
+	$columns = array ("id", "password");
 	$whereDyn = array ("mail" => array($mail));
 	$operator = "OR";
 	$accountToResetPwd = $crud->select($columns, $whereDyn, $operator);
@@ -19,36 +19,32 @@ if (isset($_POST['lost']) && isset($_POST['mail']) && $_GET['action'] === "log" 
 	if (!empty($accountToResetPwd))
 	{
 		$id = $accountToResetPwd[0]['id'];
-		$login = $accountToResetPwd[0]['login'];
-		$rstpwd = hash('sha256', $login);
-		$pwdTmp = hash('sha256', $id);
-		$columns = array ("password" => array($pwdTmp));
-		$whereDyn = array ("id" => array($id));
-		$operator = "OR";
-		$members = $crud->update($columns, $whereDyn, $operator);
+		$pwd = $accountToResetPwd[0]['password'];
+		$rstpwd = $id.$pwd;
+		$rstpwd = hash('sha256', $rstpwd);
 
 		SendMail::lostPassword($mail, $id, $rstpwd);
 	}
 }
 	//affichage des champs de la reinitialisation du pwd oublié (sous conditions).
-if (isset($_GET['resetpwd']) && isset($_GET['rstpwd']) && $_GET['log'] == 'resetpwd')
+if (isset($_GET['log']) && isset($_GET['rstpwd']) && $_GET['log'] == 'resetpwd')
 {
 	$GLOBALS['resetPwd'] = FALSE;
 	//nettoyage des inputs.
 	$id = Authentification::filterInputs($_GET['resetpwd'], "alnum");
-	$logHash = Authentification::filterInputs($_GET['rstpwd'], "alnum");
+	$code = Authentification::filterInputs($_GET['rstpwd'], "alnum");
 	//Filtrer l'acces à la page.
 	$crud = new Crud($dbCoordinates);
-	$columns = array ("password", "login");
+	$columns = array ("password");
 	$whereDyn = array ("id" => array($id));
 	$operator = "OR";
 	$accountInfo = $crud->select($columns, $whereDyn, $operator);
 	if (!empty($accountInfo))
 	{
-		$idHash = hash('sha256', $id);
-		$loginBD = hash('sha256', $accountInfo[0]['login']);
-		$idHashBD = $accountInfo[0]['password'];
-		if ($idHash === $idHashBD && $logHash === $loginBD)
+		$pwdDB = $accountInfo[0]['password'];
+		$codeDB = $id.$pwdDB;
+		$codeDB = hash('sha256', $codeDB);
+		if ($code === $codeDB)
 		{
 			$GLOBALS['resetPwd'] = TRUE;
 		}
@@ -57,13 +53,13 @@ if (isset($_GET['resetpwd']) && isset($_GET['rstpwd']) && $_GET['log'] == 'reset
 	//tester et enregistrer le nouveau mdp.
 if (isset($_GET['log']) && $_GET['log'] ==="newpwd" && isset($_POST['newpwd']))
 {
-	$memberDatas = $auth->register();
+	$pwd = $auth->updatePwd();
 	$id = Authentification::filterInputs($_POST['newpwd'], "alnum");
-	if (!empty($memberDatas[1]))
+	if (isset($pwd) && !empty($pwd) && $pwd != FALSE)
 	{
 			//Enregistrement.
 		$crud = new Crud($dbCoordinates);
-		$columns = array ("password" => array($memberDatas[1]));
+		$columns = array ("password" => array($pwd));
 		$whereDyn = array ("id" => array($id));
 		$operator = "";
 		$crud->update($columns, $whereDyn, $operator);

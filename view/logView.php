@@ -2,6 +2,7 @@
 $title = '';
 if (isset($_GET['log']) && $_GET['log'] === "reg")
 {
+	$title = 'Générateur de Canvas - Register';
 	ob_start();
 	?>
 	<div id="main">		
@@ -29,7 +30,7 @@ if (isset($_GET['log']) && $_GET['log'] === "reg")
 }
 else if (isset($_GET['log']) && $_GET['log'] === "in")
 {
-	$title = 'Générateur de Canvas - Login';
+	$title = 'Générateur de Canvas - Authentification';
 	ob_start();
 	?>
 	<div id="main">		
@@ -79,14 +80,12 @@ else if (isset($GLOBALS['resetPwd']) && $GLOBALS['resetPwd'] === TRUE)
 	<div id="main">		
 		<h2>Password Oublié</h2>
 		<form action="index.php?action=log&log=newpwd" method="post">
-	        <input type="hidden" name="login" id="login" value="hidden">
 	  		<label for="pwd">password</label>
 	        <input type="password" name="pwd" id="pwd" required>
 	       	<?=$_SESSION['smsPwd']?>
 	       	<label for="pwd2">répéter le password</label>
 	       	<input type="password" name="pwd2" id="pwd2" required>
 	       	<?=$_SESSION['smsPwd2']?>
-	       	<input type="hidden" name="mail" id="mail" value="hidden@none.com">
 	       	<input type="hidden" name="newpwd" id="newpwd" value="<?=$GLOBALS['id']?>">
 	        <input class="submit" type="submit" value="valider">
 		</form>

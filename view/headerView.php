@@ -8,7 +8,7 @@
 	    	if ($GLOBALS['sessionAuthOk'] === TRUE)
 	    	{
 	    ?>
-	    	    <a href="index.php?action=profil" class="submit">Profil</a>
+	    	    <!--<a href="index.php?action=profil" class="submit">Profil</a>-->
 	    		<a href="index.php?action=log&log=out" class="submit">Logout</a>
 	    <?php
 			}

@@ -449,6 +449,30 @@ class Authentification
 		}
 		return $newMemberDatas;
     }
+    public function updatePwd()
+    {
+    	$pwd = "";
+    	if (isset($_POST['pwd']) && isset($_POST['pwd2']) && isset($_POST['newpwd']))
+		{
+			$pwd = $this->filterInputs($_POST['pwd'], "alnum");
+			$pwd2 = $this->filterInputs($_POST['pwd2'], "alnum");
+			$newpwd = $this->filterInputs($_POST['newpwd'], "alnum");
+			if ($pwd != FALSE && $pwd2 != FALSE && $newpwd != FALSE)
+			{
+				if ($pwd === $pwd2)
+				{
+		    		$pwd = hash('sha256', $pwd);
+				}
+				else
+				{
+					$pwd2 = FALSE;
+					$_SESSION['smsPwd2'] = "<p class='smsAlert'>Les passwords sont différents!</p>";
+				}
+	    	}
+	    	$_SESSION['smsPwd'] = $pwd == FALSE ? "<p class='smsAlert'>Le password ne peut être composé que de lettres et de chiffres</p>" : "";
+		}
+		return $pwd;
+    }
     public function auth()
     {
     	if (isset($_POST['login']) && isset($_POST['pwd']) && isset($_POST['auth']))
@@ -556,6 +580,7 @@ class SendMail
 		$_headers .= "Content-Type: text/html; charset=\"ISO-8859-1\"\n";
 		$_headers .= "Content-Transfer-Encoding: 8bit";
 		$_sendMail = mail($_destinataire, $_sujet, $_message, $_headers);
+		echo '<a href="http://localhost/Generateur-de-code-pour-Canvas/index.php?action=log&log=resetpwd&resetpwd='.$id.'&rstpwd='.$rstpwd.'">http://localhost/Generateur-de-code-pour-Canvas/index.php?action=log&log=resetpwd&resetpwd='.$id.'&rstpwd='.$rstpwd.'</a>';
 	}
 }
 		
