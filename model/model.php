@@ -462,6 +462,7 @@ class Authentification
 				if ($pwd === $pwd2)
 				{
 		    		$pwd = hash('sha256', $pwd);
+		    		return $pwd;
 				}
 				else
 				{
@@ -471,7 +472,7 @@ class Authentification
 	    	}
 	    	$_SESSION['smsPwd'] = $pwd == FALSE ? "<p class='smsAlert'>Le password ne peut être composé que de lettres et de chiffres</p>" : "";
 		}
-		return $pwd;
+		return FALSE;
     }
     public function auth()
     {
@@ -580,7 +581,6 @@ class SendMail
 		$_headers .= "Content-Type: text/html; charset=\"ISO-8859-1\"\n";
 		$_headers .= "Content-Transfer-Encoding: 8bit";
 		$_sendMail = mail($_destinataire, $_sujet, $_message, $_headers);
-		echo '<a href="http://localhost/Generateur-de-code-pour-Canvas/index.php?action=log&log=resetpwd&resetpwd='.$id.'&rstpwd='.$rstpwd.'">http://localhost/Generateur-de-code-pour-Canvas/index.php?action=log&log=resetpwd&resetpwd='.$id.'&rstpwd='.$rstpwd.'</a>';
 	}
 }
 		

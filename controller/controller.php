@@ -1,8 +1,8 @@
 <?php
 require('./model/model.php');
 //CHARGEMENT DB!
-//require('humhum.php');
-$dbCoordinates = ["dbHost" => "localhost", "dbPort" => "", "dbName" => "gen_code_canvas", "dbCharset" => "utf8", "dbLogin" => "root", "dbPwd" => "", "table" => "members"];
+require('humhum.php');
+//$dbCoordinates = ["dbHost" => "localhost", "dbPort" => "", "dbName" => "gen_code_canvas", "dbCharset" => "utf8", "dbLogin" => "root", "dbPwd" => "", "table" => "members"];
 $auth = new Authentification();
 //PASSWORD OUBLIE!
 	//envoi du mail et systeme pour que le lien ne fonctionne qu'une seule fois.
@@ -64,8 +64,8 @@ if (isset($_GET['log']) && $_GET['log'] ==="newpwd" && isset($_POST['newpwd']))
 		$operator = "";
 		$crud->update($columns, $whereDyn, $operator);
 		$_SESSION['smsAuth'] = "<p class='sms'>Votre password a bien été modifié</p>";
-		$GLOBALS['resetPwd'] = TRUE;
 	}
+	$GLOBALS['resetPwd'] = TRUE;
 }
 
 //ACTIVATION D'UN COMPTE!
