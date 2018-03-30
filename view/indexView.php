@@ -2,6 +2,9 @@
 
 <?php ob_start(); ?>
 <div id="interface">
+    <div>
+        <?=$GLOBALS['recordButton']?>
+    </div>
     <div class="menuRow">
         <button id="drawBrush" class="button_Select" onclick="activerBouton(this)">Brush</button>
         <button id="drawLine" class="button_unselect" onclick="activerBouton(this)">Line</button>

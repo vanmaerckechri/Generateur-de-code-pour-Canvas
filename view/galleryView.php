@@ -3,7 +3,7 @@
 <?php ob_start(); ?>
 <div>
     <p>PAGE DE TEST</p>
+	<?=require('./assets/gallery/262/1.canvas');?>
 </div>
-<script src="assets/js/init.js"></script>
 <?php $content = ob_get_clean(); ?>
 <?php require('./view/template.php'); ?>

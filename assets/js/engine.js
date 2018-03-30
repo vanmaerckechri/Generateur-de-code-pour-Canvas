@@ -138,3 +138,14 @@ function detecterOutil()
         drawCircle();
     }
 }
+
+//enregistrer le code.
+
+let recordButton = document.getElementById('recordSubmit');
+let record = document.getElementById('record_code');
+recordButton.addEventListener('click', function(event)
+{
+    event.preventDefault();
+    record.value = document.getElementById('code').innerHTML;
+    document.getElementById("galRecordForm").submit(); 
+});

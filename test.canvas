@@ -1,0 +1,51 @@
+
+<canvas id="scene" width="700" height="700">
+</canvas>
+<script type="text/javascript">
+var canvas = document.getElementById("scene");
+var ctx = canvas.getContext("2d");
+ctx.beginPath();
+ctx.rect( 252, 144, 326, 205);
+ctx.lineWidth = 3;
+ctx.strokeStyle = "rgba( 0, 0, 0, 1)";
+ctx.stroke();
+ctx.beginPath();
+ctx.rect( 505, 233, -168, -138);
+ctx.lineWidth = 3;
+ctx.strokeStyle = "rgba( 0, 0, 0, 1)";
+ctx.stroke();
+ctx.beginPath();
+ctx.rect( 202, 83, 143, 264);
+ctx.lineWidth = 3;
+ctx.strokeStyle = "rgba( 0, 0, 0, 1)";
+ctx.stroke();
+ctx.beginPath();
+ctx.arc( 376.5, 214.5, 276, 0, 6.283185307179586);
+ctx.lineWidth = 3;
+ctx.strokeStyle = "rgba( 1, 1, 1, 1)";
+ctx.stroke();
+ctx.beginPath();
+ctx.arc( 298, 213.5, 118, 0, 6.283185307179586);
+ctx.lineWidth = 3;
+ctx.strokeStyle = "rgba( 1, 1, 1, 1)";
+ctx.stroke();
+ctx.fillStyle = "rgba( 243, 1, 1, 0.2)";
+ctx.fill();
+ctx.beginPath();
+ctx.arc( 186, 207.5, 135, 0, 6.283185307179586);
+ctx.lineWidth = 12;
+ctx.strokeStyle = "rgba( 1, 219, 1, 1)";
+ctx.stroke();
+ctx.fillStyle = "rgba( 243, 1, 1, 0.2)";
+ctx.fill();
+ctx.beginPath();
+ctx.moveTo(385, 21);
+ctx.lineTo(419, 283);
+ctx.lineTo(590, 90);
+ctx.closePath();
+ctx.lineWidth = 12;
+ctx.strokeStyle = "rgba( 1, 219, 1, 1)";
+ctx.stroke();
+ctx.fillStyle = "rgba( 243, 1, 1, 0.2)";
+ctx.fill();
+</script>

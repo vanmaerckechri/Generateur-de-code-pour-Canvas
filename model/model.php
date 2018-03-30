@@ -311,8 +311,8 @@ class Crud
 		    $req = NULL;
 		}
 	}
-	/*exemple de fonction pour sortir le contenu d'une variable privée.
 	public function db() { return $this->_db; }
+	/*exemple de fonction pour sortir le contenu d'une variable privée.
 	public function table() { return $this->_table; }*/
 }
 
@@ -376,7 +376,7 @@ class Authentification
 		}
 		if (!isset($_SESSION['smsPwd2']))
 		{
-			$_SESSION['smsPwd'] = "";
+			$_SESSION['smsPwd2'] = "";
 		}
 		if (!isset($_SESSION['smsMail']))
 		{
@@ -583,4 +583,91 @@ class SendMail
 		$_sendMail = mail($_destinataire, $_sujet, $_message, $_headers);
 	}
 }
-		
+
+class recordDraw
+{
+	public function filter($code)
+	{
+		if (isset($code) && !empty($code))
+		{
+			$filter = array("php", "PHP", "'", "?", "$", "#", "<span id=\"lastChild\">", "</span>");
+			$codeFilter = str_replace($filter, "", $code);
+			$filter = array("<br>");
+			$codeFilter = str_replace($filter, "\n", $codeFilter);
+			$codeFilter = html_entity_decode($codeFilter);
+
+			return $codeFilter;
+		}
+	}
+	public function newRecord($code, $titre)
+	{
+		if (isset($titre) && !empty($titre))
+		{
+			$titre = htmlspecialchars($titre);
+			$titre = Authentification::filterInputs($titre, "alnum");
+			if ($titre != FALSE)
+			{
+				if (strlen($titre) > 7 && strlen($titre) < 64)
+				{
+					//récupère l'id de l'utilisateur.
+					$dbCoordinates = ["dbHost" => "localhost", "dbPort" => "", "dbName" => "gen_code_canvas", "dbCharset" => "utf8", "dbLogin" => "root", "dbPwd" => "", "table" => "members"];
+					$crud = new Crud($dbCoordinates);
+					$columns = array ("id");
+					$whereDyn = array ("login" => array($_SESSION['login']), "password" => array($_SESSION['password']));
+					$operator = "AND";
+					$id = $crud->select($columns, $whereDyn, $operator);
+					$id = $id[0]['id'];
+
+					//Vérifier que le membre n'a pas déjà un fichier portant ce titre.
+					$dbCoordinates = ["dbHost" => "localhost", "dbPort" => "", "dbName" => "gen_code_canvas", "dbCharset" => "utf8", "dbLogin" => "root", "dbPwd" => "", "table" => "dessins"];
+					$crud = new Crud($dbCoordinates);
+					$columns = array ("id");
+					$whereDyn = array ("id" => array($id), "titre" => array($titre));
+					$operator = "AND";
+					$drawAlreadyExist = $crud->select($columns, $whereDyn, $operator);
+					//enregistrement des infos dans la DB à la table 'dessins'.
+					if (empty($drawAlreadyExist))
+					{
+						$date = date("Y-m-d");
+						$dbCoordinates = ["dbHost" => "localhost", "dbPort" => "", "dbName" => "gen_code_canvas", "dbCharset" => "utf8", "dbLogin" => "root", "dbPwd" => "", "table" => "dessins"];
+						$crud = new Crud($dbCoordinates);
+						$columns = array ("id_membre" => array($id), "titre" => array($titre), "date" => array($date));
+						$whereDyn = array();
+						$operator = "";
+						$crud->insert($columns, $whereDyn, $operator);
+						$db = $crud->db();
+						$lastIndex = $db->lastInsertId(); 
+						//creation du dossier s'il n'existe pas et du fichier.
+						$dossier = './assets/gallery/'.$id;
+						if(!is_dir($dossier))
+						{
+						   mkdir($dossier);
+						}
+						$fileName = fopen($dossier.'/'.$lastIndex.'.canvas', 'w+');
+						//fputs($fileName, $codeFilter);
+						fwrite($fileName, $code);
+						fclose($fileName);
+						$_SESSION['smsAuth'] = "<p class='sms'>Votre dessin a bien été enregistré.</p>";
+					}
+					//demander confirmation d'écrasement.
+					else
+					{
+						
+					}
+				}
+				else
+				{
+					$_SESSION['smsAuth'] = "<p class='smsAlert'>Le titre doit être composé de 8 à 63 caractères!</p>";
+				}
+			}
+			else
+			{
+				$_SESSION['smsAuth'] = "<p class='smsAlert'>Le Titre ne peut être composé que de lettres et de chiffres!</p>";
+			}
+		}
+		else
+		{
+			$_SESSION['smsAuth'] = "<p class='smsAlert'>Veuillez entrer un titre!</p>";
+		}
+	}
+}

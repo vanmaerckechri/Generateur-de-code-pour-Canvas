@@ -1,0 +1,59 @@
+
+<canvas id="scene" width="700" height="700">
+</canvas>
+<script type="text/javascript">
+var canvas = document.getElementById("scene");
+var ctx = canvas.getContext("2d");
+//BRUSH - START
+ctx.beginPath();
+ctx.moveTo(340, 99);
+ctx.lineTo(340, 99);
+ctx.lineTo(374, 95);
+ctx.lineTo(411, 95);
+ctx.lineTo(464, 105);
+ctx.lineTo(488, 115);
+ctx.lineTo(488, 116);
+ctx.lineTo(489, 125);
+ctx.lineTo(457, 261);
+ctx.lineTo(426, 333);
+ctx.lineTo(426, 333);
+ctx.lineTo(395, 380);
+ctx.lineTo(375, 396);
+ctx.lineTo(375, 396);
+ctx.lineTo(369, 392);
+ctx.lineTo(311, 325);
+ctx.lineTo(220, 241);
+ctx.lineTo(166, 194);
+ctx.lineTo(166, 194);
+ctx.lineTo(166, 194);
+ctx.lineTo(164, 193);
+ctx.lineTo(159, 188);
+ctx.lineTo(159, 188);
+ctx.lineTo(157, 186);
+ctx.lineTo(152, 178);
+ctx.lineTo(149, 170);
+ctx.lineTo(149, 170);
+ctx.lineTo(149, 149);
+ctx.lineTo(160, 126);
+ctx.lineTo(176, 117);
+ctx.lineWidth = 3;
+ctx.strokeStyle = "rgba( 0, 0, 0, 1)";
+ctx.stroke();
+//BRUSH - END
+//BRUSH - START
+ctx.beginPath();
+ctx.moveTo(272, 127);
+ctx.lineTo(272, 127);
+ctx.lineTo(271, 130);
+ctx.lineTo(271, 130);
+ctx.lineTo(257, 154);
+ctx.lineTo(211, 250);
+ctx.lineTo(204, 260);
+ctx.lineTo(155, 335);
+ctx.lineTo(152, 338);
+ctx.lineTo(152, 338);
+ctx.lineWidth = 3;
+ctx.strokeStyle = "rgba( 0, 0, 0, 1)";
+ctx.stroke();
+//BRUSH - END
+</script>

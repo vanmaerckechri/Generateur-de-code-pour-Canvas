@@ -11,10 +11,14 @@ if (isset($_GET['action']))
     {
     	auth();
     }
-    /*else if ($_GET['action'] == 'gallery')
+    else if ($_GET['action'] == 'gallery')
     {
     	gallery();
-    }*/
+    }
+    else if ($_GET['action'] == 'galrecord')
+    {
+    	galRecord();
+    }
     else
 	{
 		home();

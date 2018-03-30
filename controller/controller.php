@@ -1,8 +1,8 @@
 <?php
 require('./model/model.php');
 //CHARGEMENT DB!
-require('humhum.php');
-//$dbCoordinates = ["dbHost" => "localhost", "dbPort" => "", "dbName" => "gen_code_canvas", "dbCharset" => "utf8", "dbLogin" => "root", "dbPwd" => "", "table" => "members"];
+//require('humhum.php');
+$dbCoordinates = ["dbHost" => "localhost", "dbPort" => "", "dbName" => "gen_code_canvas", "dbCharset" => "utf8", "dbLogin" => "root", "dbPwd" => "", "table" => "members"];
 $auth = new Authentification();
 //PASSWORD OUBLIE!
 	//envoi du mail et systeme pour que le lien ne fonctionne qu'une seule fois.
@@ -148,9 +148,28 @@ if (isset($_POST['sendmailactive']))
 	$sendMail->activeAccount($_POST['mail'], $_POST['activecode']);
 }
 
+
 //VIEWS!
 function home()
 {
+	//MENU ENREGISTREMENT CANVAS
+	if ($GLOBALS['sessionAuthOk'] === TRUE)
+	{
+		ob_start();
+		?>
+		<form action="index.php?action=galrecord" id="galRecordForm" method="post">
+				<input type="hidden" name="id_dessin" id="id_dessin" value=''>
+		        <input type="hidden" name="titre_dessin" id="titre_dessin" value=''>
+		        <input type="hidden" name="record_code" id="record_code" value=''>
+		  		<input class="button_unselect" type="submit" id="recordSubmit" value="record">
+		</form>
+		<?php
+		$GLOBALS['recordButton'] = ob_get_clean();
+	}
+	else
+	{
+		$GLOBALS['recordButton'] = "";
+	}
     require('./view/indexView.php');
 }
 function auth()
@@ -160,4 +179,14 @@ function auth()
 function gallery()
 {
 	require('./view/galleryView.php');
+}
+function galRecord()
+{
+	//formulaire pour l'enregistrement des nouveaux dessins.
+	$code = recordDraw::filter($_POST['record_code']);
+	if (isset($_POST['newTitreDessin']))
+	{
+		recordDraw::newRecord($code, $_POST['newTitreDessin']);	
+	}
+    require('./view/galRecordView.php');
 }
