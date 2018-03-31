@@ -15,6 +15,7 @@
 		/*$columns = array ("login", "password", "mail");
 		$whereDyn = array ("id" => array(220, 222));
 		$operator = "AND";
+		$groupBy = TRUE;
 		$members = $test->select($columns, $whereDyn, $operator);*/
 
 	//exemple de requete INSERT.
@@ -201,7 +202,7 @@ class Crud
 		}
 	}
 
-	private function prepare($columns, $where, $typeReq, $operator)
+	private function prepare($columns, $where, $typeReq, $operator, $groupBy = "")
 	{
 		if (isset($columns) && is_array($columns) && isset($where) && is_array($where) && isset($typeReq))
 		{
@@ -263,18 +264,18 @@ class Crud
 				$prepareDyn .= " ";			
 			}
 			$prepareDyn .= $typeReq == "INSERT INTO" ?  ") " : "";
-			$prepareDyn .= $typeReq == "SELECT" ? " GROUP BY ".$forSelectGroupBy : "";
+			$prepareDyn .= $typeReq == "SELECT" && $groupBy == TRUE ? " GROUP BY ".$forSelectGroupBy : "";
 			$req = $this->_db->prepare($prepareDyn);
 			$this->execute($columns, $where, $typeReq, $req);
 			return $req;
 		}
 	}
 
-	public function select($columns, $whereDyn, $operator)
+	public function select($columns, $whereDyn, $operator, $groupBy = "")
 	{
-		if (isset($columns) && isset($whereDyn))
+		if (isset($columns) && isset($whereDyn) && isset($operator) && isset($groupBy))
 		{
-			$req = $this->prepare($columns, $whereDyn, 'SELECT', $operator);
+			$req = $this->prepare($columns, $whereDyn, 'SELECT', $operator, $groupBy);
 		   	$members = $req->fetchAll();
 		   	$req->closeCursor();
 		    $req = NULL;
@@ -397,7 +398,7 @@ class Authentification
             exit;
         }
     }
-    public function filterInputs($value, $type)
+    public static function filterInputs($value, $type)
     {
     	$result = FALSE;
     	if (isset($value) && (!empty($value)))
@@ -586,7 +587,7 @@ class SendMail
 
 class recordDraw
 {
-	public function filter($code)
+	public static function filter($code)
 	{
 		if (isset($code) && !empty($code))
 		{
@@ -599,7 +600,7 @@ class recordDraw
 			return $codeFilter;
 		}
 	}
-	public function newRecord($code, $titre)
+	public static function newRecord($code, $titre)
 	{
 		if (isset($titre) && !empty($titre))
 		{
@@ -609,41 +610,45 @@ class recordDraw
 			{
 				if (strlen($titre) > 7 && strlen($titre) < 64)
 				{
-					//récupère l'id de l'utilisateur.
+					//récupère le nom de l'utilisateur.
 					$dbCoordinates = ["dbHost" => "localhost", "dbPort" => "", "dbName" => "gen_code_canvas", "dbCharset" => "utf8", "dbLogin" => "root", "dbPwd" => "", "table" => "members"];
 					$crud = new Crud($dbCoordinates);
-					$columns = array ("id");
+					$columns = array ("login");
 					$whereDyn = array ("login" => array($_SESSION['login']), "password" => array($_SESSION['password']));
 					$operator = "AND";
-					$id = $crud->select($columns, $whereDyn, $operator);
-					$id = $id[0]['id'];
-
+					$groupBy = TRUE;
+					$login = $crud->select($columns, $whereDyn, $operator, $groupBy);
+					$login = $login[0]['login'];
 					//Vérifier que le membre n'a pas déjà un fichier portant ce titre.
 					$dbCoordinates = ["dbHost" => "localhost", "dbPort" => "", "dbName" => "gen_code_canvas", "dbCharset" => "utf8", "dbLogin" => "root", "dbPwd" => "", "table" => "dessins"];
 					$crud = new Crud($dbCoordinates);
-					$columns = array ("id");
-					$whereDyn = array ("id" => array($id), "titre" => array($titre));
+					$columns = array ("id_dessin");
+					$whereDyn = array ("nom_membre" => array($login), "titre" => array($titre));
 					$operator = "AND";
-					$drawAlreadyExist = $crud->select($columns, $whereDyn, $operator);
+					$groupBy = TRUE;
+					$drawAlreadyExist = $crud->select($columns, $whereDyn, $operator, $groupBy);
 					//enregistrement des infos dans la DB à la table 'dessins'.
 					if (empty($drawAlreadyExist))
 					{
 						$date = date("Y-m-d");
 						$dbCoordinates = ["dbHost" => "localhost", "dbPort" => "", "dbName" => "gen_code_canvas", "dbCharset" => "utf8", "dbLogin" => "root", "dbPwd" => "", "table" => "dessins"];
 						$crud = new Crud($dbCoordinates);
-						$columns = array ("id_membre" => array($id), "titre" => array($titre), "date" => array($date));
+						$columns = array ("nom_membre" => array($login), "titre" => array($titre), "date" => array($date));
 						$whereDyn = array();
 						$operator = "";
 						$crud->insert($columns, $whereDyn, $operator);
 						$db = $crud->db();
 						$lastIndex = $db->lastInsertId(); 
 						//creation du dossier s'il n'existe pas et du fichier.
-						$dossier = './assets/gallery/'.$id;
+						$dossier = './assets/gallery/'.$login;
 						if(!is_dir($dossier))
 						{
 						   mkdir($dossier);
 						}
 						$fileName = fopen($dossier.'/'.$lastIndex.'.canvas', 'w+');
+						//adapter l'id du canvas à l'id du dessin.
+						$filter = array("scene");
+						$code = str_replace($filter, "scene".$lastIndex, $code);
 						//fputs($fileName, $codeFilter);
 						fwrite($fileName, $code);
 						fclose($fileName);
@@ -652,7 +657,7 @@ class recordDraw
 					//demander confirmation d'écrasement.
 					else
 					{
-						
+						$_SESSION['smsAuth'] = "<p class='smsAlert'>Vous avez déjà un dessin portant ce titre!</p>";
 					}
 				}
 				else
@@ -668,6 +673,31 @@ class recordDraw
 		else
 		{
 			$_SESSION['smsAuth'] = "<p class='smsAlert'>Veuillez entrer un titre!</p>";
+		}
+	}
+}
+
+class gallery
+{
+	public static function displayInfo($idDessins)
+	{
+		if (!empty($idDessins))
+		{
+			//Chargement des informations liées aux dessin de la galerie.
+			$dessinsInfo = array();
+			$dbGalleryCoo = ["dbHost" => "localhost", "dbPort" => "", "dbName" => "gen_code_canvas", "dbCharset" => "utf8", "dbLogin" => "root", "dbPwd" => "", "table" => "dessins"];
+		    $crud = new Crud($dbGalleryCoo);
+		    $columns = array ("nom_membre", "titre", "date");
+		    $id_dessin = array();
+		    foreach ($idDessins as $key => $id)
+		    {
+				array_push($id_dessin, $id);
+		    }
+			$whereDyn = array("id_dessin" => $id_dessin);
+		    $operator = "OR";
+		    $groupBy = "";
+		    $dessinsInfo = $crud->select($columns, $whereDyn, $operator, $groupBy);
+		    return $dessinsInfo;
 		}
 	}
 }

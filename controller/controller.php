@@ -130,6 +130,7 @@ $crud = new Crud($dbCoordinates);
 $columns = array ("activateCode", "activate", "mail");
 $whereDyn = array ("login" => array($sessionLoginInfo['login']), "password" => array($sessionLoginInfo['password']));
 $operator = "AND";
+$groupBy = TRUE;
 //Verifier si ces valeurs correspondent à l'un des membres de la DB.
 $memberExist = $crud->select($columns, $whereDyn, $operator);
 //Passer la variable 'sessionAuthOk' en 'true' ou 'false' pour afficher les options de membres.
@@ -178,8 +179,40 @@ function auth()
 }
 function gallery()
 {
-	require('./view/galleryView.php');
-}
+    //repertorier les sous dossiers de la gallerie(id_membre)
+    $sousDossiers = array();
+    if($dossier = opendir('./assets/gallery'))
+    {
+       while(($sousDossier = readdir($dossier)))
+       {
+            if ($sousDossier != "." && $sousDossier != "..")
+            {
+                array_push($sousDossiers, $sousDossier);
+            }
+       }
+    }
+    //repertorier les fichiers des sous-dossiers de la gallerie(id_dessin)
+    $fichiersDessin = array();
+    $idDessins = array();
+    foreach ($sousDossiers as $sousDossier)
+    {
+        if($dossier = opendir('./assets/gallery/'.$sousDossier))
+        {
+           while(($fichierDessin = readdir($dossier)))
+           {
+                if ($fichierDessin != "." && $fichierDessin != "..")
+                {
+                    array_push($fichiersDessin, $sousDossier."/".$fichierDessin);
+
+                    $idDessin = str_replace(".canvas", "", $fichierDessin);
+                    array_push($idDessins, $idDessin);
+                }
+           }
+        }
+    }
+    $dessinsInfo = gallery::displayInfo($idDessins);
+    require('./view/galleryView.php');
+    }
 function galRecord()
 {
 	//formulaire pour l'enregistrement des nouveaux dessins.
