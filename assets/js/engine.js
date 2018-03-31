@@ -142,10 +142,22 @@ function detecterOutil()
 //enregistrer le code.
 
 let recordButton = document.getElementById('recordSubmit');
-let record = document.getElementById('record_code');
+let recordCode = document.getElementById('record_code');
+let recordPng = document.getElementById('record_png');
 recordButton.addEventListener('click', function(event)
+{
+    event.preventDefault();
+
+    let data = canvas.toDataURL("image/png");
+    recordPng.value = data;
+    recordCode.value = document.getElementById('code').innerHTML;
+    document.getElementById("galRecordForm").submit(); 
+});
+
+
+/*recordButton.addEventListener('click', function(event)
 {
     event.preventDefault();
     record.value = document.getElementById('code').innerHTML;
     document.getElementById("galRecordForm").submit(); 
-});
+});*/

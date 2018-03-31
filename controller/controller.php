@@ -162,6 +162,7 @@ function home()
 				<input type="hidden" name="id_dessin" id="id_dessin" value=''>
 		        <input type="hidden" name="titre_dessin" id="titre_dessin" value=''>
 		        <input type="hidden" name="record_code" id="record_code" value=''>
+                <input type="hidden" name="record_png" id="record_png" value=''>
 		  		<input class="button_unselect" type="submit" id="recordSubmit" value="record">
 		</form>
 		<?php
@@ -202,14 +203,17 @@ function gallery()
            {
                 if ($fichierDessin != "." && $fichierDessin != "..")
                 {
+                    $fichierDessin = str_replace(array(".canvas", ".png"), "", $fichierDessin);
                     array_push($fichiersDessin, $sousDossier."/".$fichierDessin);
-
-                    $idDessin = str_replace(".canvas", "", $fichierDessin);
-                    array_push($idDessins, $idDessin);
+                    array_push($idDessins, $fichierDessin);
                 }
            }
         }
     }
+    //retirer les doublons.
+    $fichiersDessin = array_unique($fichiersDessin);
+    //reindexer.
+    $fichiersDessin = array_values($fichiersDessin);
     $dessinsInfo = gallery::displayInfo($idDessins);
     require('./view/galleryView.php');
     }
@@ -217,9 +221,11 @@ function galRecord()
 {
 	//formulaire pour l'enregistrement des nouveaux dessins.
 	$code = recordDraw::filter($_POST['record_code']);
+    $png = $_POST['record_png'];
+
 	if (isset($_POST['newTitreDessin']))
 	{
-		recordDraw::newRecord($code, $_POST['newTitreDessin']);	
+		recordDraw::newRecord($code, $png, $_POST['newTitreDessin']);	
 	}
     require('./view/galRecordView.php');
 }

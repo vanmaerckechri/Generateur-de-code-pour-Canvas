@@ -607,7 +607,7 @@ class recordDraw
 			return $codeFilter;
 		}
 	}
-	public static function newRecord($code, $titre)
+	public static function newRecord($code, $png, $titre)
 	{
 		if (isset($titre) && !empty($titre))
 		{
@@ -652,13 +652,19 @@ class recordDraw
 						{
 						   mkdir($dossier);
 						}
-						$fileName = fopen($dossier.'/'.$lastIndex.'.canvas', 'w+');
+						$fileNameCode = fopen($dossier.'/'.$lastIndex.'.canvas', 'w+');
 						//adapter l'id du canvas à l'id du dessin.
 						$filter = array("scene");
 						$code = str_replace($filter, "scene".$lastIndex, $code);
 						//fputs($fileName, $codeFilter);
-						fwrite($fileName, $code);
-						fclose($fileName);
+						fwrite($fileNameCode, $code);
+						fclose($fileNameCode);
+//
+						$image = explode('base64,',$png);
+						$fileNamePng = fopen($dossier.'/'.$lastIndex.'.png', 'w+');
+						fwrite($fileNamePng,base64_decode($image[1]));
+						fclose($fileNamePng);
+//
 						$_SESSION['smsAuth'] = "<p class='sms'>Votre dessin a bien été enregistré.</p>";
 					}
 					//demander confirmation d'écrasement.

@@ -1,0 +1,21 @@
+
+<canvas id="scene37" width="700" height="700">
+</canvas>
+<script type="text/javascript">
+var canvas = document.getElementById("scene37");
+var ctx = canvas.getContext("2d");
+ctx.beginPath();
+ctx.arc( 229.5, 146.5, 51, 0, 6.283185307179586);
+ctx.lineWidth = 3;
+ctx.strokeStyle = "rgba( 1, 1, 1, 1)";
+ctx.stroke();
+ctx.fillStyle = "rgba( 255, 1, 1, 1)";
+ctx.fill();
+ctx.beginPath();
+ctx.arc( 409.5, 512, 163, 0, 6.283185307179586);
+ctx.lineWidth = 3;
+ctx.strokeStyle = "rgba( 1, 1, 1, 1)";
+ctx.stroke();
+ctx.fillStyle = "rgba( 255, 199, 1, 1)";
+ctx.fill();
+</script>
