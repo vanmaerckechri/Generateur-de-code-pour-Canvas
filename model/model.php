@@ -411,6 +411,13 @@ class Authentification
 					$result = $filter;
 				}
 			}
+			if ($type = "alnumspace")
+			{
+				if (preg_match('/^[a-z0-9 .\-]+$/i', $filter))
+				{
+					$result = $filter;
+				}
+			}
 			if ($type = "mail")
 			{
 				if (filter_var($filter, FILTER_VALIDATE_EMAIL))
@@ -605,7 +612,7 @@ class recordDraw
 		if (isset($titre) && !empty($titre))
 		{
 			$titre = htmlspecialchars($titre);
-			$titre = Authentification::filterInputs($titre, "alnum");
+			$titre = Authentification::filterInputs($titre, "alnumspace");
 			if ($titre != FALSE)
 			{
 				if (strlen($titre) > 7 && strlen($titre) < 64)
