@@ -3,6 +3,7 @@ require('./model/model.php');
 //CHARGEMENT DB!
 //require('humhum.php');
 $dbCoordinates = ["dbHost" => "localhost", "dbPort" => "", "dbName" => "gen_code_canvas", "dbCharset" => "utf8", "dbLogin" => "root", "dbPwd" => "", "table" => "members"];
+$dbGalleryCoo = ["dbHost" => "localhost", "dbPort" => "", "dbName" => "gen_code_canvas", "dbCharset" => "utf8", "dbLogin" => "root", "dbPwd" => "", "table" => "dessins"];
 $auth = new Authentification();
 //PASSWORD OUBLIE!
 	//envoi du mail et systeme pour que le lien ne fonctionne qu'une seule fois.
@@ -199,31 +200,26 @@ function gallery()
        }
     }
     $fichiersDessin = Gallery::displayDessins($tri);
-    /*
-    //repertorier les fichiers des sous-dossiers de la gallerie(id_dessin)
-    $fichiersDessin = array();
-    $idDessins = array();
-    foreach ($sousDossiers as $sousDossier)
+    //Pagination
+    if (isset($_GET['page']))
     {
-        if($dossier = opendir('./assets/gallery/'.$sousDossier))
-        {
-           while(($fichierDessin = readdir($dossier)))
-           {
-                if ($fichierDessin != "." && $fichierDessin != "..")
-                {
-                    $fichierDessin = str_replace(array(".canvas", ".png"), "", $fichierDessin);
-                    array_push($fichiersDessin, $sousDossier."/".$fichierDessin);
-                    array_push($idDessins, $fichierDessin);
-                }
-           }
-        }
+        $pagedemandee = Gallery::paginationOneByOne($_GET['page']);
+        Gallery::pagination($pagedemandee);
     }
-    //retirer les doublons.
-    $fichiersDessin = array_unique($fichiersDessin);
-    //reindexer.
-    $fichiersDessin = array_values($fichiersDessin);
-    $dessinsInfo = Gallery::displayInfo($idDessins);
-    */
+    else
+    {    
+        $pagedemandee = "";
+        if (isset($_POST['paginLeft']))
+        {
+            $pagedemandee = Gallery::paginationOneByOne('left');
+        }
+        if (isset($_POST['paginRight']))
+        {
+            $pagedemandee = Gallery::paginationOneByOne('right');
+        
+        }
+        Gallery::pagination($pagedemandee);
+    }
     require('./view/galleryView.php');
     }
 function galRecord()

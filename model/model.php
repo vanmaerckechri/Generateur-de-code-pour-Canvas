@@ -620,8 +620,7 @@ class RecordDraw
 				if (strlen($titre) > 7 && strlen($titre) < 64)
 				{
 					//récupère le nom de l'utilisateur.
-					$dbCoordinates = ["dbHost" => "localhost", "dbPort" => "", "dbName" => "gen_code_canvas", "dbCharset" => "utf8", "dbLogin" => "root", "dbPwd" => "", "table" => "members"];
-					$crud = new Crud($dbCoordinates);
+					$crud = new Crud($GLOBALS['dbCoordinates']);
 					$columns = array ("login");
 					$whereDyn = array ("login" => array($_SESSION['login']), "password" => array($_SESSION['password']));
 					$operator = "AND";
@@ -629,8 +628,7 @@ class RecordDraw
 					$login = $crud->select($columns, $whereDyn, $operator, $groupBy);
 					$login = $login[0]['login'];
 					//Vérifier que le membre n'a pas déjà un fichier portant ce titre.
-					$dbCoordinates = ["dbHost" => "localhost", "dbPort" => "", "dbName" => "gen_code_canvas", "dbCharset" => "utf8", "dbLogin" => "root", "dbPwd" => "", "table" => "dessins"];
-					$crud = new Crud($dbCoordinates);
+					$crud = new Crud($GLOBALS['dbGalleryCoo']);
 					$columns = array ("id_dessin");
 					$whereDyn = array ("nom_membre" => array($login), "titre" => array($titre));
 					$operator = "AND";
@@ -640,8 +638,7 @@ class RecordDraw
 					if (empty($drawAlreadyExist))
 					{
 						$date = date("Y-m-d");
-						$dbCoordinates = ["dbHost" => "localhost", "dbPort" => "", "dbName" => "gen_code_canvas", "dbCharset" => "utf8", "dbLogin" => "root", "dbPwd" => "", "table" => "dessins"];
-						$crud = new Crud($dbCoordinates);
+						$crud = new Crud($GLOBALS['dbGalleryCoo']);
 						$columns = array ("nom_membre" => array($login), "titre" => array($titre), "date" => array($date));
 						$whereDyn = array();
 						$operator = "";
@@ -697,8 +694,7 @@ class Gallery
 	public static function displayDessins($filterBy)
 	{
 		$dessinsInfo = array();
-		$dbGalleryCoo = ["dbHost" => "localhost", "dbPort" => "", "dbName" => "gen_code_canvas", "dbCharset" => "utf8", "dbLogin" => "root", "dbPwd" => "", "table" => "dessins"];
-		$crud = new Crud($dbGalleryCoo);
+		$crud = new Crud($GLOBALS['dbGalleryCoo']);
 		$columns = array ("*");
 		$whereDyn = array();
 		$operator = "";
@@ -710,29 +706,9 @@ class Gallery
 		{
 			$dessinsInfo[$key][0] = "./assets/gallery/".$value[1]."/".$value[0];
 		}
+		$_SESSION['dessinsLength'] = count($dessinsInfo);
 		return $dessinsInfo;
 	}
-	/*public static function displayInfo($idDessins)
-	{
-		if (!empty($idDessins))
-		{
-			//Chargement des informations liées aux dessin de la galerie.
-			$dessinsInfo = array();
-			$dbGalleryCoo = ["dbHost" => "localhost", "dbPort" => "", "dbName" => "gen_code_canvas", "dbCharset" => "utf8", "dbLogin" => "root", "dbPwd" => "", "table" => "dessins"];
-		    $crud = new Crud($dbGalleryCoo);
-		    $columns = array ("nom_membre", "titre", "date");
-		    $id_dessin = array();
-		    foreach ($idDessins as $key => $id)
-		    {
-				array_push($id_dessin, $id);
-		    }
-			$whereDyn = array("id_dessin" => $id_dessin);
-		    $operator = "OR";
-		    $groupBy = "";
-		    $dessinsInfo = $crud->select($columns, $whereDyn, $operator, $groupBy);
-		    return $dessinsInfo;
-		}
-	}*/
 	public static function filterDessinParPage($input)
 	{
 		$input = htmlspecialchars($input);
@@ -777,7 +753,65 @@ class Gallery
 		$columnName = $input == "auteur" ? "nom_membre" : $columnName;
 		$GLOBALS['trierParSelect'][2] = $input == "nom" ? "selected" : "";
 		$columnName = $input == "nom" ? "titre" : $columnName;
-
 		return $columnName;
+	}
+	public static function paginationOneByOne($direction)
+	{
+		//nettoyage input.
+		$direction = htmlspecialchars($direction);
+		$direction = Authentification::filterInputs($direction, 'alnum');
+		//page suivant ou precendente.
+		$_SESSION['pageActu'] = !isset($_SESSION['pageActu']) ? 1 : $_SESSION['pageActu'];
+		if ($direction == 'left')
+		{
+			$pageDemandee = $_SESSION['pageActu'] - 1;
+		}
+		elseif ($direction == 'right')
+		{
+			$pageDemandee = $_SESSION['pageActu'] + 1;
+		}
+		else
+		{
+			$direction = intval($direction);
+		}
+		if (is_int($direction))
+		{
+			$pageDemandee = $direction;
+		}
+		return $pageDemandee;
+	}
+	public static function pagination($pageDemandee)
+	{
+		echo $pageDemandee;
+		//nombre de pages.
+		$_SESSION['pagesLength'] = $_SESSION['dessinsLength'] / $_SESSION['dessinsParPageMax'];
+		if (!is_int($_SESSION['pagesLength']))
+		{
+
+			$_SESSION['pagesLength'] = ceil($_SESSION['pagesLength']);
+		}
+		//nombre de dessins sur la dernière page.
+		$_SESSION['dessinsLastPage'] = $_SESSION['dessinsLength'] % $_SESSION['dessinsParPageMax'];
+		//page actuelle.
+		if (isset($pageDemandee) && is_int($pageDemandee))
+		{
+			if($pageDemandee <= 0)
+			{
+				$_SESSION['pageActu'] = $_SESSION['pagesLength'];
+			}
+			if($pageDemandee > $_SESSION['pagesLength'])
+			{
+				$_SESSION['pageActu'] = 1;
+			}
+			if($pageDemandee >= 1 && $pageDemandee <= $_SESSION['pagesLength'])
+			{
+				$_SESSION['pageActu'] = $pageDemandee;
+			}
+		}
+		else
+		{
+			$_SESSION['pageActu'] = "1";
+		}
+		echo $_SESSION['pageActu'];
 	}
 }

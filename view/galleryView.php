@@ -23,19 +23,33 @@
 			   	</p>
 			</form>
 		</div>
+		<div class="pagination">
+			<form method="post" id="paginLeft" action="index.php?action=gallery">
+				<input type="submit" name="paginLeft" id="paginLeft" value="<<">
+			</form>
+			<?php
+				for($i = 0; $i < $_SESSION['pagesLength']; $i++) 
+				{
+					$page = $i + 1;
+					?>
+					<a href="index.php?action=gallery&page=<?=$page?>"><?=$page?></a>
+					<?php
+				}
+			?>
+			<form method="post" id="paginRight" action="index.php?action=gallery">
+				<input type="submit" name="paginRight" id="paginRight" value=">>">
+			</form>
+
+		</div>
 		<div class="dessins">
 		    <?php foreach ($fichiersDessin as $key => $value)
 		    {
 		    ?>
 			<div class="dessin">
 			    <?php
+
 			    	$contenu = $fichiersDessin[$key][0].'.png';
 			    	echo '<img src="'.$contenu.'">';
-			    	/*
-			    	$contenu = file_get_contents('./assets/gallery/'.$value.'.canvas');
-					$contenu = htmlspecialchars($contenu);
-					$contenu = str_replace("\n",'<br>', $contenu);
-					echo $contenu;*/
 				?>
 				<div class="dessinInfo">
 			    	<p class="dessinTitre"><?=$fichiersDessin[$key][2]?></p>
