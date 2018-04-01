@@ -267,7 +267,6 @@ class Crud
 			$prepareDyn .= $typeReq == "INSERT INTO" ?  ") " : "";
 			$prepareDyn .= $typeReq == "SELECT" && $groupBy == TRUE ? " GROUP BY ".$forSelectGroupBy : "";
 			$prepareDyn .= $typeReq == "SELECT" && $order != "" ? " ORDER BY ".$order : "";
-			echo $prepareDyn;
 			$req = $this->_db->prepare($prepareDyn);
 			$this->execute($columns, $where, $typeReq, $req);
 			return $req;
@@ -773,7 +772,7 @@ class Gallery
 		$columnName = "";
 		$GLOBALS['trierParSelect'] = array();
 		$GLOBALS['trierParSelect'][0] = $input == "date" ? "selected" : "";
-		$columnName = $input == "date" ? $input : $columnName;
+		$columnName = $input == "date" ? "date DESC" : $columnName;
 		$GLOBALS['trierParSelect'][1] = $input == "auteur" ? "selected" : "";
 		$columnName = $input == "auteur" ? "nom_membre" : $columnName;
 		$GLOBALS['trierParSelect'][2] = $input == "nom" ? "selected" : "";
