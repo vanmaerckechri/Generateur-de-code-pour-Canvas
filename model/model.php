@@ -16,7 +16,8 @@
 		$whereDyn = array ("id" => array(220, 222));
 		$operator = "AND";
 		$groupBy = TRUE;
-		$members = $test->select($columns, $whereDyn, $operator);*/
+		$order = "date";
+		$members = $test->select($columns, $whereDyn, $operator, $groupBy, $order);*/
 
 	//exemple de requete INSERT.
 		/*$columns = array ("login" => array("name1", "name2"), "password" => array("pwd1", "pwd2", "pw3"), "mail" => array("mail1", "mail2"));
@@ -202,7 +203,7 @@ class Crud
 		}
 	}
 
-	private function prepare($columns, $where, $typeReq, $operator, $groupBy = "")
+	private function prepare($columns, $where, $typeReq, $operator, $groupBy = "", $order = "")
 	{
 		if (isset($columns) && is_array($columns) && isset($where) && is_array($where) && isset($typeReq))
 		{
@@ -233,7 +234,7 @@ class Crud
 			$prepareDyn .= $typeReq == "SELECT" || $typeReq == "DELETE" ? "FROM " : "";
 			$prepareDyn .= $typeReq == "SELECT" || $typeReq == "DELETE" ?  $this->_table : "";
 			//Préparation aux conditions et aux binds en fonction de la requête demandée.
-			$prepareDyn .= $typeReq != "INSERT INTO" ? " WHERE ": "";
+			$prepareDyn .= $typeReq != "INSERT INTO" && $where != array() ? " WHERE ": "";
 			$prepareDyn .= $typeReq == "INSERT INTO" ? "VALUES ( " : "";
 			//Conditions pour les requêtes 'select', 'update' et 'delete'.
 			if ($typeReq == "SELECT" || $typeReq == "UPDATE" || $typeReq == "DELETE")
@@ -265,17 +266,19 @@ class Crud
 			}
 			$prepareDyn .= $typeReq == "INSERT INTO" ?  ") " : "";
 			$prepareDyn .= $typeReq == "SELECT" && $groupBy == TRUE ? " GROUP BY ".$forSelectGroupBy : "";
+			$prepareDyn .= $typeReq == "SELECT" && $order != "" ? " ORDER BY ".$order : "";
+			echo $prepareDyn;
 			$req = $this->_db->prepare($prepareDyn);
 			$this->execute($columns, $where, $typeReq, $req);
 			return $req;
 		}
 	}
 
-	public function select($columns, $whereDyn, $operator, $groupBy = "")
+	public function select($columns, $whereDyn, $operator, $groupBy = "", $order = "")
 	{
 		if (isset($columns) && isset($whereDyn) && isset($operator) && isset($groupBy))
 		{
-			$req = $this->prepare($columns, $whereDyn, 'SELECT', $operator, $groupBy);
+			$req = $this->prepare($columns, $whereDyn, 'SELECT', $operator, $groupBy, $order);
 		   	$members = $req->fetchAll();
 		   	$req->closeCursor();
 		    $req = NULL;
@@ -692,6 +695,19 @@ class RecordDraw
 
 class Gallery
 {
+	public static function displayDessins($filterBy)
+	{
+		$dessinsInfo = array();
+		$dbGalleryCoo = ["dbHost" => "localhost", "dbPort" => "", "dbName" => "gen_code_canvas", "dbCharset" => "utf8", "dbLogin" => "root", "dbPwd" => "", "table" => "dessins"];
+		$crud = new Crud($dbGalleryCoo);
+		$columns = array ("*");
+		$whereDyn = array();
+		$operator = "";
+		$order = $filterBy;
+		$groupBy = "";
+		$dessinsInfo = $crud->select($columns, $whereDyn, $operator, $groupBy, $order);
+		var_dump($dessinsInfo);
+	}
 	public static function displayInfo($idDessins)
 	{
 		if (!empty($idDessins))

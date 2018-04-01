@@ -198,6 +198,8 @@ function gallery()
             }
        }
     }
+    Gallery::displayDessins("titre");
+    /*
     //repertorier les fichiers des sous-dossiers de la gallerie(id_dessin)
     $fichiersDessin = array();
     $idDessins = array();
@@ -221,6 +223,7 @@ function gallery()
     //reindexer.
     $fichiersDessin = array_values($fichiersDessin);
     $dessinsInfo = Gallery::displayInfo($idDessins);
+    */
     require('./view/galleryView.php');
     }
 function galRecord()
