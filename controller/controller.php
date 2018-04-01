@@ -182,10 +182,12 @@ function auth()
 function gallery()
 {
     //filtrer le nombre de dessins par page.
-    $_POST['parPage'] = isset($_POST['parPage']) ? $_POST['parPage'] : 10; 
+    $_SESSION['dessinsParPageMax'] = isset($_SESSION['dessinsParPageMax']) ? $_SESSION['dessinsParPageMax'] : 10;
+    $_POST['parPage'] = isset($_POST['parPage']) ? $_POST['parPage'] : $_SESSION['dessinsParPageMax']; 
     Gallery::filterDessinParPage($_POST['parPage']);
     //filtrer pages par catégories.
-    $_POST['trierPar'] = isset($_POST['trierPar']) ? $_POST['trierPar'] : "date"; 
+    $_SESSION['trierParSelect'] = isset($_SESSION['trierParSelect']) ? $_SESSION['trierParSelect'] : "date";
+    $_POST['trierPar'] = isset($_POST['trierPar']) ? $_POST['trierPar'] : $_SESSION['trierParSelect'];
     $tri = Gallery::filterDessinParCat($_POST['trierPar']);
     //repertorier les sous dossiers de la gallerie(id_membre)
     $sousDossiers = array();

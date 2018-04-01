@@ -43,8 +43,7 @@
 		</div>
 		<div class="dessins">
 		    <?php
-				$dernierDessinPage = $_SESSION['premierDessinPage'] + $_SESSION['dessinsParPageMax'];
-				for ($i = $_SESSION['premierDessinPage']; $i < $dernierDessinPage; $i++)
+				for ($i = $_SESSION['premierDessinPage']; $i < $_SESSION['dernierDessinPage']; $i++)
 				{
 		    ?>
 			<div class="dessin">
