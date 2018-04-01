@@ -85,7 +85,8 @@ header {
   display: flex;
   justify-content: space-between; }
   header h1 {
-    flex: 3; }
+    flex: 3;
+    font-size: 1.3rem; }
   header .connect {
     flex: 1;
     display: flex;
@@ -93,7 +94,8 @@ header {
     align-items: center; }
 
 #main h2 {
-  margin: 2rem 0; }
+  margin: 2rem 0;
+  font-size: 1.2rem; }
 #main form {
   display: flex;
   flex-direction: column;
@@ -104,6 +106,39 @@ header {
     margin-top: 1rem; }
   #main form .submit {
     padding: .2rem .5rem; }
+#main .dessins {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; }
+  #main .dessins .dessin {
+    max-width: 300px;
+    height: auto; }
+    #main .dessins .dessin img {
+      max-width: 300px;
+      height: auto;
+      background-color: white; }
+    #main .dessins .dessin .dessinInfo {
+      border-top: 1px solid black;
+      border-left: 1px solid black;
+      border-right: 1px solid black;
+      padding: 0.5rem .5rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      align-items: baseline;
+      background-color: pink; }
+      #main .dessins .dessin .dessinInfo .dessinTitre {
+        width: 100%;
+        text-transform: uppercase;
+        text-align: left; }
+      #main .dessins .dessin .dessinInfo .dessinAuteur {
+        font-size: .8rem; }
+        #main .dessins .dessin .dessinInfo .dessinAuteur:first-letter {
+          text-transform: uppercase; }
+      #main .dessins .dessin .dessinInfo .dessinDate {
+        font-size: .8rem;
+        font-style: italic; }
 
 #interface {
   width: 100%; }

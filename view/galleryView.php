@@ -1,20 +1,54 @@
 <?php $title = 'Générateur de Canvas - Galerie'; ?>
 
 <?php ob_start(); ?>
-    <h2>Galerie</h2>
-    <?php foreach ($fichiersDessin as $key => $value)
-    {
-    	echo "<p>".$dessinsInfo[$key][0]."</p>";
-    	echo "<p>".$dessinsInfo[$key][1]."</p>";
-    	echo "<p>".$dessinsInfo[$key][2]."</p>";
-    	$contenu = './assets/gallery/'.$value.'.png';
-    	echo '<img src="'.$contenu.'" style="border: 1px solid black">';
-
-    	$contenu = file_get_contents('./assets/gallery/'.$value.'.canvas');
-		$contenu = htmlspecialchars($contenu);
-		$contenu = str_replace("\n",'<br>', $contenu);
-		echo $contenu;
-    }
+    <div id="main">
+    	<h2>Galerie</h2>
+	    <div class="filtres">
+	    	<form method="post" action="traitement.php">
+			   	<p>
+			       	<label for="parPage">Nombre de dessins par page:</label>
+			       	<select name="parPage" id="parPage">
+			           	<option value="10">10</option>
+			           	<option value="20">20</option>
+			           	<option value="30">30</option>
+			           	<option value="40">40</option>
+			           	<option value="50">50</option>
+			       	</select>
+			       	<label for="trierPar">Trier par:</label>
+			       	<select name="trierPar" id="trierPar">
+			       		<option value="date">date</option>
+			           	<option value="auteur">auteur</option>
+			           	<option value="nom">nom</option>
+			       	</select>
+			   	</p>
+			</form>
+		</div>
+		<div class="dessins">
+		    <?php foreach ($fichiersDessin as $key => $value)
+		    {
+		    ?>
+			<div class="dessin">
+			    <div class="dessinInfo">
+			    	<p class="dessinTitre"><?=$dessinsInfo[$key][1]?></p>
+			    	<p class="dessinAuteur"><?=$dessinsInfo[$key][0]?></p>
+			    	<p class="dessinDate"><?=$dessinsInfo[$key][2]?></p>
+			    </div>
+			    <?php
+			    	$contenu = './assets/gallery/'.$value.'.png';
+			    	echo '<img src="'.$contenu.'" style="border: 1px solid black">';
+			    	/*
+			    	$contenu = file_get_contents('./assets/gallery/'.$value.'.canvas');
+					$contenu = htmlspecialchars($contenu);
+					$contenu = str_replace("\n",'<br>', $contenu);
+					echo $contenu;*/
+				?>
+				</div>
+				<?php
+			    }
+		    ?>
+		</div>
+	</div>
+	<?php
 $content = ob_get_clean();
 require('./view/template.php');
 ?>

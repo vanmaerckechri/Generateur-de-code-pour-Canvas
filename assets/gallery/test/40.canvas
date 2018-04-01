@@ -1,0 +1,36 @@
+
+<canvas id="scene40" width="700" height="700">
+</canvas>
+<script type="text/javascript">
+var canvas = document.getElementById("scene40");
+var ctx = canvas.getContext("2d");
+ctx.beginPath();
+ctx.arc( 204, 147, 103, 0, 6.283185307179586);
+ctx.lineWidth = 3;
+ctx.strokeStyle = "rgba( 1, 1, 1, 1)";
+ctx.stroke();
+ctx.fillStyle = "rgba( 255, 1, 1, 1)";
+ctx.fill();
+ctx.beginPath();
+ctx.arc( 384, 180.5, 156, 0, 6.283185307179586);
+ctx.lineWidth = 3;
+ctx.strokeStyle = "rgba( 1, 1, 1, 1)";
+ctx.stroke();
+ctx.fillStyle = "rgba( 255, 247, 1, 0.2)";
+ctx.fill();
+ctx.beginPath();
+ctx.arc( 338.5, 330, 199, 0, 6.283185307179586);
+ctx.fillStyle = "rgba( 255, 88, 184, 0.3)";
+ctx.fill();
+ctx.beginPath();
+ctx.arc( 517, 177, 157, 0, 6.283185307179586);
+ctx.lineWidth = 3;
+ctx.strokeStyle = "rgba( 1, 223, 1, 0.5)";
+ctx.stroke();
+ctx.fillStyle = "rgba( 49, 88, 184, 0.3)";
+ctx.fill();
+ctx.beginPath();
+ctx.arc( 429, 400, 195, 0, 6.283185307179586);
+ctx.fillStyle = "rgba( 49, 88, 184, 0.3)";
+ctx.fill();
+</script>
