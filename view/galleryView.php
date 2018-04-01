@@ -28,11 +28,6 @@
 		    {
 		    ?>
 			<div class="dessin">
-			    <div class="dessinInfo">
-			    	<p class="dessinTitre"><?=$dessinsInfo[$key][1]?></p>
-			    	<p class="dessinAuteur"><?=$dessinsInfo[$key][0]?></p>
-			    	<p class="dessinDate"><?=$dessinsInfo[$key][2]?></p>
-			    </div>
 			    <?php
 			    	$contenu = './assets/gallery/'.$value.'.png';
 			    	echo '<img src="'.$contenu.'" style="border: 1px solid black">';
@@ -42,6 +37,11 @@
 					$contenu = str_replace("\n",'<br>', $contenu);
 					echo $contenu;*/
 				?>
+				<div class="dessinInfo">
+			    	<p class="dessinTitre"><?=$dessinsInfo[$key][1]?></p>
+			    	<p class="dessinAuteur"><?=$dessinsInfo[$key][0]?></p>
+			    	<p class="dessinDate"><?=$dessinsInfo[$key][2]?></p>
+			    </div>
 				</div>
 				<?php
 			    }
