@@ -25,19 +25,21 @@
 		</div>
 		<div class="pagination">
 			<form method="post" id="paginLeft" action="index.php?action=gallery">
-				<input type="submit" name="paginLeft" id="paginLeft" value="<<">
+				<input type="submit" name="paginLeft" id="paginLeft" value="<">
 			</form>
 			<?php
 				for($i = 0; $i < $_SESSION['pagesLength']; $i++) 
 				{
 					$page = $i + 1;
+					$class = 'paginationChiffre';
+					$class = $page == $_SESSION['pageActu'] ? 'paginationChiffreActu' : $class;
 					?>
-					<a href="index.php?action=gallery&page=<?=$page?>"><?=$page?></a>
+					<a href="index.php?action=gallery&page=<?=$page?>" class="<?=$class?>"><?=$page?></a>
 					<?php
 				}
 			?>
 			<form method="post" id="paginRight" action="index.php?action=gallery">
-				<input type="submit" name="paginRight" id="paginRight" value=">>">
+				<input type="submit" name="paginRight" id="paginRight" value=">">
 			</form>
 
 		</div>
