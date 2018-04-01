@@ -738,4 +738,21 @@ class Gallery
 			}
 		}
 	}
+	public static function filterDessinParCat($input)
+	{
+		$input = htmlspecialchars($input);
+		if ($input == "date" || $input == "auteur" || $input == "nom")
+		{
+			$_SESSION['trierParSelect'] = $input;
+		}
+		else
+		{
+			$_SESSION['trierParSelect'] = "date";
+		}
+		$GLOBALS['trierParSelect'] = array();
+		$GLOBALS['trierParSelect'][0] = $input == "date" ? "selected" : "";
+		$GLOBALS['trierParSelect'][1] = $input == "auteur" ? "selected" : "";
+		$GLOBALS['trierParSelect'][2] = $input == "nom" ? "selected" : "";
+		echo $input;
+	}
 }

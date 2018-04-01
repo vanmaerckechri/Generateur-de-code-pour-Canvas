@@ -183,6 +183,9 @@ function gallery()
     //filtrer le nombre de dessins par page.
     $_POST['parPage'] = isset($_POST['parPage']) ? $_POST['parPage'] : 10; 
     Gallery::filterDessinParPage($_POST['parPage']);
+    //filtrer pages par catégories.
+    $_POST['trierPar'] = isset($_POST['trierPar']) ? $_POST['trierPar'] : "date"; 
+    Gallery::filterDessinParCat($_POST['trierPar']);
     //repertorier les sous dossiers de la gallerie(id_membre)
     $sousDossiers = array();
     if($dossier = opendir('./assets/gallery'))
