@@ -131,27 +131,34 @@ header {
       display: flex;
       flex-wrap: wrap;
       justify-content: flex-end;
-      align-items: baseline; }
+      align-items: baseline;
+      color: white;
+      text-shadow: black 1px 1px, black -1px 1px, black -1px -1px, black 1px -1px; }
       #main .dessins .dessin .dessinInfo .dessinTitre {
         border-top-right-radius: 1rem;
-        padding: 0.5rem .5rem;
+        padding: .5rem 1rem;
         width: 100%;
         text-transform: uppercase;
         text-align: left;
-        color: white;
-        text-shadow: black 1px 1px, black -1px 1px, black -1px -1px, black 1px -1px;
         background-color: rgba(75, 100, 100, 0.8); }
       #main .dessins .dessin .dessinInfo .dessinAuteur {
-        padding: 0 0 .5rem 0;
+        border-bottom-left-radius: 1rem;
+        padding: .5rem 1rem;
+        flex: 1;
+        align-self: flex-end;
         font-size: .8rem;
-        align-self: flex-end; }
+        text-align: left;
+        background-color: rgba(75, 100, 100, 0.8); }
         #main .dessins .dessin .dessinInfo .dessinAuteur:first-letter {
           text-transform: uppercase; }
       #main .dessins .dessin .dessinInfo .dessinDate {
-        padding: 0 .5rem .5rem 0;
+        padding: .5rem 1rem;
+        flex: 1;
+        align-self: flex-end;
         font-size: .8rem;
         font-style: italic;
-        align-self: flex-end; }
+        text-align: right;
+        background-color: rgba(75, 100, 100, 0.8); }
 
 #interface {
   width: 100%; }

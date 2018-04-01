@@ -30,7 +30,7 @@
 			<div class="dessin">
 			    <?php
 			    	$contenu = './assets/gallery/'.$value.'.png';
-			    	echo '<img src="'.$contenu.'" style="border: 1px solid black">';
+			    	echo '<img src="'.$contenu.'">';
 			    	/*
 			    	$contenu = file_get_contents('./assets/gallery/'.$value.'.canvas');
 					$contenu = htmlspecialchars($contenu);
