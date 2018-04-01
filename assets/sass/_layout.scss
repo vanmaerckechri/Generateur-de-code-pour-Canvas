@@ -50,10 +50,24 @@ header
 		justify-content: space-between;
 		.dessin
 		{
+			border-top-right-radius: 1rem;
+			border-bottom-left-radius: 1rem;
 			margin-bottom: 1rem;
 			position: relative;
-			max-width: 300px;
+			max-width: 100%;
 			height: auto;
+			transition: all .4s;
+			&:hover
+			{
+				border: 1px solid white;
+				transform: scale(1.2);
+				box-shadow: 8px 12px 4px rgba(33, 33, 36, .3);
+				z-index: 100;
+				img
+				{
+					opacity: 1;
+				}
+			}
 			img
 			{
 				border-top-right-radius: 1rem;
@@ -61,6 +75,8 @@ header
 				max-width: 300px;
 				height: auto;
 				background-color: white;
+				opacity: .8;
+				transition: all .5s;
 			}
 			.dessinInfo
 			{
