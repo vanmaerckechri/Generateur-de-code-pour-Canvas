@@ -42,19 +42,20 @@
 
 		</div>
 		<div class="dessins">
-		    <?php foreach ($fichiersDessin as $key => $value)
-		    {
+		    <?php
+				$dernierDessinPage = $_SESSION['premierDessinPage'] + $_SESSION['dessinsParPageMax'];
+				for ($i = $_SESSION['premierDessinPage']; $i < $dernierDessinPage; $i++)
+				{
 		    ?>
 			<div class="dessin">
 			    <?php
-
-			    	$contenu = $fichiersDessin[$key][0].'.png';
-			    	echo '<img src="'.$contenu.'">';
+				$contenu = $fichiersDessin[$i][0].'.png';
+			    echo '<img src="'.$contenu.'">';
 				?>
 				<div class="dessinInfo">
-			    	<p class="dessinTitre"><?=$fichiersDessin[$key][2]?></p>
-			    	<p class="dessinAuteur"><?=$fichiersDessin[$key][1]?></p>
-			    	<p class="dessinDate"><?=$fichiersDessin[$key][3]?></p>
+			    	<p class="dessinTitre"><?=$fichiersDessin[$i][2]?></p>
+			    	<p class="dessinAuteur"><?=$fichiersDessin[$i][1]?></p>
+			    	<p class="dessinDate"><?=$fichiersDessin[$i][3]?></p>
 			    </div>
 				</div>
 				<?php

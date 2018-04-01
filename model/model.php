@@ -782,7 +782,6 @@ class Gallery
 	}
 	public static function pagination($pageDemandee)
 	{
-		echo $pageDemandee;
 		//nombre de pages.
 		$_SESSION['pagesLength'] = $_SESSION['dessinsLength'] / $_SESSION['dessinsParPageMax'];
 		if (!is_int($_SESSION['pagesLength']))
@@ -791,7 +790,7 @@ class Gallery
 			$_SESSION['pagesLength'] = ceil($_SESSION['pagesLength']);
 		}
 		//nombre de dessins sur la dernière page.
-		$_SESSION['dessinsLastPage'] = $_SESSION['dessinsLength'] % $_SESSION['dessinsParPageMax'];
+		$dessinsLastPage = $_SESSION['dessinsLength'] % $_SESSION['dessinsParPageMax'];
 		//page actuelle.
 		if (isset($pageDemandee) && is_int($pageDemandee))
 		{
@@ -812,6 +811,13 @@ class Gallery
 		{
 			$_SESSION['pageActu'] = "1";
 		}
-		echo $_SESSION['pageActu'];
+		//premier dessin à charger.
+		$_SESSION['premierDessinPage'] = ($_SESSION['pageActu'] - 1) * $_SESSION['dessinsParPageMax'];
+		echo $_SESSION['premierDessinPage'];
+		//si on se trouve sur la dernière page.
+		if ($_SESSION['pageActu'] == $_SESSION['pagesLength'] && $dessinsLastPage != 0)
+		{
+			$_SESSION['dessinsParPageMax'] = $dessinsLastPage;
+		}
 	}
 }
