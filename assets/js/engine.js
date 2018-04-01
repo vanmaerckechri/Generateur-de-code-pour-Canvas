@@ -154,7 +154,6 @@ recordButton.addEventListener('click', function(event)
     document.getElementById("galRecordForm").submit(); 
 });
 
-
 /*recordButton.addEventListener('click', function(event)
 {
     event.preventDefault();

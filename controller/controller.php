@@ -180,6 +180,9 @@ function auth()
 }
 function gallery()
 {
+    //filtrer le nombre de dessins par page.
+    $_POST['parPage'] = isset($_POST['parPage']) ? $_POST['parPage'] : 10; 
+    Gallery::filterDessinParPage($_POST['parPage']);
     //repertorier les sous dossiers de la gallerie(id_membre)
     $sousDossiers = array();
     if($dossier = opendir('./assets/gallery'))
@@ -214,18 +217,18 @@ function gallery()
     $fichiersDessin = array_unique($fichiersDessin);
     //reindexer.
     $fichiersDessin = array_values($fichiersDessin);
-    $dessinsInfo = gallery::displayInfo($idDessins);
+    $dessinsInfo = Gallery::displayInfo($idDessins);
     require('./view/galleryView.php');
     }
 function galRecord()
 {
 	//formulaire pour l'enregistrement des nouveaux dessins.
-	$code = recordDraw::filter($_POST['record_code']);
+	$code = RecordDraw::filter($_POST['record_code']);
     $png = $_POST['record_png'];
 
 	if (isset($_POST['newTitreDessin']))
 	{
-		recordDraw::newRecord($code, $png, $_POST['newTitreDessin']);	
+		RecordDraw::newRecord($code, $png, $_POST['newTitreDessin']);	
 	}
     require('./view/galRecordView.php');
 }

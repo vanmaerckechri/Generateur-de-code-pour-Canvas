@@ -592,7 +592,7 @@ class SendMail
 	}
 }
 
-class recordDraw
+class RecordDraw
 {
 	public static function filter($code)
 	{
@@ -690,7 +690,7 @@ class recordDraw
 	}
 }
 
-class gallery
+class Gallery
 {
 	public static function displayInfo($idDessins)
 	{
@@ -711,6 +711,31 @@ class gallery
 		    $groupBy = "";
 		    $dessinsInfo = $crud->select($columns, $whereDyn, $operator, $groupBy);
 		    return $dessinsInfo;
+		}
+	}
+	public static function filterDessinParPage($input)
+	{
+		$input = htmlspecialchars($input);
+		$input = (int)$input;
+		if ($input >= 10 && $input <= 50)
+		{
+			$_SESSION['dessinsParPageMax'] = $input;
+		}
+		else
+		{
+			$_SESSION['dessinsParPageMax'] = 10;
+		}
+		$GLOBALS['parPageSelected'] = array();
+		for ($i = 0; $i < 5; $i++)
+		{
+			if ( ($i+1)*10 == $_SESSION['dessinsParPageMax'])
+			{
+				$GLOBALS['parPageSelected'][$i] = "selected";
+			}
+			else
+			{
+				$GLOBALS['parPageSelected'][$i] = "";
+			}
 		}
 	}
 }

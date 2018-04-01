@@ -4,15 +4,15 @@
     <div id="main">
     	<h2>Galerie</h2>
 	    <div class="filtres">
-	    	<form method="post" action="traitement.php">
+	    	<form method="post" id="formFilter" action="index.php?action=gallery">
 			   	<p>
 			       	<label for="parPage">Nombre de dessins par page:</label>
 			       	<select name="parPage" id="parPage">
-			           	<option value="10">10</option>
-			           	<option value="20">20</option>
-			           	<option value="30">30</option>
-			           	<option value="40">40</option>
-			           	<option value="50">50</option>
+			           	<option value="10"<?=$GLOBALS['parPageSelected'][0]?>>10</option>
+			           	<option value="20"<?=$GLOBALS['parPageSelected'][1]?>>20</option>
+			           	<option value="30"<?=$GLOBALS['parPageSelected'][2]?>>30</option>
+			           	<option value="40"<?=$GLOBALS['parPageSelected'][3]?>>40</option>
+			           	<option value="50"<?=$GLOBALS['parPageSelected'][4]?>>50</option>
 			       	</select>
 			       	<label for="trierPar">Trier par:</label>
 			       	<select name="trierPar" id="trierPar">
@@ -48,6 +48,7 @@
 		    ?>
 		</div>
 	</div>
+	<script src="assets/js/gallery.js"></script>
 	<?php
 $content = ob_get_clean();
 require('./view/template.php');
