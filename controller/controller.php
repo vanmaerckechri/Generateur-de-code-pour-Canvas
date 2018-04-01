@@ -185,7 +185,7 @@ function gallery()
     Gallery::filterDessinParPage($_POST['parPage']);
     //filtrer pages par catégories.
     $_POST['trierPar'] = isset($_POST['trierPar']) ? $_POST['trierPar'] : "date"; 
-    Gallery::filterDessinParCat($_POST['trierPar']);
+    $tri = Gallery::filterDessinParCat($_POST['trierPar']);
     //repertorier les sous dossiers de la gallerie(id_membre)
     $sousDossiers = array();
     if($dossier = opendir('./assets/gallery'))
@@ -198,7 +198,7 @@ function gallery()
             }
        }
     }
-    Gallery::displayDessins("titre");
+    $fichiersDessin = Gallery::displayDessins($tri);
     /*
     //repertorier les fichiers des sous-dossiers de la gallerie(id_dessin)
     $fichiersDessin = array();

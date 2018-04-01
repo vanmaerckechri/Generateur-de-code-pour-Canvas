@@ -703,12 +703,17 @@ class Gallery
 		$columns = array ("*");
 		$whereDyn = array();
 		$operator = "";
-		$order = $filterBy;
 		$groupBy = "";
+		$order = $filterBy;
 		$dessinsInfo = $crud->select($columns, $whereDyn, $operator, $groupBy, $order);
-		var_dump($dessinsInfo);
+		$fichiersDessin = array();
+		foreach ($dessinsInfo as $key => $value) 
+		{
+			$dessinsInfo[$key][0] = "./assets/gallery/".$value[1]."/".$value[0];
+		}
+		return $dessinsInfo;
 	}
-	public static function displayInfo($idDessins)
+	/*public static function displayInfo($idDessins)
 	{
 		if (!empty($idDessins))
 		{
@@ -728,7 +733,7 @@ class Gallery
 		    $dessinsInfo = $crud->select($columns, $whereDyn, $operator, $groupBy);
 		    return $dessinsInfo;
 		}
-	}
+	}*/
 	public static function filterDessinParPage($input)
 	{
 		$input = htmlspecialchars($input);
@@ -765,10 +770,15 @@ class Gallery
 		{
 			$_SESSION['trierParSelect'] = "date";
 		}
+		$columnName = "";
 		$GLOBALS['trierParSelect'] = array();
 		$GLOBALS['trierParSelect'][0] = $input == "date" ? "selected" : "";
+		$columnName = $input == "date" ? $input : $columnName;
 		$GLOBALS['trierParSelect'][1] = $input == "auteur" ? "selected" : "";
+		$columnName = $input == "auteur" ? "nom_membre" : $columnName;
 		$GLOBALS['trierParSelect'][2] = $input == "nom" ? "selected" : "";
-		echo $input;
+		$columnName = $input == "nom" ? "titre" : $columnName;
+
+		return $columnName;
 	}
 }

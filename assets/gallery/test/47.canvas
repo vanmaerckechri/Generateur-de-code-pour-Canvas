@@ -1,0 +1,12 @@
+
+<canvas id="scene47" width="700" height="700">
+</canvas>
+<script type="text/javascript">
+var canvas = document.getElementById("scene47");
+var ctx = canvas.getContext("2d");
+ctx.beginPath();
+ctx.arc( 313, 223.5, 162, 0, 6.283185307179586);
+ctx.lineWidth = 3;
+ctx.strokeStyle = "rgba( 1, 1, 1, 1)";
+ctx.stroke();
+</script>

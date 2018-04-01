@@ -29,7 +29,7 @@
 		    ?>
 			<div class="dessin">
 			    <?php
-			    	$contenu = './assets/gallery/'.$value.'.png';
+			    	$contenu = $fichiersDessin[$key][0].'.png';
 			    	echo '<img src="'.$contenu.'">';
 			    	/*
 			    	$contenu = file_get_contents('./assets/gallery/'.$value.'.canvas');
@@ -38,9 +38,9 @@
 					echo $contenu;*/
 				?>
 				<div class="dessinInfo">
-			    	<p class="dessinTitre"><?=$dessinsInfo[$key][1]?></p>
-			    	<p class="dessinAuteur"><?=$dessinsInfo[$key][0]?></p>
-			    	<p class="dessinDate"><?=$dessinsInfo[$key][2]?></p>
+			    	<p class="dessinTitre"><?=$fichiersDessin[$key][2]?></p>
+			    	<p class="dessinAuteur"><?=$fichiersDessin[$key][1]?></p>
+			    	<p class="dessinDate"><?=$fichiersDessin[$key][3]?></p>
 			    </div>
 				</div>
 				<?php
