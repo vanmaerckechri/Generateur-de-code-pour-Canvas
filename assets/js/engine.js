@@ -37,7 +37,7 @@ function desactiverBouton()
     }
 }
 
-addEventListener('mousemove', saveMouseXY);
+canvas.addEventListener('mousemove', saveMouseXY);
 
 function getX(event)
 {
