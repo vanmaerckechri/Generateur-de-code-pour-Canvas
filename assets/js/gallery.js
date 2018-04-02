@@ -11,19 +11,28 @@ trierPar.addEventListener("change", function()
     document.getElementById("formFilter").submit(); 
 });
 
+//fenetre modale sur dessin cliqué.
 let dessins = document.querySelectorAll('.dessins > .dessin > img');
 let dessinsLength = dessins.length;
-	console.log(dessins);
 
 for (i = 0; i < dessinsLength; i++)
 {
-	dessins[i].addEventListener("click", zoomDrawDetails, false)
+	dessins[i].addEventListener("click", zoomDrawDetails)
 }
 
 function zoomDrawDetails(event)
 {
-	console.log(event);
 	let dessinDetail = document.getElementById('dessinDetail');
-	dessinDetail.className += " dessinDetailMax";
 	dessinDetail.innerHTML = '<img src="'+event.target.src+'">';
+	dessinDetail.classList.add("dessinDetailMax");
+}
+
+dessinDetail.addEventListener("click", dezoomDrawDetails)
+
+function dezoomDrawDetails(event)
+{
+	if(event.target == dessinDetail)
+	{
+		dessinDetail.classList.remove("dessinDetailMax");
+	}
 }
