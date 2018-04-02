@@ -157,6 +157,23 @@ h1 {
     #dessinDetail #modalContainer #imgActu {
       border: 2px solid white;
       height: auto; }
+    #dessinDetail #modalContainer #codeActu {
+      padding: 10px;
+      flex: 1;
+      max-height: 75vh;
+      background-color: black;
+      color: green;
+      font-size: 16px;
+      font-weight: bold;
+      overflow: scroll;
+      -webkit-user-select: all;
+      -moz-user-select: all;
+      -ms-user-select: all;
+      user-select: all; }
+    #dessinDetail #modalContainer #toggleDisplay {
+      position: absolute;
+      bottom: 0;
+      left: 0; }
 
 #dessinDetail.dessinDetailMax {
   width: 100%;
@@ -164,7 +181,7 @@ h1 {
   background-color: rgba(0, 0, 0, 0.9);
   z-index: 101; }
   #dessinDetail.dessinDetailMax #modalContainer {
-    display: block; }
+    display: flex; }
 
 .auteur {
   text-align: right; }

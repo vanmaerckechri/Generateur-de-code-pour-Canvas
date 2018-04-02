@@ -111,7 +111,7 @@ h1
 	transition: all 1s;
 	#modalContainer
 	{	
-		 -moz-user-select: none;
+		-moz-user-select: none;
  		-webkit-user-select: none;
  		-ms-user-select: none;
  		user-select: none;
@@ -152,6 +152,27 @@ h1
 			border: 2px solid white;
 			height: auto;
 		}
+		#codeActu
+		{
+			padding: 10px;
+			flex: 1;
+			max-height: 75vh;
+			background-color: black;
+			color: green;
+			font-size: 16px;
+			font-weight: bold;
+			overflow: scroll;
+			-webkit-user-select: all;
+			-moz-user-select: all;
+			-ms-user-select: all;
+			user-select: all;
+		}
+		#toggleDisplay
+		{
+			position: absolute;
+			bottom: 0;
+			left: 0;
+		}
 	}
 }
 
@@ -163,7 +184,7 @@ h1
 	z-index: 101;
 	#modalContainer
 	{	
-		display: block;
+		display: flex;
 	}
 }
 

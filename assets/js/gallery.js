@@ -23,7 +23,9 @@ for (i = 0; i < dessinsLength; i++)
 let imgActu;
 let arrowLeft;
 let arrowRight;
-let imgActuDiv
+let imgActuDiv = document.getElementById('imgActu');
+let dessinDetail = document.getElementById('dessinDetail');
+dessinDetail.addEventListener("click", dezoomDrawDetails)
 function zoomDrawDetails(event)
 {
 	let dessinsListeLength = dessinsListe[0].length;
@@ -37,10 +39,8 @@ function zoomDrawDetails(event)
 		{
 			imgActu = i;
 		}
+		dessinsListe[4][i] = dessinsListe[4][i].replace(/\r/i, '');
 	}
-
-	let dessinDetail = document.getElementById('dessinDetail');
-	imgActuDiv = document.getElementById('imgActu');
 
 	imgActuDiv.innerHTML = '<div class="titre">'+dessinsListe[2][imgActu]+'</div><img src="'+event.target.src+'"><div class="auteur">'+dessinsListe[1][imgActu]+' | '+dessinsListe[3][imgActu]+'</div>';
 	dessinDetail.classList.add("dessinDetailMax");
@@ -50,8 +50,7 @@ function zoomDrawDetails(event)
 	arrowLeft[0].addEventListener("click", previousImg);
 	arrowRight[0].addEventListener("click", nextImg);
 }
-
-dessinDetail.addEventListener("click", dezoomDrawDetails)
+//fermer fenetre modale
 function dezoomDrawDetails(event)
 {
 	if(event.target == dessinDetail)
@@ -62,17 +61,48 @@ function dezoomDrawDetails(event)
 		dessinDetail.classList.remove("dessinDetailMax");
 	}
 }
-
-
+//circuler dans les images via la fenetre modale
 function previousImg()
 {
 	imgActu --;
 	imgActu = imgActu < 0 ? dessinsListe[0].length - 1 : imgActu;
-	imgActuDiv.innerHTML = '<div class="titre">'+dessinsListe[2][imgActu]+'</div><img src="'+dessinsListe[0][imgActu]+'.png"><div class="auteur">'+dessinsListe[1][imgActu]+' | '+dessinsListe[3][imgActu]+'</div>';
+	if (toggleDisplay == 1)
+	{
+		imgActuDiv.innerHTML = '<div class="titre">'+dessinsListe[2][imgActu]+'</div><img src="'+dessinsListe[0][imgActu]+'.png"><div class="auteur">'+dessinsListe[1][imgActu]+' | '+dessinsListe[3][imgActu]+'</div>';
+	}
+	else
+	{
+		imgActuDiv.innerHTML = '<div class="titre">'+dessinsListe[2][imgActu]+'</div><p id="codeActu">'+dessinsListe[4][imgActu]+'</p><div class="auteur">'+dessinsListe[1][imgActu]+' | '+dessinsListe[3][imgActu]+'</div>';
+	}
 }
 function nextImg()
 {
 	imgActu ++;
 	imgActu = imgActu >= dessinsListe[0].length ? 0 : imgActu;
-	imgActuDiv.innerHTML = '<div class="titre">'+dessinsListe[2][imgActu]+'</div><img src="'+dessinsListe[0][imgActu]+'.png"><div class="auteur">'+dessinsListe[1][imgActu]+' | '+dessinsListe[3][imgActu]+'</div>';
+	if (toggleDisplay == 1)
+	{
+		imgActuDiv.innerHTML = '<div class="titre">'+dessinsListe[2][imgActu]+'</div><img src="'+dessinsListe[0][imgActu]+'.png"><div class="auteur">'+dessinsListe[1][imgActu]+' | '+dessinsListe[3][imgActu]+'</div>';
+	}
+	else
+	{
+		imgActuDiv.innerHTML = '<div class="titre">'+dessinsListe[2][imgActu]+'</div><p id="codeActu">'+dessinsListe[4][imgActu]+'</p><div class="auteur">'+dessinsListe[1][imgActu]+' | '+dessinsListe[3][imgActu]+'</div>';
+	}
+}
+//afficher code|dessin
+let toggleDisplay = 1;
+let toggleDisplayID = document.getElementById('toggleDisplay');
+toggleDisplayID.addEventListener('click', toggleDisplayCode);
+function toggleDisplayCode()
+{
+	if (toggleDisplay == 1)
+	{
+		imgActuDiv.innerHTML = '<div class="titre">'+dessinsListe[2][imgActu]+'</div><p id="codeActu">'+dessinsListe[4][imgActu]+'</p><div class="auteur">'+dessinsListe[1][imgActu]+' | '+dessinsListe[3][imgActu]+'</div>';
+		toggleDisplay = 0;
+	}
+	else
+	{
+		imgActuDiv.innerHTML = '<div class="titre">'+dessinsListe[2][imgActu]+'</div><img src="'+dessinsListe[0][imgActu]+'.png"><div class="auteur">'+dessinsListe[1][imgActu]+' | '+dessinsListe[3][imgActu]+'</div>';
+		toggleDisplay = 1;
+	}
+	console.log(toggleDisplay);
 }

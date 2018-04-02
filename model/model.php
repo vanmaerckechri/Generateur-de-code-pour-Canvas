@@ -709,19 +709,29 @@ class Gallery
 				var dessinsTitre = [];
 				var dessinsAuteur = [];
 				var dessinsDate = [];
+				var dessinsCode = [];
 			</script>';
 		foreach ($dessinsInfo as $key => $value) 
 		{
 			$dessinsInfo[$key][0] = "./assets/gallery/".$value[1]."/".$value[0];
-			echo '
+
+			$file = './assets/gallery/'.$value[1].'/'.$value[0].'.canvas';
+			$contenu = file_get_contents($file);
+			$contenu = htmlspecialchars($contenu);
+			$contenu = str_replace("\n",'<br>', $contenu);
+			//virer le premier retour à la ligne qui ne sert à rien.
+			$contenu = preg_replace('/<br>/', '', $contenu, 1);
+			$contenu = addcslashes($contenu, "\0..\37!@\177..\377"); 
+			echo "
 				<script>
-					dessinsSrc.push("'.$dessinsInfo[$key][0].'");
-					dessinsTitre.push("'.$dessinsInfo[$key][2].'");
-					dessinsAuteur.push("'.$dessinsInfo[$key][1].'");
-					dessinsDate.push("'.$dessinsInfo[$key][3].'");
-				</script>';
+					dessinsSrc.push('".$dessinsInfo[$key][0]."');
+					dessinsTitre.push('".$dessinsInfo[$key][2]."');
+					dessinsAuteur.push('".$dessinsInfo[$key][1]."');
+					dessinsDate.push('".$dessinsInfo[$key][3]."');
+					dessinsCode.push('".$contenu."');
+				</script>";
 		}
-		echo '<script>dessinsListe.push(dessinsSrc, dessinsAuteur, dessinsTitre, dessinsDate);console.log(dessinsListe);</script>';
+		echo '<script>dessinsListe.push(dessinsSrc, dessinsAuteur, dessinsTitre, dessinsDate, dessinsCode);console.log(dessinsListe);</script>';
 		$_SESSION['dessinsLength'] = count($dessinsInfo);
 		return $dessinsInfo;
 	}
