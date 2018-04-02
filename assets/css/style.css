@@ -162,6 +162,9 @@ h1 {
   #dessinDetail.dessinDetailMax #modalContainer {
     display: block; }
 
+.auteur {
+  text-align: right; }
+
 header {
   width: 100%;
   display: flex;

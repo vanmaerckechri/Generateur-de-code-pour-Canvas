@@ -26,17 +26,6 @@ let arrowRight;
 let imgActuDiv
 function zoomDrawDetails(event)
 {
-	let dessinDetail = document.getElementById('dessinDetail');
-	imgActuDiv = document.getElementById('imgActu');
-
-	imgActuDiv.innerHTML = '<img src="'+event.target.src+'">';
-	dessinDetail.classList.add("dessinDetailMax");
-
-	arrowLeft = document.querySelectorAll('.arrowLeft');
-	arrowRight = document.querySelectorAll('.arrowRight');
-	arrowLeft[0].addEventListener("click", previousImg);
-	arrowRight[0].addEventListener("click", nextImg);
-
 	let dessinsListeLength = dessinsListe[0].length;
 	let imgSource = event.target.src.replace(/.png/, "");
     imgSource = imgSource.substring(imgSource.indexOf('/assets'));
@@ -49,6 +38,17 @@ function zoomDrawDetails(event)
 			imgActu = i;
 		}
 	}
+
+	let dessinDetail = document.getElementById('dessinDetail');
+	imgActuDiv = document.getElementById('imgActu');
+
+	imgActuDiv.innerHTML = '<div class="titre">'+dessinsListe[2][imgActu]+'</div><img src="'+event.target.src+'"><div class="auteur">'+dessinsListe[1][imgActu]+' | '+dessinsListe[3][imgActu]+'</div>';
+	dessinDetail.classList.add("dessinDetailMax");
+
+	arrowLeft = document.querySelectorAll('.arrowLeft');
+	arrowRight = document.querySelectorAll('.arrowRight');
+	arrowLeft[0].addEventListener("click", previousImg);
+	arrowRight[0].addEventListener("click", nextImg);
 }
 
 dessinDetail.addEventListener("click", dezoomDrawDetails)
@@ -68,11 +68,11 @@ function previousImg()
 {
 	imgActu --;
 	imgActu = imgActu < 0 ? dessinsListe[0].length - 1 : imgActu;
-	imgActuDiv.innerHTML = '<img src="'+dessinsListe[0][imgActu]+'">';
+	imgActuDiv.innerHTML = '<div class="titre">'+dessinsListe[2][imgActu]+'</div><img src="'+dessinsListe[0][imgActu]+'"><div class="auteur">'+dessinsListe[1][imgActu]+' | '+dessinsListe[3][imgActu]+'</div>';
 }
 function nextImg()
 {
 	imgActu ++;
 	imgActu = imgActu >= dessinsListe[0].length ? 0 : imgActu;
-	imgActuDiv.innerHTML = '<img src="'+dessinsListe[0][imgActu]+'">';
+	imgActuDiv.innerHTML = '<div class="titre">'+dessinsListe[2][imgActu]+'</div><img src="'+dessinsListe[0][imgActu]+'"><div class="auteur">'+dessinsListe[1][imgActu]+' | '+dessinsListe[3][imgActu]+'</div>';
 }
