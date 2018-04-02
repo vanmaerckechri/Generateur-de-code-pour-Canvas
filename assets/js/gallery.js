@@ -97,11 +97,13 @@ function toggleDisplayCode()
 	if (toggleDisplay == 1)
 	{
 		imgActuDiv.innerHTML = '<div class="titre">'+dessinsListe[2][imgActu]+'</div><p id="codeActu">'+dessinsListe[4][imgActu]+'</p><div class="auteur">'+dessinsListe[1][imgActu]+' | '+dessinsListe[3][imgActu]+'</div>';
+		toggleDisplayID.innerHTML = "Dessin";
 		toggleDisplay = 0;
 	}
 	else
 	{
 		imgActuDiv.innerHTML = '<div class="titre">'+dessinsListe[2][imgActu]+'</div><img src="'+dessinsListe[0][imgActu]+'.png"><div class="auteur">'+dessinsListe[1][imgActu]+' | '+dessinsListe[3][imgActu]+'</div>';
+		toggleDisplayID.innerHTML = "Code";
 		toggleDisplay = 1;
 	}
 	console.log(toggleDisplay);
