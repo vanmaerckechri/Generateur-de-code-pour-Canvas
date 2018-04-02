@@ -68,11 +68,11 @@ function previousImg()
 {
 	imgActu --;
 	imgActu = imgActu < 0 ? dessinsListe[0].length - 1 : imgActu;
-	imgActuDiv.innerHTML = '<div class="titre">'+dessinsListe[2][imgActu]+'</div><img src="'+dessinsListe[0][imgActu]+'"><div class="auteur">'+dessinsListe[1][imgActu]+' | '+dessinsListe[3][imgActu]+'</div>';
+	imgActuDiv.innerHTML = '<div class="titre">'+dessinsListe[2][imgActu]+'</div><img src="'+dessinsListe[0][imgActu]+'.png"><div class="auteur">'+dessinsListe[1][imgActu]+' | '+dessinsListe[3][imgActu]+'</div>';
 }
 function nextImg()
 {
 	imgActu ++;
 	imgActu = imgActu >= dessinsListe[0].length ? 0 : imgActu;
-	imgActuDiv.innerHTML = '<div class="titre">'+dessinsListe[2][imgActu]+'</div><img src="'+dessinsListe[0][imgActu]+'"><div class="auteur">'+dessinsListe[1][imgActu]+' | '+dessinsListe[3][imgActu]+'</div>';
+	imgActuDiv.innerHTML = '<div class="titre">'+dessinsListe[2][imgActu]+'</div><img src="'+dessinsListe[0][imgActu]+'.png"><div class="auteur">'+dessinsListe[1][imgActu]+' | '+dessinsListe[3][imgActu]+'</div>';
 }

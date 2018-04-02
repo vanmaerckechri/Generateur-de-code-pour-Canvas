@@ -126,6 +126,10 @@ h1 {
   align-items: center;
   transition: all 1s; }
   #dessinDetail #modalContainer {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
     display: none;
     position: relative;
     max-width: 960px;

@@ -111,6 +111,10 @@ h1
 	transition: all 1s;
 	#modalContainer
 	{	
+		 -moz-user-select: none;
+ 		-webkit-user-select: none;
+ 		-ms-user-select: none;
+ 		user-select: none;
 		display: none;
 		position: relative;
 		max-width: 960px;
