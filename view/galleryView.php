@@ -64,6 +64,9 @@
 		    ?>
 			<div id="dessinDetail" class="dessinDetailMin">
 				<div id="modalContainer">
+					<div class="arrowLeft"></div>
+					<div id="imgActu"></div>
+					<div class="arrowRight"></div>
 				</div>
 			</div>
 		</div>

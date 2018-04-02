@@ -119,31 +119,39 @@ h1 {
   align-items: center;
   transition: all 1s; }
   #dessinDetail #modalContainer {
+    display: none;
     position: relative;
     max-width: 960px;
     height: auto;
     background-color: white; }
     #dessinDetail #modalContainer .arrowLeft, #dessinDetail #modalContainer .arrowRight {
+      border: 2px solid white;
       position: absolute;
       top: calc(50% - 25px);
       width: 50px;
       height: 50px;
       color: black;
       transform: rotate(45deg);
-      background-color: white;
+      background-color: orange;
       z-index: -1; }
+      #dessinDetail #modalContainer .arrowLeft:hover, #dessinDetail #modalContainer .arrowRight:hover {
+        border: 2px solid orange;
+        background-color: white; }
     #dessinDetail #modalContainer .arrowLeft {
       left: -25px; }
     #dessinDetail #modalContainer .arrowRight {
       right: -25px; }
-    #dessinDetail #modalContainer img {
+    #dessinDetail #modalContainer #imgActu {
+      border: 2px solid white;
       height: auto; }
 
-.dessinDetailMax {
+#dessinDetail.dessinDetailMax {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.9);
   z-index: 101; }
+  #dessinDetail.dessinDetailMax #modalContainer {
+    display: block; }
 
 header {
   width: 100%;
