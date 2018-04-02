@@ -830,9 +830,7 @@ class Gallery
 		//premier et dernier dessin à charger sur la page.
 		$_SESSION['premierDessinPage'] = ($_SESSION['pageActu'] - 1) * $_SESSION['dessinsParPageMax'];
 		$_SESSION['dernierDessinPage'] = $_SESSION['premierDessinPage'] + $_SESSION['dessinsParPageMax'];
-		echo $_SESSION['premierDessinPage'];
 		//si on se trouve sur la dernière page.
-		echo $dessinsLastPage;
 		if ($_SESSION['pageActu'] == $_SESSION['pagesLength'] && $dessinsLastPage != 0)
 		{
 			$_SESSION['dernierDessinPage'] = $_SESSION['premierDessinPage'] + $dessinsLastPage;
