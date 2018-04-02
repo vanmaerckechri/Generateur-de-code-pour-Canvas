@@ -63,6 +63,8 @@
 			    }
 		    ?>
 			<div id="dessinDetail" class="dessinDetailMin">
+				<div id="modalContainer">
+				</div>
 			</div>
 		</div>
 	</div>

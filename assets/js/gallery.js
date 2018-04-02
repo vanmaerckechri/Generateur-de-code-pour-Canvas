@@ -23,7 +23,9 @@ for (i = 0; i < dessinsLength; i++)
 function zoomDrawDetails(event)
 {
 	let dessinDetail = document.getElementById('dessinDetail');
-	dessinDetail.innerHTML = '<img src="'+event.target.src+'">';
+	let modalContainer = document.getElementById('modalContainer');
+
+	modalContainer.innerHTML = '<div class="arrowLeft"></div><img src="'+event.target.src+'"><div class="arrowRight"></div>';
 	dessinDetail.classList.add("dessinDetailMax");
 }
 
@@ -33,6 +35,7 @@ function dezoomDrawDetails(event)
 {
 	if(event.target == dessinDetail)
 	{
+		modalContainer.innerHTML = '';
 		dessinDetail.classList.remove("dessinDetailMax");
 	}
 }
