@@ -37,14 +37,14 @@ function zoomDrawDetails(event)
 	arrowLeft[0].addEventListener("click", previousImg);
 	arrowRight[0].addEventListener("click", nextImg);
 
-	let dessinsListeLength = dessinsListe.length;
+	let dessinsListeLength = dessinsListe[0].length;
 	let imgSource = event.target.src.replace(/.png/, "");
     imgSource = imgSource.substring(imgSource.indexOf('/assets'));
 	imgSource = imgSource.replace("/assets", "./assets");
 
 	for (i = 0; i < dessinsListeLength; i++)
 	{
-		if (dessinsListe[i] == imgSource)
+		if (dessinsListe[0][i] == imgSource)
 		{
 			imgActu = i;
 		}
@@ -67,12 +67,12 @@ function dezoomDrawDetails(event)
 function previousImg()
 {
 	imgActu --;
-	imgActu = imgActu < 0 ? dessinsListe.length - 1 : imgActu;
-	imgActuDiv.innerHTML = '<img src="'+dessinsListe[imgActu]+'">';
+	imgActu = imgActu < 0 ? dessinsListe[0].length - 1 : imgActu;
+	imgActuDiv.innerHTML = '<img src="'+dessinsListe[0][imgActu]+'">';
 }
 function nextImg()
 {
 	imgActu ++;
-	imgActu = imgActu >= dessinsListe.length ? 0 : imgActu;
-	imgActuDiv.innerHTML = '<img src="'+dessinsListe[imgActu]+'">';
+	imgActu = imgActu >= dessinsListe[0].length ? 0 : imgActu;
+	imgActuDiv.innerHTML = '<img src="'+dessinsListe[0][imgActu]+'">';
 }

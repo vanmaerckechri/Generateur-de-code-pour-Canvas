@@ -702,12 +702,26 @@ class Gallery
 		$order = $filterBy;
 		$dessinsInfo = $crud->select($columns, $whereDyn, $operator, $groupBy, $order);
 		$fichiersDessin = array();
-		echo '<script>let dessinsListe = [];</script>';
+		echo '
+			<script>
+				var dessinsListe = [];
+				var dessinsSrc = [];
+				var dessinsTitre = [];
+				var dessinsAuteur = [];
+				var dessinsDate = [];
+			</script>';
 		foreach ($dessinsInfo as $key => $value) 
 		{
 			$dessinsInfo[$key][0] = "./assets/gallery/".$value[1]."/".$value[0];
-			echo '<script>dessinsListe.push("'.$dessinsInfo[$key][0].'")</script>';
+			echo '
+				<script>
+					dessinsSrc.push("'.$dessinsInfo[$key][0].'");
+					dessinsTitre.push("'.$dessinsInfo[$key][2].'");
+					dessinsAuteur.push("'.$dessinsInfo[$key][1].'");
+					dessinsDate.push("'.$dessinsInfo[$key][3].'");
+				</script>';
 		}
+		echo '<script>dessinsListe.push(dessinsSrc, dessinsAuteur, dessinsTitre, dessinsDate);console.log(dessinsListe);</script>';
 		$_SESSION['dessinsLength'] = count($dessinsInfo);
 		return $dessinsInfo;
 	}
