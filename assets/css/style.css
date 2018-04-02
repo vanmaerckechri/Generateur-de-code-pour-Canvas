@@ -110,10 +110,35 @@ h1 {
     color: orange;
     background-color: black; }
 
+.dessinDetailMin {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: 0;
+  top: 0;
+  width: 0%;
+  height: 0%;
+  transition: all 1s; }
+  .dessinDetailMin img {
+    max-width: 0px;
+    height: 0;
+    background-color: white; }
+
+.dessinDetailMax {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 101; }
+  .dessinDetailMax img {
+    max-width: 960px;
+    height: auto; }
+
 header {
   width: 100%;
   display: flex;
-  justify-content: space-between; }
+  justify-content: space-between;
+  z-index: 102; }
   header h1 {
     flex: 3;
     font-size: 1.3rem; }
@@ -175,7 +200,8 @@ header {
       justify-content: flex-end;
       align-items: baseline;
       color: white;
-      text-shadow: black 1px 1px, black -1px 1px, black -1px -1px, black 1px -1px; }
+      text-shadow: black 1px 1px, black -1px 1px, black -1px -1px, black 1px -1px;
+      pointer-events: none; }
       #main .dessins .dessin .dessinInfo .dessinTitre {
         border-top-right-radius: 1rem;
         padding: .5rem 1rem;

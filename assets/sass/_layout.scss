@@ -4,6 +4,7 @@ header
 	width: 100%;
 	display: flex;
 	justify-content: space-between;
+	z-index: 102;
 	h1
 	{
 		flex: 3;
@@ -91,6 +92,7 @@ header
 				align-items: baseline;
 				color: white;
 				text-shadow: black 1px 1px, black -1px 1px, black -1px -1px, black 1px -1px;
+				pointer-events: none;
 				.dessinTitre
 				{
 					border-top-right-radius: 1rem;

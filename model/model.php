@@ -702,9 +702,11 @@ class Gallery
 		$order = $filterBy;
 		$dessinsInfo = $crud->select($columns, $whereDyn, $operator, $groupBy, $order);
 		$fichiersDessin = array();
+		echo '<script>let dessinsListe = [];</script>';
 		foreach ($dessinsInfo as $key => $value) 
 		{
 			$dessinsInfo[$key][0] = "./assets/gallery/".$value[1]."/".$value[0];
+			echo '<script>dessinsListe.push("'.$dessinsInfo[$key][0].'")</script>';
 		}
 		$_SESSION['dessinsLength'] = count($dessinsInfo);
 		return $dessinsInfo;

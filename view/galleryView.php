@@ -58,10 +58,12 @@
 			    	<p class="dessinAuteur"><?=$fichiersDessin[$i][1]?></p>
 			    	<p class="dessinDate"><?=$fichiersDessin[$i][3]?></p>
 			    </div>
-				</div>
+			</div>
 				<?php
 			    }
 		    ?>
+			<div id="dessinDetail" class="dessinDetailMin">
+			</div>
 		</div>
 	</div>
 	<script src="assets/js/gallery.js"></script>
