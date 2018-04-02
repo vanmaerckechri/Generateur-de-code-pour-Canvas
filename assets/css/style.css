@@ -9,6 +9,13 @@ html, body, header, nav, footer, section, div, span, h1, h2, h3, p, a, blockquot
   font-weight: normal;
   box-shadow: none; }
 
+@keyframes carouselArrowWait {
+  0% {
+    border-bottom-left-radius: 2px;
+    border-top-right-radius: 2px; }
+  100% {
+    border-bottom-left-radius: 16px;
+    border-top-right-radius: 16px; } }
 html {
   height: 100%;
   background-color: #c8c8c8; }
@@ -133,7 +140,9 @@ h1 {
       color: black;
       transform: rotate(45deg);
       background-color: orange;
-      z-index: -1; }
+      z-index: -1;
+      animation: carouselArrowWait 1s linear infinite alternate;
+      transition: all .5s; }
       #dessinDetail #modalContainer .arrowLeft:hover, #dessinDetail #modalContainer .arrowRight:hover {
         border: 2px solid orange;
         background-color: white; }

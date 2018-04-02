@@ -127,6 +127,8 @@ h1
 			transform: rotate(45deg);
 			background-color: orange;
 			z-index: -1;
+			animation: carouselArrowWait 1s linear infinite alternate;
+			transition: all .5s;
 			&:hover
 			{
 				border: 2px solid orange;
