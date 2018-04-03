@@ -118,8 +118,8 @@ h1
 		display: none;
 		position: relative;
 		max-width: 960px;
-		height: auto;
 		background-color: white;
+
 		.arrowLeft, .arrowRight
 		{
 			border: 2px solid white;
@@ -148,20 +148,34 @@ h1
 			right: -25px;
 		}
 		#imgActu
-		{
+		{			
 			border: 2px solid white;
-			height: auto;
+			img
+			{
+				height: 75vh;
+			}
+			.titre
+			{
+				padding: .5rem 1rem;
+			}
+			.auteur
+			{
+				padding: .5rem 1rem;
+				text-align: right;
+				vertical-align: baseline;
+			}
 		}
 		#codeActu
-		{
+		{				
+			height: 75vh;
 			padding: 10px;
 			flex: 1;
-			max-height: 75vh;
 			background-color: black;
 			color: green;
 			font-size: 16px;
 			font-weight: bold;
 			overflow: scroll;
+			overflow-x: hidden;
 			-webkit-user-select: all;
 			-moz-user-select: all;
 			-ms-user-select: all;
@@ -170,7 +184,7 @@ h1
 		#toggleDisplay
 		{
 			position: absolute;
-			bottom: 0;
+			bottom: 2px;
 			left: 0;
 		}
 	}
@@ -186,9 +200,4 @@ h1
 	{	
 		display: flex;
 	}
-}
-
-.auteur
-{
-	text-align: right;
 }

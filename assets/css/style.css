@@ -133,7 +133,6 @@ h1 {
     display: none;
     position: relative;
     max-width: 960px;
-    height: auto;
     background-color: white; }
     #dessinDetail #modalContainer .arrowLeft, #dessinDetail #modalContainer .arrowRight {
       border: 2px solid white;
@@ -155,24 +154,32 @@ h1 {
     #dessinDetail #modalContainer .arrowRight {
       right: -25px; }
     #dessinDetail #modalContainer #imgActu {
-      border: 2px solid white;
-      height: auto; }
+      border: 2px solid white; }
+      #dessinDetail #modalContainer #imgActu img {
+        height: 75vh; }
+      #dessinDetail #modalContainer #imgActu .titre {
+        padding: .5rem 1rem; }
+      #dessinDetail #modalContainer #imgActu .auteur {
+        padding: .5rem 1rem;
+        text-align: right;
+        vertical-align: baseline; }
     #dessinDetail #modalContainer #codeActu {
+      height: 75vh;
       padding: 10px;
       flex: 1;
-      max-height: 75vh;
       background-color: black;
       color: green;
       font-size: 16px;
       font-weight: bold;
       overflow: scroll;
+      overflow-x: hidden;
       -webkit-user-select: all;
       -moz-user-select: all;
       -ms-user-select: all;
       user-select: all; }
     #dessinDetail #modalContainer #toggleDisplay {
       position: absolute;
-      bottom: 0;
+      bottom: 2px;
       left: 0; }
 
 #dessinDetail.dessinDetailMax {
@@ -182,9 +189,6 @@ h1 {
   z-index: 101; }
   #dessinDetail.dessinDetailMax #modalContainer {
     display: flex; }
-
-.auteur {
-  text-align: right; }
 
 header {
   width: 100%;
