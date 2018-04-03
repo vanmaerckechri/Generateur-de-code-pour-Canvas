@@ -2,17 +2,18 @@
 
 <?php ob_start(); ?>
 <div id="interface">
-    <div>
-        <?=$GLOBALS['recordButton']?>
-    </div>
     <div class="menuRow">
-        <button id="drawBrush" class="button_Select" onclick="activerBouton(this)">Brush</button>
-        <button id="drawLine" class="button_unselect" onclick="activerBouton(this)">Line</button>
-        <button id="drawLineForm" class="button_unselect" onclick="activerBouton(this)">Shape Lines</button>
-        <button id="drawRectangle" class="button_unselect" onclick="activerBouton(this)">Rectangle</button>
-        <button id="drawCircle" class="button_unselect" onclick="activerBouton(this)">Circle</button>
-        <button id="undo" class="button_unselect" onclick="activerUndo(this)">Undo</button>
-        <button id="redo" class="button_unselect" onclick="activerRedo(this)">Redo</button>
+        <div class="brushs">
+            <button id="drawBrush" class="button_Select" onclick="activerBouton(this)">Brush</button>
+            <button id="drawLine" class="button_unselect" onclick="activerBouton(this)">Line</button>
+            <button id="drawLineForm" class="button_unselect" onclick="activerBouton(this)">Shape Lines</button>
+            <button id="drawRectangle" class="button_unselect" onclick="activerBouton(this)">Rectangle</button>
+            <button id="drawCircle" class="button_unselect" onclick="activerBouton(this)">Circle</button>
+        </div>
+        <div>
+            <button id="undo" class="button_unselect" onclick="activerUndo(this)">Undo</button>
+            <button id="redo" class="button_unselect" onclick="activerRedo(this)">Redo</button>
+        </div>
     </div>
     <div class="menuRow">
         <div class="sousOptionsContainer">
@@ -32,6 +33,7 @@
             <input type="range" min="1" max="255" value="0" class="slider" id="colorB" onmousemove="changeColor()">
             <input type="text" value="100" id="opacityFill" onchange="changeFillOpacity()">
         </div>
+        <?=$GLOBALS['recordButton']?>
     </div>
 </div>
 <div id="canvasRelative">

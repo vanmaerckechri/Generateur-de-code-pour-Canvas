@@ -30,7 +30,7 @@ body {
   align-items: center; }
 
 canvas {
-  border: 3px solid black;
+  border: 1px solid black;
   background-color: white; }
 
 button {
@@ -123,7 +123,7 @@ h1 {
   top: 0;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
   transition: all 1s; }
   #dessinDetail #modalContainer {
     -moz-user-select: none;
@@ -161,8 +161,7 @@ h1 {
         padding: .5rem 1rem; }
       #dessinDetail #modalContainer #imgActu .auteur {
         padding: .5rem 1rem;
-        text-align: right;
-        vertical-align: baseline; }
+        text-align: right; }
     #dessinDetail #modalContainer #codeActu {
       height: 75vh;
       padding: 10px;
@@ -192,9 +191,21 @@ h1 {
 
 header {
   width: 100%;
+  height: 60px;
   display: flex;
   justify-content: space-between;
+  align-items: baseline;
   z-index: 102; }
+  header:before {
+    border-bottom: 1px solid rgba(50, 55, 60, 0.5);
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background-color: rgba(50, 55, 60, 0.3);
+    z-index: -1; }
   header h1 {
     flex: 3;
     font-size: 1.3rem; }
@@ -285,26 +296,29 @@ header {
         background-color: rgba(75, 100, 100, 0.8); }
 
 #interface {
+  margin-top: 1rem;
   width: 100%; }
   #interface .menuRow {
-    margin-bottom: 4px;
+    margin-bottom: .5rem;
     width: 100%;
     height: 33px;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center; }
-    #interface .menuRow #undo, #interface .menuRow #redo {
-      width: 40px; }
-    #interface .menuRow .button_unselect {
+    #interface .menuRow .brushs {
       display: flex;
       justify-content: center;
       align-items: center; }
-    #interface .menuRow .button_Select {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: black;
-      color: white; }
+      #interface .menuRow .brushs .button_unselect {
+        display: flex;
+        justify-content: center;
+        align-items: center; }
+      #interface .menuRow .brushs .button_Select {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: black;
+        color: white; }
     #interface .menuRow .sousOptionsContainer {
       margin-left: 2px;
       margin-right: 2px;
@@ -405,13 +419,26 @@ header {
           margin-top: 0px; }
     #interface .menuRow .slider, #interface .menuRow .sliderCircle {
       width: 50px; }
+  #interface #recordSubmit {
+    border: 2px solid black;
+    border-radius: 50%;
+    width: 33px;
+    height: 33px;
+    font-size: .7rem;
+    color: black;
+    background-color: orange; }
+    #interface #recordSubmit:hover {
+      border: 2px solid orange;
+      color: white;
+      background-color: black;
+      cursor: pointer; }
 
 #opacityFill, #opacityStroke {
   width: 30px; }
 
 #code {
   padding: 10px;
-  width: 600px;
+  width: 702px;
   background-color: black;
   color: green;
   font-size: 16px;

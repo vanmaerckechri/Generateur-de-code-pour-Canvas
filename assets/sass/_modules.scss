@@ -107,7 +107,7 @@ h1
 	top: 0;
 	display: flex;
 	justify-content: center;
-	align-items: center;
+	align-items: flex-end;
 	transition: all 1s;
 	#modalContainer
 	{	
@@ -162,7 +162,6 @@ h1
 			{
 				padding: .5rem 1rem;
 				text-align: right;
-				vertical-align: baseline;
 			}
 		}
 		#codeActu

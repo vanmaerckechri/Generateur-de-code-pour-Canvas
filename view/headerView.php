@@ -1,5 +1,4 @@
 <?php ob_start(); ?>
-<header>
     <h1>Générateur de Canvas</h1>
     <div class="connect">
     	<a href="index.php?action=home" class="submit">home</a>
@@ -21,5 +20,4 @@
 			}
 	    ?>
 	</div>
-</header>
 <?php $header = ob_get_clean(); ?>

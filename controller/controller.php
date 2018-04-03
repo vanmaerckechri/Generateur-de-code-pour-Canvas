@@ -164,7 +164,7 @@ function home()
 		        <input type="hidden" name="titre_dessin" id="titre_dessin" value=''>
 		        <input type="hidden" name="record_code" id="record_code" value=''>
                 <input type="hidden" name="record_png" id="record_png" value=''>
-		  		<input class="button_unselect" type="submit" id="recordSubmit" value="record">
+		  		<input class="button_unselect" type="submit" id="recordSubmit" value="save">
 		</form>
 		<?php
 		$GLOBALS['recordButton'] = ob_get_clean();
