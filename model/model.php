@@ -880,7 +880,9 @@ class Gallery
 			$columns = array ();
 			$whereDyn = array ("id_dessin" => array($id));
 			$operator = "OR";
-			$members = $crud->delete($columns, $whereDyn, $operator);
+			$crud->delete($columns, $whereDyn, $operator);
+			unlink ("./assets/gallery/".$auteur."/".$id.".png");
+			unlink ("./assets/gallery/".$auteur."/".$id.".canvas");
 			$_SESSION['smsDeleteDraw'] = "<p class='sms'>Votre dessin vient d'être effacé!</p>";
 		}
 		else
