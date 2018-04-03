@@ -18,7 +18,7 @@
 			       	<select name="trierPar" id="trierPar">
 			       		<option value="date"<?=$GLOBALS['trierParSelect'][0]?>>date</option>
 			           	<option value="auteur"<?=$GLOBALS['trierParSelect'][1]?>>auteur</option>
-			           	<option value="nom"<?=$GLOBALS['trierParSelect'][2]?>>nom</option>
+			           	<option value="titre"<?=$GLOBALS['trierParSelect'][2]?>>titre</option>
 			       	</select>
 			   	</p>
 			</form>

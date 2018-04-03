@@ -763,7 +763,7 @@ class Gallery
 	public static function filterDessinParCat($input)
 	{
 		$input = htmlspecialchars($input);
-		if ($input == "date" || $input == "auteur" || $input == "nom")
+		if ($input == "date" || $input == "auteur" || $input == "titre")
 		{
 			$_SESSION['trierParSelect'] = $input;
 		}
@@ -777,8 +777,8 @@ class Gallery
 		$columnName = $input == "date" ? "date DESC" : $columnName;
 		$GLOBALS['trierParSelect'][1] = $input == "auteur" ? "selected" : "";
 		$columnName = $input == "auteur" ? "nom_membre" : $columnName;
-		$GLOBALS['trierParSelect'][2] = $input == "nom" ? "selected" : "";
-		$columnName = $input == "nom" ? "titre" : $columnName;
+		$GLOBALS['trierParSelect'][2] = $input == "titre" ? "selected" : "";
+		$columnName = $input == "titre" ? "titre" : $columnName;
 		return $columnName;
 	}
 	public static function paginationOneByOne($direction)
