@@ -120,5 +120,10 @@ function displayDeleteOption()
 		let modalTitle = document.querySelectorAll('.titre');
 		modalTitle = modalTitle[0];
 		modalTitle.innerHTML += '<img src="assets/img/trash.png" class="deleteDessin">';
+		imgActuDiv.style.borderColor = "orange";
+	}
+	else
+	{
+		imgActuDiv.style.borderColor = "white";
 	}
 }

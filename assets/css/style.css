@@ -171,11 +171,15 @@ h1 {
         text-align: left;
         background-color: rgba(75, 100, 100, 0.8); }
         #dessinDetail #modalContainer #imgActu .titre .deleteDessin {
-          border: 2px solid orange;
+          border: 2px solid white;
           border-radius: 50%;
           width: 24px;
           height: 24px;
-          background-color: orange; }
+          background-color: white; }
+          #dessinDetail #modalContainer #imgActu .titre .deleteDessin:hover {
+            border-color: red;
+            cursor: pointer;
+            background-color: red; }
       #dessinDetail #modalContainer #imgActu .auteur {
         padding: .5rem 1rem;
         flex: 1;
@@ -327,6 +331,10 @@ header {
           font-style: italic;
           text-align: right;
           background-color: rgba(75, 100, 100, 0.8); }
+    #main .dessins .dessinMy {
+      border: 2px solid orange; }
+      #main .dessins .dessinMy:hover {
+        border: 2px solid orange; }
 
 #interface {
   margin-top: 1rem;

@@ -53,31 +53,31 @@
 		</div>
 		<div class="dessins">
 		    <?php
-				for ($i = $_SESSION['premierDessinPage']; $i < $_SESSION['dernierDessinPage']; $i++)
-				{
-		    ?>
-			<div class="dessin">
-			    <?php
-				$contenu = $fichiersDessin[$i][0].'.png';
-			    echo '<img class="miniature" src="'.$contenu.'">';
-				?>
+			for ($i = $_SESSION['premierDessinPage']; $i < $_SESSION['dernierDessinPage']; $i++)
+			{
+			if ($GLOBALS['sessionAuthOk'] === TRUE && $_SESSION['login'] === $fichiersDessin[$i][1])
+			{
+    		?>		
+				<div class="dessin dessinMy">
+    		<?php
+			}
+			else
+			{
+    		?>
+				<div class="dessin">
+    		<?php
+			}
+			$contenu = $fichiersDessin[$i][0].'.png';
+		    echo '<img class="miniature" src="'.$contenu.'">';
+			?>
 				<div class="dessinInfo">
-			    	<p class="dessinTitre"><?=$fichiersDessin[$i][2]?>
-			    		<?php
-			    			if ($GLOBALS['sessionAuthOk'] === TRUE && $_SESSION['login'] === $fichiersDessin[$i][1])
-			    			{
-			    		?>		
-			    				<img src="assets/img/trash.png" class="deleteDessin">
-			    		<?php
-			    			}
-			    		?>
-			    	</p>
+			    	<p class="dessinTitre"><?=$fichiersDessin[$i][2]?></p>
 			    	<p class="dessinAuteur"><?=$fichiersDessin[$i][1]?></p>
 			    	<p class="dessinDate"><?=$fichiersDessin[$i][3]?></p>
 			    </div>
 			</div>
-				<?php
-			    }
+			<?php
+			}
 		    ?>
 			<div id="dessinDetail" class="dessinDetailMin">
 				<div id="modalContainer">

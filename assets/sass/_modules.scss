@@ -170,11 +170,17 @@ h1
 				background-color: rgba(75, 100, 100, .8);
 				.deleteDessin
 				{
-					border: 2px solid orange;
+					border: 2px solid white;
 					border-radius: 50%;
 					width: 24px;
 					height: 24px;
-					background-color: orange;
+					background-color: white;
+					&:hover
+					{
+						border-color: red;
+						cursor: pointer;
+						background-color: red;
+					}
 				}
 			}
 			.auteur
