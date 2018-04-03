@@ -44,6 +44,8 @@ function zoomDrawDetails(event)
 
 	imgActuDiv.innerHTML = '<div class="titre">'+dessinsListe[2][imgActu]+'</div><img src="'+event.target.src+'"><div class="auteur">'+dessinsListe[1][imgActu]+' | '+dessinsListe[3][imgActu]+'</div>';
 	dessinDetail.classList.add("dessinDetailMax");
+	toggleDisplayID.innerHTML = "Code";
+	toggleDisplay = 1;
 
 	arrowLeft = document.querySelectorAll('.arrowLeft');
 	arrowRight = document.querySelectorAll('.arrowRight');
