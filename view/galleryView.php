@@ -30,12 +30,14 @@
 			       	</select>
 			   	</p>
 			</form>
+			<span><?=$_SESSION['smsDeleteDraw']?></span>
 		</div>
 		<div class="pagination">
 			<form method="post" id="paginLeft" action="index.php?action=gallery">
 				<input type="submit" name="paginLeft" id="paginLeft" value="<">
 			</form>
 			<?php
+				$_SESSION['smsDeleteDraw'] = "";
 				for($i = 0; $i < $_SESSION['pagesLength']; $i++) 
 				{
 					$page = $i + 1;

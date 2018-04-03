@@ -236,3 +236,16 @@ function galRecord()
 	}
     require('./view/galRecordView.php');
 }
+function deleteDraw()
+{
+	if (isset($_POST['deleteDessin']) && isset($_POST['deleteAuteur']) && !empty($_POST['deleteAuteur']))
+	{
+		$deleteAuteur = Authentification::filterInputs($_POST['deleteAuteur'], 'alnum');
+		Gallery::deleteDraw($_POST['deleteDessin'], $deleteAuteur);
+	}
+	else
+	{
+		$_SESSION['smsDeleteDraw'] = "<p class='smsAlert'>Il n'y a rien à effacer!</p>";
+	}
+	header('Location: index.php?action=gallery');
+}

@@ -385,7 +385,12 @@ class Authentification
 		{
 			$_SESSION['smsMail'] = "";
 		}
+		if (!isset($_SESSION['smsDeleteDraw']))
+		{
+			$_SESSION['smsDeleteDraw'] = "";
+		}
 	}
+
     public function startSession()
     {
         session_start();
@@ -718,6 +723,7 @@ class Gallery
 				var dessinsDate = [];
 				var dessinsCode = [];
 				var dessinsMy = [];
+				var dessinsId = [];
 			</script>';
 		foreach ($dessinsInfo as $key => $value) 
 		{
@@ -736,7 +742,9 @@ class Gallery
 					dessinsTitre.push('".$dessinsInfo[$key][2]."');
 					dessinsAuteur.push('".$dessinsInfo[$key][1]."');
 					dessinsDate.push('".$dessinsInfo[$key][3]."');
-					dessinsCode.push('".$contenu."');";
+					dessinsCode.push('".$contenu."');
+					dessinsId.push('".$value[0]."');";
+
 			if ($GLOBALS['sessionAuthOk'] === TRUE && $_SESSION['login'] === $dessinsInfo[$key][1])
 			{
 				echo "dessinsMy.push('1');";
@@ -747,7 +755,7 @@ class Gallery
 			}
 			echo "</script>";
 		}
-		echo '<script>dessinsListe.push(dessinsSrc, dessinsAuteur, dessinsTitre, dessinsDate, dessinsCode, dessinsMy);console.log(dessinsListe);</script>';
+		echo '<script>dessinsListe.push(dessinsSrc, dessinsAuteur, dessinsTitre, dessinsDate, dessinsCode, dessinsMy, dessinsId);</script>';
 		$_SESSION['dessinsLength'] = count($dessinsInfo);
 		return $dessinsInfo;
 	}
@@ -864,4 +872,48 @@ class Gallery
 			$_SESSION['dernierDessinPage'] = $_SESSION['premierDessinPage'] + $dessinsLastPage;
 		}
 	}
+	public static function deleteDraw($id, $auteur)
+	{
+		if ($GLOBALS['sessionAuthOk'] === TRUE && $_SESSION['login'] === $auteur)
+		{
+			$crud = new Crud($GLOBALS['dbGalleryCoo']);
+			$columns = array ();
+			$whereDyn = array ("id_dessin" => array($id));
+			$operator = "OR";
+			$members = $crud->delete($columns, $whereDyn, $operator);
+			$_SESSION['smsDeleteDraw'] = "<p class='sms'>Votre dessin vient d'être effacé!</p>";
+		}
+		else
+		{
+			$_SESSION['smsDeleteDraw'] = "<p class='smsAlert'>Vous tentez d'effacer un dessin qui ne vous appartient pas!</p>";
+		}
+	}
 }
+
+
+	//exemple de requete SELECT.
+		/*$columns = array ("login", "password", "mail");
+		$whereDyn = array ("id" => array(220, 222));
+		$operator = "AND";
+		$groupBy = TRUE;
+		$order = "date";
+		$members = $test->select($columns, $whereDyn, $operator, $groupBy, $order);*/
+
+	//exemple de requete INSERT.
+		/*$columns = array ("login" => array("name1", "name2"), "password" => array("pwd1", "pwd2", "pw3"), "mail" => array("mail1", "mail2"));
+		$whereDyn = array();
+		$operator = "OR";
+		$members = $test->insert($columns, $whereDyn, $operator);*/
+
+	//exemple de requete UPDATE.
+		/*$columns = array ("login" => array("ttt"), "password" => array("ppp"), "mail" => array("mmm"));
+		$whereDyn = array ("id" => array(2, 5));
+		$operator = "OR";
+		$members = $test->update($columns, $whereDyn, $operator);*/
+
+	//exemple de requete DELETE.
+		/*$columns = array ();
+		$whereDyn = array ("id" => array(1, 3));
+		$operator = "OR";
+		$members = $test->delete($columns, $whereDyn, $operator);*/
+	//var_dump($members);

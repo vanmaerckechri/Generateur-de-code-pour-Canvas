@@ -51,7 +51,7 @@ function zoomDrawDetails(event)
 	arrowRight = document.querySelectorAll('.arrowRight');
 	arrowLeft[0].addEventListener("click", previousImg);
 	arrowRight[0].addEventListener("click", nextImg);
-	displayDeleteOption();
+	displayMyOptions();
 }
 //fermer fenetre modale
 function dezoomDrawDetails(event)
@@ -77,7 +77,7 @@ function previousImg()
 	{
 		imgActuDiv.innerHTML = '<div class="titre">'+dessinsListe[2][imgActu]+'</div><p id="codeActu">'+dessinsListe[4][imgActu]+'</p><div class="auteur">'+dessinsListe[1][imgActu]+' | '+dessinsListe[3][imgActu]+'</div>';
 	}
-	displayDeleteOption();
+	displayMyOptions();
 }
 function nextImg()
 {
@@ -91,7 +91,7 @@ function nextImg()
 	{
 		imgActuDiv.innerHTML = '<div class="titre">'+dessinsListe[2][imgActu]+'</div><p id="codeActu">'+dessinsListe[4][imgActu]+'</p><div class="auteur">'+dessinsListe[1][imgActu]+' | '+dessinsListe[3][imgActu]+'</div>';
 	}
-	displayDeleteOption();
+	displayMyOptions();
 }
 //afficher code|dessin
 let toggleDisplay = 1;
@@ -111,9 +111,10 @@ function toggleDisplayCode()
 		toggleDisplayID.innerHTML = "Code";
 		toggleDisplay = 1;
 	}
+	displayMyOptions();
 }
 
-function displayDeleteOption()
+function displayMyOptions()
 {
 	if (dessinsListe[5][imgActu] == 1)
 	{
@@ -121,9 +122,30 @@ function displayDeleteOption()
 		modalTitle = modalTitle[0];
 		modalTitle.innerHTML += '<img src="assets/img/trash.png" class="deleteDessin">';
 		imgActuDiv.style.borderColor = "orange";
+
+		let deleteDessin = document.querySelectorAll('.deleteDessin');
+		deleteDessin = deleteDessin[0];
+		deleteDessin.addEventListener('click', deleteDraw);
 	}
 	else
 	{
 		imgActuDiv.style.borderColor = "white";
 	}
+}
+
+function deleteDraw()
+{
+	let deleteValidation = document.querySelectorAll('.deleteValidation');
+	if (deleteValidation[0] === undefined)
+	{
+		imgActuDiv.innerHTML += "<form class='deleteValidation' method='post' action='index.php?action=delete'><input type='hidden' name='deleteDessin' id='deleteDessin'><input type='hidden' name='deleteAuteur' value='"+dessinsListe[1][imgActu]+"'><p>Etes-vous sûr de vouloir supprimer définitivement ce dessin?  </p><input type='submit' value='OUI'></form>";
+		document.getElementById('deleteDessin').value = parseInt(dessinsListe[6][imgActu], 10);
+	}
+	else
+	{
+        deleteValidation[0].parentNode.removeChild(deleteValidation[0]);
+    }
+    let deleteDessin = document.querySelectorAll('.deleteDessin');
+	deleteDessin = deleteDessin[0];
+	deleteDessin.addEventListener('click', deleteDraw);
 }

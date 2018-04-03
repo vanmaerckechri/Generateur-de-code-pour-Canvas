@@ -19,6 +19,10 @@ if (isset($_GET['action']))
     {
     	galRecord();
     }
+    else if ($_GET['action'] == 'delete')
+    {
+        deleteDraw();
+    }
     else
 	{
 		home();
