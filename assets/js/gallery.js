@@ -51,6 +51,7 @@ function zoomDrawDetails(event)
 	arrowRight = document.querySelectorAll('.arrowRight');
 	arrowLeft[0].addEventListener("click", previousImg);
 	arrowRight[0].addEventListener("click", nextImg);
+	displayDeleteOption();
 }
 //fermer fenetre modale
 function dezoomDrawDetails(event)
@@ -76,6 +77,7 @@ function previousImg()
 	{
 		imgActuDiv.innerHTML = '<div class="titre">'+dessinsListe[2][imgActu]+'</div><p id="codeActu">'+dessinsListe[4][imgActu]+'</p><div class="auteur">'+dessinsListe[1][imgActu]+' | '+dessinsListe[3][imgActu]+'</div>';
 	}
+	displayDeleteOption();
 }
 function nextImg()
 {
@@ -89,6 +91,7 @@ function nextImg()
 	{
 		imgActuDiv.innerHTML = '<div class="titre">'+dessinsListe[2][imgActu]+'</div><p id="codeActu">'+dessinsListe[4][imgActu]+'</p><div class="auteur">'+dessinsListe[1][imgActu]+' | '+dessinsListe[3][imgActu]+'</div>';
 	}
+	displayDeleteOption();
 }
 //afficher code|dessin
 let toggleDisplay = 1;
@@ -108,5 +111,14 @@ function toggleDisplayCode()
 		toggleDisplayID.innerHTML = "Code";
 		toggleDisplay = 1;
 	}
-	console.log(toggleDisplay);
+}
+
+function displayDeleteOption()
+{
+	if (dessinsListe[5][imgActu] == 1)
+	{
+		let modalTitle = document.querySelectorAll('.titre');
+		modalTitle = modalTitle[0];
+		modalTitle.innerHTML += '<img src="assets/img/trash.png" class="deleteDessin">';
+	}
 }

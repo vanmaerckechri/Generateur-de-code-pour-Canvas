@@ -693,10 +693,17 @@ class Gallery
 {
 	public static function displayDessins($filterBy)
 	{
+
 		$dessinsInfo = array();
 		$crud = new Crud($GLOBALS['dbGalleryCoo']);
 		$columns = array ("*");
 		$whereDyn = array();
+		//afficher uniquement 'mes dessins'
+		if ($filterBy == "login")
+		{
+			$whereDyn = array("nom_membre" => array($_SESSION['login']));
+			$filterBy = 'date DESC';
+		}
 		$operator = "";
 		$groupBy = "";
 		$order = $filterBy;
@@ -710,6 +717,7 @@ class Gallery
 				var dessinsAuteur = [];
 				var dessinsDate = [];
 				var dessinsCode = [];
+				var dessinsMy = [];
 			</script>';
 		foreach ($dessinsInfo as $key => $value) 
 		{
@@ -728,10 +736,18 @@ class Gallery
 					dessinsTitre.push('".$dessinsInfo[$key][2]."');
 					dessinsAuteur.push('".$dessinsInfo[$key][1]."');
 					dessinsDate.push('".$dessinsInfo[$key][3]."');
-					dessinsCode.push('".$contenu."');
-				</script>";
+					dessinsCode.push('".$contenu."');";
+			if ($GLOBALS['sessionAuthOk'] === TRUE && $_SESSION['login'] === $dessinsInfo[$key][1])
+			{
+				echo "dessinsMy.push('1');";
+			}
+			else
+			{
+				echo "dessinsMy.push('0');";
+			}
+			echo "</script>";
 		}
-		echo '<script>dessinsListe.push(dessinsSrc, dessinsAuteur, dessinsTitre, dessinsDate, dessinsCode);console.log(dessinsListe);</script>';
+		echo '<script>dessinsListe.push(dessinsSrc, dessinsAuteur, dessinsTitre, dessinsDate, dessinsCode, dessinsMy);console.log(dessinsListe);</script>';
 		$_SESSION['dessinsLength'] = count($dessinsInfo);
 		return $dessinsInfo;
 	}
@@ -763,7 +779,7 @@ class Gallery
 	public static function filterDessinParCat($input)
 	{
 		$input = htmlspecialchars($input);
-		if ($input == "date" || $input == "auteur" || $input == "titre")
+		if ($input == "date" || $input == "auteur" || $input == "titre" || $input == "mesDessins")
 		{
 			$_SESSION['trierParSelect'] = $input;
 		}
@@ -779,6 +795,8 @@ class Gallery
 		$columnName = $input == "auteur" ? "nom_membre" : $columnName;
 		$GLOBALS['trierParSelect'][2] = $input == "titre" ? "selected" : "";
 		$columnName = $input == "titre" ? "titre" : $columnName;
+		$GLOBALS['trierParSelect'][3] = $input == "mesDessins" ? "selected" : "";
+		$columnName = $input == "mesDessins" ? "login" : $columnName;
 		return $columnName;
 	}
 	public static function paginationOneByOne($direction)

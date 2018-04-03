@@ -111,6 +111,7 @@ h1
 	transition: all 1s;
 	#modalContainer
 	{	
+		border-radius: 8px 8px 0 0;
 		-moz-user-select: none;
  		-webkit-user-select: none;
  		-ms-user-select: none;
@@ -150,18 +151,41 @@ h1
 		#imgActu
 		{			
 			border: 2px solid white;
+			border-radius: 8px 8px 0 0;
 			img
 			{
 				height: 75vh;
 			}
 			.titre
 			{
+				border-radius: 8px 8px 0 0;
 				padding: .5rem 1rem;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				width: 100%;
+				font-size: 1.3rem;
+				text-transform: uppercase;
+				text-align: left;
+				background-color: rgba(75, 100, 100, .8);
+				.deleteDessin
+				{
+					border: 2px solid orange;
+					border-radius: 50%;
+					width: 24px;
+					height: 24px;
+					background-color: orange;
+				}
 			}
 			.auteur
 			{
 				padding: .5rem 1rem;
+				flex: 1;
+				align-self: flex-end;
+				font-size: .8rem;
+				font-style: italic;
 				text-align: right;
+				background-color: rgba(75, 100, 100, .8);
 			}
 		}
 		#codeActu

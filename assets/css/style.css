@@ -126,6 +126,7 @@ h1 {
   align-items: flex-end;
   transition: all 1s; }
   #dessinDetail #modalContainer {
+    border-radius: 8px 8px 0 0;
     -moz-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
@@ -154,14 +155,35 @@ h1 {
     #dessinDetail #modalContainer .arrowRight {
       right: -25px; }
     #dessinDetail #modalContainer #imgActu {
-      border: 2px solid white; }
+      border: 2px solid white;
+      border-radius: 8px 8px 0 0; }
       #dessinDetail #modalContainer #imgActu img {
         height: 75vh; }
       #dessinDetail #modalContainer #imgActu .titre {
-        padding: .5rem 1rem; }
+        border-radius: 8px 8px 0 0;
+        padding: .5rem 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        font-size: 1.3rem;
+        text-transform: uppercase;
+        text-align: left;
+        background-color: rgba(75, 100, 100, 0.8); }
+        #dessinDetail #modalContainer #imgActu .titre .deleteDessin {
+          border: 2px solid orange;
+          border-radius: 50%;
+          width: 24px;
+          height: 24px;
+          background-color: orange; }
       #dessinDetail #modalContainer #imgActu .auteur {
         padding: .5rem 1rem;
-        text-align: right; }
+        flex: 1;
+        align-self: flex-end;
+        font-size: .8rem;
+        font-style: italic;
+        text-align: right;
+        background-color: rgba(75, 100, 100, 0.8); }
     #dessinDetail #modalContainer #codeActu {
       height: 75vh;
       padding: 10px;
@@ -215,85 +237,96 @@ header {
     justify-content: flex-end;
     align-items: center; }
 
-#main h2 {
-  margin: 2rem 0;
-  font-size: 1.2rem; }
-#main form {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start; }
-  #main form label {
-    margin-top: .5rem; }
-  #main form input {
-    margin-top: 1rem; }
-  #main form .submit {
-    padding: .2rem .5rem; }
-#main .dessins {
-  margin-top: 3rem;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between; }
-  #main .dessins .dessin {
-    border-top-right-radius: 1rem;
-    border-bottom-left-radius: 1rem;
-    margin-bottom: 1rem;
-    position: relative;
-    max-width: 100%;
-    height: auto;
-    transition: all .4s; }
-    #main .dessins .dessin:hover {
-      border: 1px solid white;
-      transform: scale(1.2);
-      box-shadow: 8px 12px 4px rgba(33, 33, 36, 0.3);
-      z-index: 100; }
-      #main .dessins .dessin:hover img {
-        opacity: 1; }
-    #main .dessins .dessin img {
+#main {
+  width: 100%; }
+  #main h2 {
+    margin: 2rem 0;
+    font-size: 1.2rem; }
+  #main form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; }
+    #main form label {
+      margin-top: .5rem; }
+    #main form input {
+      margin-top: 1rem; }
+    #main form .submit {
+      padding: .2rem .5rem; }
+  #main .dessins {
+    margin-top: 3rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between; }
+    #main .dessins .dessin {
       border-top-right-radius: 1rem;
       border-bottom-left-radius: 1rem;
-      max-width: 300px;
+      margin-bottom: 1rem;
+      position: relative;
+      max-width: 100%;
       height: auto;
-      background-color: white;
-      opacity: .8;
-      transition: all .5s; }
-    #main .dessins .dessin .dessinInfo {
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 100%;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-      align-items: baseline;
-      color: white;
-      text-shadow: black 1px 1px, black -1px 1px, black -1px -1px, black 1px -1px;
-      pointer-events: none; }
-      #main .dessins .dessin .dessinInfo .dessinTitre {
+      transition: all .4s; }
+      #main .dessins .dessin:hover {
+        border: 1px solid white;
+        transform: scale(1.2);
+        box-shadow: 8px 12px 4px rgba(33, 33, 36, 0.3);
+        z-index: 100; }
+        #main .dessins .dessin:hover .miniature {
+          opacity: 1; }
+      #main .dessins .dessin .miniature {
         border-top-right-radius: 1rem;
-        padding: .5rem 1rem;
-        width: 100%;
-        text-transform: uppercase;
-        text-align: left;
-        background-color: rgba(75, 100, 100, 0.8); }
-      #main .dessins .dessin .dessinInfo .dessinAuteur {
         border-bottom-left-radius: 1rem;
-        padding: .5rem 1rem;
-        flex: 1;
-        align-self: flex-end;
-        font-size: .8rem;
-        text-align: left;
-        background-color: rgba(75, 100, 100, 0.8); }
-        #main .dessins .dessin .dessinInfo .dessinAuteur:first-letter {
-          text-transform: uppercase; }
-      #main .dessins .dessin .dessinInfo .dessinDate {
-        padding: .5rem 1rem;
-        flex: 1;
-        align-self: flex-end;
-        font-size: .8rem;
-        font-style: italic;
-        text-align: right;
-        background-color: rgba(75, 100, 100, 0.8); }
+        max-width: 300px;
+        height: auto;
+        background-color: white;
+        opacity: .8;
+        transition: all .5s; }
+      #main .dessins .dessin .dessinInfo {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        align-items: baseline;
+        color: white;
+        text-shadow: black 1px 1px, black -1px 1px, black -1px -1px, black 1px -1px;
+        pointer-events: none; }
+        #main .dessins .dessin .dessinInfo .dessinTitre {
+          border-top-right-radius: 1rem;
+          padding: .5rem 1rem;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          width: 100%;
+          text-transform: uppercase;
+          text-align: left;
+          background-color: rgba(75, 100, 100, 0.8); }
+          #main .dessins .dessin .dessinInfo .dessinTitre .deleteDessin {
+            border: 2px solid orange;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            background-color: orange; }
+        #main .dessins .dessin .dessinInfo .dessinAuteur {
+          border-bottom-left-radius: 1rem;
+          padding: .5rem 1rem;
+          flex: 1;
+          align-self: flex-end;
+          font-size: .8rem;
+          text-align: left;
+          background-color: rgba(75, 100, 100, 0.8); }
+          #main .dessins .dessin .dessinInfo .dessinAuteur:first-letter {
+            text-transform: uppercase; }
+        #main .dessins .dessin .dessinInfo .dessinDate {
+          padding: .5rem 1rem;
+          flex: 1;
+          align-self: flex-end;
+          font-size: .8rem;
+          font-style: italic;
+          text-align: right;
+          background-color: rgba(75, 100, 100, 0.8); }
 
 #interface {
   margin-top: 1rem;

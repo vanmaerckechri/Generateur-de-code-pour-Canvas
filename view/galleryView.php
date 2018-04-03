@@ -19,6 +19,14 @@
 			       		<option value="date"<?=$GLOBALS['trierParSelect'][0]?>>date</option>
 			           	<option value="auteur"<?=$GLOBALS['trierParSelect'][1]?>>auteur</option>
 			           	<option value="titre"<?=$GLOBALS['trierParSelect'][2]?>>titre</option>
+						<?php
+			           	if ($GLOBALS['sessionAuthOk'] === TRUE)
+			           	{
+			           	?>
+			           		<option value="mesDessins"<?=$GLOBALS['trierParSelect'][3]?>>mes dessins</option>
+			           	<?php
+ 						}
+			           	?>
 			       	</select>
 			   	</p>
 			</form>
@@ -51,10 +59,19 @@
 			<div class="dessin">
 			    <?php
 				$contenu = $fichiersDessin[$i][0].'.png';
-			    echo '<img src="'.$contenu.'">';
+			    echo '<img class="miniature" src="'.$contenu.'">';
 				?>
 				<div class="dessinInfo">
-			    	<p class="dessinTitre"><?=$fichiersDessin[$i][2]?></p>
+			    	<p class="dessinTitre"><?=$fichiersDessin[$i][2]?>
+			    		<?php
+			    			if ($GLOBALS['sessionAuthOk'] === TRUE && $_SESSION['login'] === $fichiersDessin[$i][1])
+			    			{
+			    		?>		
+			    				<img src="assets/img/trash.png" class="deleteDessin">
+			    		<?php
+			    			}
+			    		?>
+			    	</p>
 			    	<p class="dessinAuteur"><?=$fichiersDessin[$i][1]?></p>
 			    	<p class="dessinDate"><?=$fichiersDessin[$i][3]?></p>
 			    </div>
@@ -65,8 +82,7 @@
 			<div id="dessinDetail" class="dessinDetailMin">
 				<div id="modalContainer">
 					<div class="arrowLeft"></div>
-					<div id="imgActu">
-					</div>
+					<div id="imgActu"></div>
 					<div class="arrowRight"></div>
 					<button id="toggleDisplay">Code</button>
 				</div>
