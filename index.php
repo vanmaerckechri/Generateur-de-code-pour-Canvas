@@ -23,7 +23,7 @@ if (isset($_GET['action']))
     {
         deleteDraw();
     }
-    else if ($_GET['action'] == 'update')
+    else if ($_GET['action'] == 'updtitle')
     {
         updateTitleDraw();
     }

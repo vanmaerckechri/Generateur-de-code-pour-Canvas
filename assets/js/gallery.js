@@ -33,9 +33,9 @@ dessinDetail.addEventListener("click", dezoomDrawDetails)
 
 function displayTitle()
 {
-	let title = "<form id='changeTitleForm' method='post' action='index.php?action=gallery&updtitle'>";
-	title += "<input class='changeTitle' type='text' value='"+dessinsListe[2][imgActu]+"'>";
-	title += "<input type='hidden' name='idTitle' value='"+dessinsListe[1][imgActu]+"'>";
+	let title = "<form id='changeTitleForm' method='post' action='index.php?action=updtitle'>";
+	title += "<input class='changeTitle' type='text' name='changeTitle' value='"+dessinsListe[2][imgActu]+"'>";
+	title += "<input type='hidden' name='idTitle' value='"+dessinsListe[6][imgActu]+"'>";
 	title += "</form>";
 	return title;
 }

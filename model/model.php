@@ -643,7 +643,7 @@ class RecordDraw
 					//Vérifier que le membre n'a pas déjà un fichier portant ce titre.
 					$crud = new Crud($GLOBALS['dbGalleryCoo']);
 					$columns = array ("id_dessin");
-					$whereDyn = array ("nom_membre" => array($login), "titre" => array($titre));
+					$whereDyn = array ("titre" => array($titre));
 					$operator = "AND";
 					$groupBy = TRUE;
 					$drawAlreadyExist = $crud->select($columns, $whereDyn, $operator, $groupBy);
@@ -914,11 +914,39 @@ class Gallery
 	public static function updateTitleDraw($title, $id)
 	{
 		if ($GLOBALS['sessionAuthOk'] === TRUE)
-{
+		{
+			$crud = new Crud($GLOBALS['dbGalleryCoo']);
+			//securité utilisateur
+			$columns = array ("nom_membre", "titre");
+			$whereDyn = array ("id_dessin" => array($id), "titre" => array($title));
+			$operator = "OR";
+			$groupBy = "";
+			$order = "";
+			$member = $crud->select($columns, $whereDyn, $operator, $groupBy, $order);
+				var_dump($member);
+			if (count($member) === 1)
+			{
+				if ($member[0][0] === $_SESSION['login'])
+				{
+					$columns = array ("titre" => array($title));
+					$whereDyn = array ("id_dessin" => array($id));
+					$operator = "OR";
+					$members = $crud->update($columns, $whereDyn, $operator);
+					$_SESSION['smsDeleteDraw'] = "<p class='sms'>Modifications réalisées avec succès!</p>";
+				}
+				else
+				{
+					$_SESSION['smsDeleteDraw'] = "<p class='smsAlert'>Vous tentez de modifier le titre d'un dessin qui ne vous appartient pas!</p>";
+				}
+			}
+			else
+			{
+				$_SESSION['smsDeleteDraw'] = "<p class='smsAlert'>Ce titre existe déjà!</p>";
+			}
 		}
 		else
 		{
-			$_SESSION['smsDeleteDraw'] = "<p class='smsAlert'>Vous tentez d'effacer un dessin qui ne vous appartient pas!</p>";
+			$_SESSION['smsDeleteDraw'] = "<p class='smsAlert'>Vous n'êtes pas connecté!</p>";
 		}
 	}
 }
