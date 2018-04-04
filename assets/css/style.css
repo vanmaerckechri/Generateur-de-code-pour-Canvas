@@ -16,6 +16,12 @@ html, body, header, nav, footer, section, div, span, h1, h2, h3, p, a, blockquot
   100% {
     border-bottom-left-radius: 16px;
     border-top-right-radius: 16px; } }
+@keyframes deleteValidation {
+  0% {
+    letter-spacing: inehrit; }
+  100% {
+    letter-spacing: .5rem;
+    content: "?"; } }
 html {
   height: 100%;
   background-color: #c8c8c8; }
@@ -143,10 +149,8 @@ h1 {
       height: 50px;
       color: black;
       transform: rotate(45deg);
-      z-index: -1;
       animation: carouselArrowWait 1s linear infinite alternate;
-      transition: all .5s;
-      z-index: 101; }
+      transition: all .5s; }
       #dessinDetail #modalContainer .arrowLeft:hover, #dessinDetail #modalContainer .arrowRight:hover {
         border-color: orange; }
     #dessinDetail #modalContainer .arrowLeft {
@@ -250,12 +254,15 @@ h1 {
   position: absolute;
   top: 2.7rem;
   left: 0;
-  background-color: rgba(255, 255, 255, 0.8); }
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.9); }
   .deleteValidation input {
     font-weight: bold;
     color: red;
     background-color: transparent; }
     .deleteValidation input:hover {
+      animation: deleteValidation 1s linear infinite alternate;
+      transition: all .5s;
       cursor: pointer; }
 
 header {
