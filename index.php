@@ -23,6 +23,10 @@ if (isset($_GET['action']))
     {
         deleteDraw();
     }
+    else if ($_GET['action'] == 'update')
+    {
+        updateTitleDraw();
+    }
     else
 	{
 		home();

@@ -241,11 +241,27 @@ function deleteDraw()
 	if (isset($_POST['deleteDessin']) && isset($_POST['deleteAuteur']) && !empty($_POST['deleteAuteur']))
 	{
 		$deleteAuteur = Authentification::filterInputs($_POST['deleteAuteur'], 'alnum');
-		Gallery::deleteDraw($_POST['deleteDessin'], $deleteAuteur);
+		$deleteDessin = Authentification::filterInputs($_POST['deleteDessin'], 'alnum');
+		Gallery::deleteDraw($deleteDessin, $deleteAuteur);
 	}
 	else
 	{
 		$_SESSION['smsDeleteDraw'] = "<p class='smsAlert'>Il n'y a rien à effacer!</p>";
+	}
+	header('Location: index.php?action=gallery');
+}
+
+function updateTitleDraw()
+{
+	if (isset($_POST['changeTitle']) && !empty($_POST['changeTitle']) && isset($_POST['idTitle']) && !empty($_POST['idTitle']))
+	{
+		$title = Authentification::filterInputs($_POST['changeTitle'], 'alnumspace');
+		$idTitle = Authentification::filterInputs($_POST['idTitle'], 'alnum');
+		Gallery::updateTitleDraw($title, $idTitle);
+	}
+	else
+	{
+		$_SESSION['smsDeleteDraw'] = "<p class='smsAlert'>Modifications impossibles!</p>";
 	}
 	header('Location: index.php?action=gallery');
 }

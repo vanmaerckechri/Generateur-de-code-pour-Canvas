@@ -882,16 +882,39 @@ class Gallery
 	}
 	public static function deleteDraw($id, $auteur)
 	{
-		if ($GLOBALS['sessionAuthOk'] === TRUE && $_SESSION['login'] === $auteur)
+		if ($GLOBALS['sessionAuthOk'] === TRUE)
 		{
 			$crud = new Crud($GLOBALS['dbGalleryCoo']);
-			$columns = array ();
+			$columns = array ("nom_membre");
 			$whereDyn = array ("id_dessin" => array($id));
 			$operator = "OR";
-			$crud->delete($columns, $whereDyn, $operator);
-			unlink ("./assets/gallery/".$auteur."/".$id.".png");
-			unlink ("./assets/gallery/".$auteur."/".$id.".canvas");
-			$_SESSION['smsDeleteDraw'] = "<p class='sms'>Votre dessin vient d'être effacé!</p>";
+			$groupBy = "";
+			$order = "";
+			$member = $crud->select($columns, $whereDyn, $operator, $groupBy, $order);
+			if ($member[0][0] === $_SESSION['login'])
+			{
+				$columns = array ();
+				$whereDyn = array ("id_dessin" => array($id));
+				$operator = "OR";
+				$crud->delete($columns, $whereDyn, $operator);
+				unlink ("./assets/gallery/".$auteur."/".$id.".png");
+				unlink ("./assets/gallery/".$auteur."/".$id.".canvas");
+				$_SESSION['smsDeleteDraw'] = "<p class='sms'>Votre dessin vient d'être effacé!</p>";
+			}
+			else
+			{
+				$_SESSION['smsDeleteDraw'] = "<p class='smsAlert'>Vous tentez d'effacer un dessin qui ne vous appartient pas!</p>";
+			}
+		}
+		else
+		{
+			$_SESSION['smsDeleteDraw'] = "<p class='smsAlert'>Vous n'êtes pas connecté!</p>";
+		}
+	}
+	public static function updateTitleDraw($title, $id)
+	{
+		if ($GLOBALS['sessionAuthOk'] === TRUE)
+{
 		}
 		else
 		{

@@ -170,25 +170,31 @@ h1 {
         text-transform: uppercase;
         text-align: left;
         background-color: rgba(75, 100, 100, 0.8); }
-        #dessinDetail #modalContainer #imgActu .titre .dessinOptions {
-          margin-left: 1rem;
-          flex: 1;
-          display: flex;
-          justify-content: space-between; }
-          #dessinDetail #modalContainer #imgActu .titre .dessinOptions .deleteDessin, #dessinDetail #modalContainer #imgActu .titre .dessinOptions .changeTitle {
-            border: 2px solid white;
-            border-radius: 50%;
-            width: 24px;
-            height: 24px;
-            background-color: white; }
-          #dessinDetail #modalContainer #imgActu .titre .dessinOptions .deleteDessin:hover {
-            border-color: red;
-            cursor: pointer;
-            background-color: red; }
-          #dessinDetail #modalContainer #imgActu .titre .dessinOptions .changeTitle:hover {
-            border-color: orange;
-            cursor: pointer;
-            background-color: orange; }
+        #dessinDetail #modalContainer #imgActu .titre #changeTitleForm .changeTitle {
+          margin-top: 0;
+          width: 100%;
+          color: black;
+          background-color: transparent;
+          pointer-events: none; }
+        #dessinDetail #modalContainer #imgActu .titre #changeTitleForm .changeTitleOpen {
+          background-color: white;
+          pointer-events: auto; }
+        #dessinDetail #modalContainer #imgActu .titre .dessinOptions .deleteDessin, #dessinDetail #modalContainer #imgActu .titre .dessinOptions .changeTitleIcon {
+          border: 2px solid white;
+          border-radius: 50%;
+          width: 24px;
+          height: 24px;
+          background-color: white; }
+        #dessinDetail #modalContainer #imgActu .titre .dessinOptions .changeTitleIcon {
+          margin: 0 1rem; }
+        #dessinDetail #modalContainer #imgActu .titre .dessinOptions .deleteDessin:hover {
+          border-color: red;
+          cursor: pointer;
+          background-color: red; }
+        #dessinDetail #modalContainer #imgActu .titre .dessinOptions .changeTitleIcon:hover {
+          border-color: orange;
+          cursor: pointer;
+          background-color: orange; }
       #dessinDetail #modalContainer #imgActu .auteur {
         padding: .5rem 1rem;
         flex: 1;

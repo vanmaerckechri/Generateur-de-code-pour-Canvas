@@ -168,13 +168,25 @@ h1
 				text-transform: uppercase;
 				text-align: left;
 				background-color: rgba(75, 100, 100, .8);
+				#changeTitleForm
+				{
+					.changeTitle
+					{
+						margin-top: 0;
+						width: 100%;
+						color: black;
+						background-color: transparent;
+						pointer-events: none;
+					}
+					.changeTitleOpen
+					{
+						background-color: white;
+						pointer-events: auto;
+					}
+				}
 				.dessinOptions
 				{
-					margin-left: 1rem;
-					flex: 1;
-					display: flex;
-					justify-content: space-between;
-					.deleteDessin, .changeTitle
+					.deleteDessin, .changeTitleIcon
 					{
 						border: 2px solid white;
 						border-radius: 50%;
@@ -182,13 +194,17 @@ h1
 						height: 24px;
 						background-color: white;
 					}
+					.changeTitleIcon
+					{
+						margin: 0 1rem;
+					}
 					.deleteDessin:hover
 					{
 						border-color: red;
 						cursor: pointer;
 						background-color: red;
 					}
-					.changeTitle:hover
+					.changeTitleIcon:hover
 					{
 						border-color: orange;
 						cursor: pointer;

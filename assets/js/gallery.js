@@ -24,8 +24,22 @@ let imgActu;
 let arrowLeft;
 let arrowRight;
 let imgActuDiv = document.getElementById('imgActu');
+let changeTitleForm;
+let deleteDessin;
+let changeTitle;
+let changeTitleIcon;
 let dessinDetail = document.getElementById('dessinDetail');
 dessinDetail.addEventListener("click", dezoomDrawDetails)
+
+function displayTitle()
+{
+	let title = "<form id='changeTitleForm' method='post' action='index.php?action=gallery&updtitle'>";
+	title += "<input class='changeTitle' type='text' value='"+dessinsListe[2][imgActu]+"'>";
+	title += "<input type='hidden' name='idTitle' value='"+dessinsListe[1][imgActu]+"'>";
+	title += "</form>";
+	return title;
+}
+
 function zoomDrawDetails(event)
 {
 	let dessinsListeLength = dessinsListe[0].length;
@@ -42,7 +56,9 @@ function zoomDrawDetails(event)
 		dessinsListe[4][i] = dessinsListe[4][i].replace(/\r/i, '');
 	}
 
-	imgActuDiv.innerHTML = '<div class="titre">'+dessinsListe[2][imgActu]+'</div><img src="'+event.target.src+'"><div class="auteur">'+dessinsListe[1][imgActu]+' | '+dessinsListe[3][imgActu]+'</div>';
+	let title = displayTitle();
+
+	imgActuDiv.innerHTML = '<div class="titre">'+title+'</div><img src="'+event.target.src+'"><div class="auteur">'+dessinsListe[1][imgActu]+' | '+dessinsListe[3][imgActu]+'</div>';
 	dessinDetail.classList.add("dessinDetailMax");
 	toggleDisplayID.innerHTML = "Code";
 	toggleDisplay = 1;
@@ -69,13 +85,16 @@ function previousImg()
 {
 	imgActu --;
 	imgActu = imgActu < 0 ? dessinsListe[0].length - 1 : imgActu;
+
+	let title = displayTitle();
+
 	if (toggleDisplay == 1)
 	{
-		imgActuDiv.innerHTML = '<div class="titre">'+dessinsListe[2][imgActu]+'</div><img src="'+dessinsListe[0][imgActu]+'.png"><div class="auteur">'+dessinsListe[1][imgActu]+' | '+dessinsListe[3][imgActu]+'</div>';
+		imgActuDiv.innerHTML = '<div class="titre">'+title+'</div><img src="'+dessinsListe[0][imgActu]+'.png"><div class="auteur">'+dessinsListe[1][imgActu]+' | '+dessinsListe[3][imgActu]+'</div>';
 	}
 	else
 	{
-		imgActuDiv.innerHTML = '<div class="titre">'+dessinsListe[2][imgActu]+'</div><p id="codeActu">'+dessinsListe[4][imgActu]+'</p><div class="auteur">'+dessinsListe[1][imgActu]+' | '+dessinsListe[3][imgActu]+'</div>';
+		imgActuDiv.innerHTML = '<div class="titre">'+title+'</div><p id="codeActu">'+dessinsListe[4][imgActu]+'</p><div class="auteur">'+dessinsListe[1][imgActu]+' | '+dessinsListe[3][imgActu]+'</div>';
 	}
 	displayMyOptions();
 }
@@ -83,13 +102,16 @@ function nextImg()
 {
 	imgActu ++;
 	imgActu = imgActu >= dessinsListe[0].length ? 0 : imgActu;
+
+	let title = displayTitle();
+
 	if (toggleDisplay == 1)
 	{
-		imgActuDiv.innerHTML = '<div class="titre">'+dessinsListe[2][imgActu]+'</div><img src="'+dessinsListe[0][imgActu]+'.png"><div class="auteur">'+dessinsListe[1][imgActu]+' | '+dessinsListe[3][imgActu]+'</div>';
+		imgActuDiv.innerHTML = '<div class="titre">'+title+'</div><img src="'+dessinsListe[0][imgActu]+'.png"><div class="auteur">'+dessinsListe[1][imgActu]+' | '+dessinsListe[3][imgActu]+'</div>';
 	}
 	else
 	{
-		imgActuDiv.innerHTML = '<div class="titre">'+dessinsListe[2][imgActu]+'</div><p id="codeActu">'+dessinsListe[4][imgActu]+'</p><div class="auteur">'+dessinsListe[1][imgActu]+' | '+dessinsListe[3][imgActu]+'</div>';
+		imgActuDiv.innerHTML = '<div class="titre">'+title+'</div><p id="codeActu">'+dessinsListe[4][imgActu]+'</p><div class="auteur">'+dessinsListe[1][imgActu]+' | '+dessinsListe[3][imgActu]+'</div>';
 	}
 	displayMyOptions();
 }
@@ -97,17 +119,20 @@ function nextImg()
 let toggleDisplay = 1;
 let toggleDisplayID = document.getElementById('toggleDisplay');
 toggleDisplayID.addEventListener('click', toggleDisplayCode);
+
+let title = displayTitle();
+
 function toggleDisplayCode()
 {
 	if (toggleDisplay == 1)
 	{
-		imgActuDiv.innerHTML = '<div class="titre">'+dessinsListe[2][imgActu]+'</div><p id="codeActu">'+dessinsListe[4][imgActu]+'</p><div class="auteur">'+dessinsListe[1][imgActu]+' | '+dessinsListe[3][imgActu]+'</div>';
+		imgActuDiv.innerHTML = '<div class="titre">'+title+'</div><p id="codeActu">'+dessinsListe[4][imgActu]+'</p><div class="auteur">'+dessinsListe[1][imgActu]+' | '+dessinsListe[3][imgActu]+'</div>';
 		toggleDisplayID.innerHTML = "Dessin";
 		toggleDisplay = 0;
 	}
 	else
 	{
-		imgActuDiv.innerHTML = '<div class="titre">'+dessinsListe[2][imgActu]+'</div><img src="'+dessinsListe[0][imgActu]+'.png"><div class="auteur">'+dessinsListe[1][imgActu]+' | '+dessinsListe[3][imgActu]+'</div>';
+		imgActuDiv.innerHTML = '<div class="titre">'+title+'</div><img src="'+dessinsListe[0][imgActu]+'.png"><div class="auteur">'+dessinsListe[1][imgActu]+' | '+dessinsListe[3][imgActu]+'</div>';
 		toggleDisplayID.innerHTML = "Code";
 		toggleDisplay = 1;
 	}
@@ -120,12 +145,16 @@ function displayMyOptions()
 	{
 		let modalTitle = document.querySelectorAll('.titre');
 		modalTitle = modalTitle[0];
-		modalTitle.innerHTML += '<div class="dessinOptions"><img src="assets/img/pen.png" class="changeTitle"><img src="assets/img/trash.png" class="deleteDessin"></div>';
+		modalTitle.innerHTML += '<div class="dessinOptions"><img src="assets/img/pen.png" class="changeTitleIcon"><img src="assets/img/trash.png" class="deleteDessin"></div>';
 		imgActuDiv.style.borderColor = "orange";
 
-		let deleteDessin = document.querySelectorAll('.deleteDessin');
+		deleteDessin = document.querySelectorAll('.deleteDessin');
 		deleteDessin = deleteDessin[0];
 		deleteDessin.addEventListener('click', deleteDraw);
+
+		changeTitleIcon = document.querySelectorAll('.changeTitleIcon');
+		changeTitleIcon = changeTitleIcon[0];
+		changeTitleIcon.addEventListener('click', openChangeTitle);
 	}
 	else
 	{
@@ -140,6 +169,10 @@ function deleteDraw()
 	{
 		imgActuDiv.innerHTML += "<form class='deleteValidation' method='post' action='index.php?action=delete'><input type='hidden' name='deleteDessin' id='deleteDessin'><input type='hidden' name='deleteAuteur' value='"+dessinsListe[1][imgActu]+"'><p>Etes-vous sûr de vouloir supprimer définitivement ce dessin?  </p><input type='submit' value='OUI'></form>";
 		document.getElementById('deleteDessin').value = parseInt(dessinsListe[6][imgActu], 10);
+
+		changeTitleIcon = document.querySelectorAll('.changeTitleIcon');
+		changeTitleIcon = changeTitleIcon[0];
+		changeTitleIcon.addEventListener('click', openChangeTitle);
 	}
 	else
 	{
@@ -148,4 +181,19 @@ function deleteDraw()
     let deleteDessin = document.querySelectorAll('.deleteDessin');
 	deleteDessin = deleteDessin[0];
 	deleteDessin.addEventListener('click', deleteDraw);
+}
+
+function openChangeTitle()
+{
+	changeTitleForm = document.getElementById('changeTitleForm')
+	changeTitle = document.querySelectorAll('.changeTitle');
+	changeTitle = changeTitle[0];
+	if (!changeTitle.classList.contains('changeTitleOpen'))
+	{
+		changeTitle.classList.add('changeTitleOpen');
+	}
+	else
+	{
+		changeTitle.classList.remove('changeTitleOpen');
+	}
 }
