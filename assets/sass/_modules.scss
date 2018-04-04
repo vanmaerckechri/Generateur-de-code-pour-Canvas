@@ -111,6 +111,7 @@ h1
 	transition: all 1s;
 	#modalContainer
 	{	
+		flex: 1;
 		border-radius: 8px 8px 0 0;
 		-moz-user-select: none;
  		-webkit-user-select: none;
@@ -120,41 +121,47 @@ h1
 		position: relative;
 		max-width: 960px;
 		background-color: white;
-
 		.arrowLeft, .arrowRight
 		{
-			border: 2px solid white;
+
 			position: absolute;
 			top: calc(50% - 25px);
 			width: 50px;
 			height: 50px;
 			color: black;
 			transform: rotate(45deg);
-			background-color: orange;
 			z-index: -1;
 			animation: carouselArrowWait 1s linear infinite alternate;
 			transition: all .5s;
+			z-index: 101;
 			&:hover
 			{
-				border: 2px solid orange;
-				background-color: white;
+				border-color: orange;
 			}
 		}
 		.arrowLeft
 		{
-			left: -25px;
+			border-bottom: 2px solid white;
+			border-left: 2px solid white;
+			left: 25px;
 		}
 		.arrowRight
 		{
-			right: -25px;
+			border-top: 2px solid white;
+			border-right: 2px solid white;
+			right: 25px;
 		}
 		#imgActu
 		{			
+			flex: 1;
 			border: 2px solid white;
 			border-radius: 8px 8px 0 0;
+			text-align: center;
+			background-color: black;
 			img
 			{
 				height: 75vh;
+				background-color: white;
 			}
 			.titre
 			{
@@ -170,16 +177,18 @@ h1
 				background-color: rgba(75, 100, 100, .8);
 				#changeTitleForm
 				{
+					flex: 1;
 					.changeTitle
 					{
 						margin-top: 0;
 						width: 100%;
-						color: black;
+						color: white;
 						background-color: transparent;
 						pointer-events: none;
 					}
 					.changeTitleOpen
 					{
+						color: black;
 						background-color: white;
 						pointer-events: auto;
 					}
@@ -224,7 +233,9 @@ h1
 			}
 		}
 		#codeActu
-		{				
+		{
+			display: flex;
+			justify-content: center;
 			height: 75vh;
 			padding: 10px;
 			flex: 1;
@@ -234,6 +245,7 @@ h1
 			font-weight: bold;
 			overflow: scroll;
 			overflow-x: hidden;
+			text-align: left;
 			-webkit-user-select: all;
 			-moz-user-select: all;
 			-ms-user-select: all;

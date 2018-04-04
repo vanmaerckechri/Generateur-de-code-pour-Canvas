@@ -126,6 +126,7 @@ h1 {
   align-items: flex-end;
   transition: all 1s; }
   #dessinDetail #modalContainer {
+    flex: 1;
     border-radius: 8px 8px 0 0;
     -moz-user-select: none;
     -webkit-user-select: none;
@@ -136,29 +137,35 @@ h1 {
     max-width: 960px;
     background-color: white; }
     #dessinDetail #modalContainer .arrowLeft, #dessinDetail #modalContainer .arrowRight {
-      border: 2px solid white;
       position: absolute;
       top: calc(50% - 25px);
       width: 50px;
       height: 50px;
       color: black;
       transform: rotate(45deg);
-      background-color: orange;
       z-index: -1;
       animation: carouselArrowWait 1s linear infinite alternate;
-      transition: all .5s; }
+      transition: all .5s;
+      z-index: 101; }
       #dessinDetail #modalContainer .arrowLeft:hover, #dessinDetail #modalContainer .arrowRight:hover {
-        border: 2px solid orange;
-        background-color: white; }
+        border-color: orange; }
     #dessinDetail #modalContainer .arrowLeft {
-      left: -25px; }
+      border-bottom: 2px solid white;
+      border-left: 2px solid white;
+      left: 25px; }
     #dessinDetail #modalContainer .arrowRight {
-      right: -25px; }
+      border-top: 2px solid white;
+      border-right: 2px solid white;
+      right: 25px; }
     #dessinDetail #modalContainer #imgActu {
+      flex: 1;
       border: 2px solid white;
-      border-radius: 8px 8px 0 0; }
+      border-radius: 8px 8px 0 0;
+      text-align: center;
+      background-color: black; }
       #dessinDetail #modalContainer #imgActu img {
-        height: 75vh; }
+        height: 75vh;
+        background-color: white; }
       #dessinDetail #modalContainer #imgActu .titre {
         border-radius: 8px 8px 0 0;
         padding: .5rem 1rem;
@@ -170,15 +177,18 @@ h1 {
         text-transform: uppercase;
         text-align: left;
         background-color: rgba(75, 100, 100, 0.8); }
-        #dessinDetail #modalContainer #imgActu .titre #changeTitleForm .changeTitle {
-          margin-top: 0;
-          width: 100%;
-          color: black;
-          background-color: transparent;
-          pointer-events: none; }
-        #dessinDetail #modalContainer #imgActu .titre #changeTitleForm .changeTitleOpen {
-          background-color: white;
-          pointer-events: auto; }
+        #dessinDetail #modalContainer #imgActu .titre #changeTitleForm {
+          flex: 1; }
+          #dessinDetail #modalContainer #imgActu .titre #changeTitleForm .changeTitle {
+            margin-top: 0;
+            width: 100%;
+            color: white;
+            background-color: transparent;
+            pointer-events: none; }
+          #dessinDetail #modalContainer #imgActu .titre #changeTitleForm .changeTitleOpen {
+            color: black;
+            background-color: white;
+            pointer-events: auto; }
         #dessinDetail #modalContainer #imgActu .titre .dessinOptions .deleteDessin, #dessinDetail #modalContainer #imgActu .titre .dessinOptions .changeTitleIcon {
           border: 2px solid white;
           border-radius: 50%;
@@ -204,6 +214,8 @@ h1 {
         text-align: right;
         background-color: rgba(75, 100, 100, 0.8); }
     #dessinDetail #modalContainer #codeActu {
+      display: flex;
+      justify-content: center;
       height: 75vh;
       padding: 10px;
       flex: 1;
@@ -213,6 +225,7 @@ h1 {
       font-weight: bold;
       overflow: scroll;
       overflow-x: hidden;
+      text-align: left;
       -webkit-user-select: all;
       -moz-user-select: all;
       -ms-user-select: all;
@@ -334,8 +347,12 @@ header {
           justify-content: space-between;
           align-items: center;
           width: 100%;
-          text-transform: uppercase;
           text-align: left;
+          font-size: .8rem;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          overflow-wrap: break-word;
+          word-break: break-all;
           background-color: rgba(75, 100, 100, 0.8); }
         #main .dessins .dessin .dessinInfo .dessinAuteur {
           border-bottom-left-radius: 1rem;

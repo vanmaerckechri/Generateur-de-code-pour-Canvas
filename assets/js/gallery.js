@@ -120,10 +120,11 @@ let toggleDisplay = 1;
 let toggleDisplayID = document.getElementById('toggleDisplay');
 toggleDisplayID.addEventListener('click', toggleDisplayCode);
 
-let title = displayTitle();
-
 function toggleDisplayCode()
 {
+
+	let title = displayTitle();
+
 	if (toggleDisplay == 1)
 	{
 		imgActuDiv.innerHTML = '<div class="titre">'+title+'</div><p id="codeActu">'+dessinsListe[4][imgActu]+'</p><div class="auteur">'+dessinsListe[1][imgActu]+' | '+dessinsListe[3][imgActu]+'</div>';

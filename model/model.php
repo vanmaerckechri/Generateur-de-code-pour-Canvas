@@ -924,25 +924,32 @@ class Gallery
 			$groupBy = "";
 			$order = "";
 			$member = $crud->select($columns, $whereDyn, $operator, $groupBy, $order);
-			if (count($member) === 1)
+			if ($member[0][0] === $_SESSION['login'])
 			{
-				if ($member[0][0] === $_SESSION['login'])
+				if (count($member) === 1)
 				{
-					$title = strtoupper($title);
-					$columns = array ("titre" => array($title));
-					$whereDyn = array ("id_dessin" => array($id));
-					$operator = "OR";
-					$members = $crud->update($columns, $whereDyn, $operator);
-					$_SESSION['smsDeleteDraw'] = "<p class='sms'>Modifications réalisées avec succès!</p>";
+					if (strlen($title) > 7 && strlen($title) < 64)
+					{
+						$title = strtoupper($title);
+						$columns = array ("titre" => array($title));
+						$whereDyn = array ("id_dessin" => array($id));
+						$operator = "OR";
+						$members = $crud->update($columns, $whereDyn, $operator);
+						$_SESSION['smsDeleteDraw'] = "<p class='sms'>Modifications réalisées avec succès!</p>";
+					}
+					else
+					{
+						$_SESSION['smsDeleteDraw'] = "<p class='smsAlert'>Le titre doit être composé de 8 à 63 caractères!</p>";
+					}
 				}
 				else
 				{
-					$_SESSION['smsDeleteDraw'] = "<p class='smsAlert'>Vous tentez de modifier le titre d'un dessin qui ne vous appartient pas!</p>";
+					$_SESSION['smsDeleteDraw'] = "<p class='smsAlert'>Ce titre existe déjà!</p>";
 				}
 			}
 			else
 			{
-				$_SESSION['smsDeleteDraw'] = "<p class='smsAlert'>Ce titre existe déjà!</p>";
+				$_SESSION['smsDeleteDraw'] = "<p class='smsAlert'>Vous tentez de modifier le titre d'un dessin qui ne vous appartient pas!</p>";
 			}
 		}
 		else
