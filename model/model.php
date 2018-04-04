@@ -683,7 +683,7 @@ class RecordDraw
 					//demander confirmation d'écrasement.
 					else
 					{
-						$_SESSION['smsAuth'] = "<p class='smsAlert'>Vous avez déjà un dessin portant ce titre!</p>";
+						$_SESSION['smsAuth'] = "<p class='smsAlert'>Il existe déjà un dessin portant ce titre!</p>";
 					}
 				}
 				else
