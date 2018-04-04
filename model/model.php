@@ -628,6 +628,7 @@ class RecordDraw
 		{
 			$titre = htmlspecialchars($titre);
 			$titre = Authentification::filterInputs($titre, "alnumspace");
+			$titre = strtoupper($titre);
 			if ($titre != FALSE)
 			{
 				if (strlen($titre) > 7 && strlen($titre) < 64)
@@ -923,11 +924,11 @@ class Gallery
 			$groupBy = "";
 			$order = "";
 			$member = $crud->select($columns, $whereDyn, $operator, $groupBy, $order);
-				var_dump($member);
 			if (count($member) === 1)
 			{
 				if ($member[0][0] === $_SESSION['login'])
 				{
+					$title = strtoupper($title);
 					$columns = array ("titre" => array($title));
 					$whereDyn = array ("id_dessin" => array($id));
 					$operator = "OR";
