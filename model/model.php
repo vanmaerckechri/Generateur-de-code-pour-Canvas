@@ -444,6 +444,14 @@ class Authentification
 			$pwd = $this->filterInputs($_POST['pwd'], "alnum");
 			$pwd2 = $this->filterInputs($_POST['pwd2'], "alnum");
 			$mail = $this->filterInputs($_POST['mail'], "mail");
+			if ($login != FALSE && (strlen($login) < 3 || strlen($login) > 32))
+			{
+				$login = FALSE;
+			}
+			if ($pwd != FALSE && (strlen($pwd) < 6 || strlen($pwd) > 32))
+			{
+				$pwd = FALSE;
+			}
 			if ($login != FALSE && $pwd != FALSE && $pwd2 != FALSE && $mail != FALSE)
 			{
 				if ($pwd === $pwd2)
@@ -458,8 +466,8 @@ class Authentification
 					$_SESSION['smsPwd2'] = "<p class='smsAlert'>Les passwords sont différents!</p>";
 				}
 	    	}
-	    	$_SESSION['smsLogin'] = $login == FALSE ? "<p class='smsAlert'>Le login ne peut être composé que de lettres et de chiffres</p>" : "";
-	    	$_SESSION['smsPwd'] = $pwd == FALSE ? "<p class='smsAlert'>Le password ne peut être composé que de lettres et de chiffres</p>" : "";
+	    	$_SESSION['smsLogin'] = $login == FALSE ? "<p class='smsAlert'>Le login doit comporter entre 3 et 32 caractères et ne peut être composé que de lettres et de chiffres</p>" : "";
+	    	$_SESSION['smsPwd'] = $pwd == FALSE ? "<p class='smsAlert'>Le password doit comporter entre 6 et 32 caractères et ne peut être composé que de lettres et de chiffres</p>" : "";
 	    	$_SESSION['smsMail'] = $mail == FALSE ? "<p class='smsAlert'>Veuillez entrer une adresse mail valide!</p>" : "";
 		}
 		return $newMemberDatas;
