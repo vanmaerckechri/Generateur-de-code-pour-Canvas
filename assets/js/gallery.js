@@ -120,7 +120,7 @@ function displayMyOptions()
 	{
 		let modalTitle = document.querySelectorAll('.titre');
 		modalTitle = modalTitle[0];
-		modalTitle.innerHTML += '<img src="assets/img/trash.png" class="deleteDessin">';
+		modalTitle.innerHTML += '<div class="dessinOptions"><img src="assets/img/pen.png" class="changeTitle"><img src="assets/img/trash.png" class="deleteDessin"></div>';
 		imgActuDiv.style.borderColor = "orange";
 
 		let deleteDessin = document.querySelectorAll('.deleteDessin');

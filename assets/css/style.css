@@ -170,16 +170,25 @@ h1 {
         text-transform: uppercase;
         text-align: left;
         background-color: rgba(75, 100, 100, 0.8); }
-        #dessinDetail #modalContainer #imgActu .titre .deleteDessin {
-          border: 2px solid white;
-          border-radius: 50%;
-          width: 24px;
-          height: 24px;
-          background-color: white; }
-          #dessinDetail #modalContainer #imgActu .titre .deleteDessin:hover {
+        #dessinDetail #modalContainer #imgActu .titre .dessinOptions {
+          margin-left: 1rem;
+          flex: 1;
+          display: flex;
+          justify-content: space-between; }
+          #dessinDetail #modalContainer #imgActu .titre .dessinOptions .deleteDessin, #dessinDetail #modalContainer #imgActu .titre .dessinOptions .changeTitle {
+            border: 2px solid white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            background-color: white; }
+          #dessinDetail #modalContainer #imgActu .titre .dessinOptions .deleteDessin:hover {
             border-color: red;
             cursor: pointer;
             background-color: red; }
+          #dessinDetail #modalContainer #imgActu .titre .dessinOptions .changeTitle:hover {
+            border-color: orange;
+            cursor: pointer;
+            background-color: orange; }
       #dessinDetail #modalContainer #imgActu .auteur {
         padding: .5rem 1rem;
         flex: 1;
@@ -322,12 +331,6 @@ header {
           text-transform: uppercase;
           text-align: left;
           background-color: rgba(75, 100, 100, 0.8); }
-          #main .dessins .dessin .dessinInfo .dessinTitre .deleteDessin {
-            border: 2px solid orange;
-            border-radius: 50%;
-            width: 24px;
-            height: 24px;
-            background-color: orange; }
         #main .dessins .dessin .dessinInfo .dessinAuteur {
           border-bottom-left-radius: 1rem;
           padding: .5rem 1rem;
