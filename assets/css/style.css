@@ -31,12 +31,13 @@ body {
   margin-left: auto;
   margin-right: auto;
   max-width: 1080px;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center; }
 
-header {
+header, h2 {
   font-family: "Oswald", sans-serif; }
 
 canvas {
@@ -57,14 +58,6 @@ h1 {
 .sms {
   margin-top: 1rem;
   color: green; }
-
-.submitHref {
-  color: #3232af;
-  text-decoration: underline;
-  background: none; }
-  .submitHref:hover {
-    color: black;
-    cursor: pointer; }
 
 .pagination {
   display: flex;
@@ -253,6 +246,45 @@ h1 {
   width: 48px;
   height: 48px;
   background-color: #95d6e2; }
+
+.formulaire {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 1; }
+  .formulaire h2 {
+    font-family: "Oswald", sans-serif;
+    color: #f9fcff;
+    text-align: center; }
+  .formulaire form {
+    width: 33%; }
+    .formulaire form label {
+      font-family: "Oswald", sans-serif;
+      color: #f9fcff; }
+    .formulaire form input {
+      width: 100%;
+      border-radius: 4px;
+      margin-bottom: 1rem; }
+    .formulaire form .submitAuth {
+      padding: .3rem .5rem;
+      border-radius: 4px;
+      color: black;
+      background-color: #f9fcff;
+      transition: border-radius .5s;
+      width: auto; }
+      .formulaire form .submitAuth:hover {
+        background-color: #95d6e2;
+        cursor: pointer; }
+    .formulaire form .submitHref {
+      color: #669da8;
+      text-decoration: underline;
+      text-align: left;
+      background: none;
+      width: 100%; }
+      .formulaire form .submitHref:hover {
+        color: #f9fcff;
+        cursor: pointer; }
 
 header {
   width: 100%;

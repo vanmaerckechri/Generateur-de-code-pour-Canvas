@@ -90,6 +90,7 @@
 			</div>
 		</div>
 	</div>
+	<footer></footer>
 	<script src="assets/js/gallery.js"></script>
 	<?php
 $content = ob_get_clean();

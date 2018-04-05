@@ -14,17 +14,6 @@ h1
 	margin-top: 1rem;
 	color: green;
 }
-.submitHref
-{
-	color: rgb(50, 50, 175);
-	text-decoration: underline;
-	background: none;
-	&:hover
-	{
-		color: black;
-		cursor: pointer;
-	}
-}
 .pagination
 {
 	display: flex;
@@ -282,4 +271,61 @@ h1
 	width: 48px;
 	height: 48px;
 	background-color: #95d6e2;
+}
+//Authentification
+.formulaire
+{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	flex: 1;
+	h2
+	{
+		font-family: $fontTitre;
+		color: #f9fcff;
+		text-align: center;	
+	}
+	form
+	{
+		width: 33%;
+		label
+		{
+			font-family: $fontTitre;
+			color: #f9fcff;		
+		}
+		input
+		{
+			width: 100%;
+			border-radius: 4px;
+			margin-bottom: 1rem;
+		}
+		.submitAuth
+		{
+			padding: .3rem .5rem;
+			border-radius: 4px;
+		    color: black;
+			background-color: #f9fcff;
+			transition: border-radius .5s;
+			width: auto;
+			&:hover
+			{
+				background-color: #95d6e2;
+				cursor: pointer;
+			}
+		}
+		.submitHref
+		{
+			color: #669da8;
+			text-decoration: underline;
+			text-align: left;
+			background: none;
+			width: 100%;
+			&:hover
+			{
+				color: #f9fcff;
+				cursor: pointer;
+			}
+		}
+	}
 }
