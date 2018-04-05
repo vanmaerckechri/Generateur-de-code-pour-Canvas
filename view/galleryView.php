@@ -2,11 +2,10 @@
 
 <?php ob_start(); ?>
     <div id="main">
-    	<h2>Galerie</h2>
 	    <div class="filtres">
 	    	<form method="post" id="formFilter" action="index.php?action=gallery">
 			   	<p>
-			       	<label for="parPage">Nombre de dessins par page:</label>
+			       	<label for="parPage">Dessins par page:</label>
 			       	<select name="parPage" id="parPage">
 			           	<option value="10"<?=$GLOBALS['parPageSelected'][0]?>>10</option>
 			           	<option value="20"<?=$GLOBALS['parPageSelected'][1]?>>20</option>

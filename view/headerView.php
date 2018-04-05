@@ -1,8 +1,8 @@
 <?php ob_start(); ?>
     <h1>Générateur de Canvas</h1>
     <div class="connect">
-    	<a href="index.php?action=home" class="submit">home</a>
-    	<a href="index.php?action=gallery" class="submit">gallery</a>
+    	<a href="index.php?action=home" class="submit">Home</a>
+    	<a href="index.php?action=gallery" class="submit">Gallery</a>
 	    <?php 
 	    	if ($GLOBALS['sessionAuthOk'] === TRUE)
 	    	{

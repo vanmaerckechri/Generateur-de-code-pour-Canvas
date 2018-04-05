@@ -9,20 +9,21 @@ header
 	z-index: 102;
 	&:before
 	{
-		border-bottom: 1px solid rgba(50, 55, 60, .5);
 		position: absolute;
 		content: "";
 		top: 0;
 		left: 0;
 		width: 100%;
 		height: 60px;
-		background-color: rgba(50, 55, 60, .3);
+		background-color: #669da8;
 		z-index: -1;
+		box-shadow: 0px 12px 2px 1px rgba(27, 32, 33, .2);
 	}
 	h1
 	{
 		flex: 3;
 		font-size: 1.3rem;
+		color: #1b2021;
 	}
 	.connect
 	{
@@ -30,6 +31,19 @@ header
 		display: flex;
 		justify-content: flex-end;
 		align-items: center;
+		.submit
+		{
+			margin-left: .5rem;
+			padding: .2rem .5rem;
+			text-decoration: none;
+			font-size: 1rem;
+			letter-spacing: .1rem;
+			color: #f9fcff;
+			&:hover
+			{
+				color: #1b2021;
+			}
+		}
 	}
 }
 #main
@@ -60,38 +74,46 @@ header
 	}
 	.dessins
 	{
-		margin-top: 3rem;
+		margin-top: 1.5rem;
 		display: flex;
 		flex-wrap: wrap;
-		justify-content: space-between;
+		justify-content: center;
+		width: 100%;
 		.dessin
 		{
-			border-top-right-radius: 1rem;
-			border-bottom-left-radius: 1rem;
-			margin-bottom: 1rem;
 			position: relative;
-			max-width: 100%;
-			height: auto;
+			width: 200px;
+			height: 200px;
+			object-fit: cover;
 			transition: all .4s;
 			&:hover
 			{
-				border: 1px solid white;
-				transform: scale(1.2);
-				box-shadow: 8px 12px 4px rgba(33, 33, 36, .3);
-				z-index: 100;
-				.miniature
+				.dessinInfo
 				{
-					opacity: 1;
+					background-color: rgba(0, 0, 0, .4);
+					.miniature
+					{
+						border-radius: 50%;
+					}
+					.dessinTitre
+					{
+						letter-spacing: initial;
+						opacity: 1;
+					}
+					.dessinAuteur
+					{
+						opacity: 1;
+					}
+					.dessinDate
+					{
+						opacity: 1;
+					}
 				}
 			}
 			.miniature
 			{
-				border-top-right-radius: 1rem;
-				border-bottom-left-radius: 1rem;
-				max-width: 300px;
-				height: auto;
+				width: 100%;
 				background-color: white;
-				opacity: .8;
 				transition: all .5s;
 			}
 			.dessinInfo
@@ -102,37 +124,33 @@ header
 				height: 100%;
 				width: 100%;
 				display: flex;
+				flex-direction: column;
 				flex-wrap: wrap;
-				justify-content: flex-end;
-				align-items: baseline;
+				justify-content: center;
+				align-items: center;
 				color: white;
 				text-shadow: black 1px 1px, black -1px 1px, black -1px -1px, black 1px -1px;
 				pointer-events: none;
+				transition: all .5s;
 				.dessinTitre
 				{
-					border-top-right-radius: 1rem;
-					padding: .5rem 1rem;
-					display: flex;
-					justify-content: space-between;
-					align-items: center;
 					width: 100%;
-					text-align: left;
-					font-size: .8rem;
-					overflow: hidden; 
+					text-align: center;
+					font-size: 1rem;
+					opacity: 0;
+					overflow: hidden;
+					white-space: nowrap;
 					text-overflow: ellipsis;
-  					overflow-wrap: break-word;
-  					word-break: break-all;
-					background-color: rgba(75, 100, 100, .8);
+					letter-spacing: .2rem;
+					transition: letter-spacing 1s;
 				}
 				.dessinAuteur
 				{
-					border-bottom-left-radius: 1rem;
-					padding: .5rem 1rem;
-					flex: 1;
-					align-self: flex-end;
-					font-size: .8rem;
-					text-align: left;
-					background-color: rgba(75, 100, 100, .8);
+					font-size: .9rem;
+					text-align: center;
+					opacity: 0;
+					transition: opacity .5s;
+					transition-delay: .2s;
 					&:first-letter
 					{
 						text-transform: uppercase;
@@ -140,13 +158,12 @@ header
 				}
 				.dessinDate
 				{
-					padding: .5rem 1rem;
-					flex: 1;
-					align-self: flex-end;
 					font-size: .8rem;
 					font-style: italic;
-					text-align: right;
-					background-color: rgba(75, 100, 100, .8);
+					text-align: center;
+					opacity: 0;
+					transition: opacity .5s;
+					transition-delay: .2s;
 				}
 			}
 		}
@@ -162,21 +179,103 @@ header
 }
 #interface
 {
-	margin-top: 1rem;
-	width: 100%;
+	padding: 70px .4rem .4rem .4rem;
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100vh;
+	width: 132px;
+	background-color: #3d4e51;
+	z-index: 101;
 	.menuRow
 	{
-		margin-bottom: .5rem;
-		width: 100%;
-		height: 33px;
 		display: flex;
-		justify-content: space-around;
-		align-items: center;
-		.sousOptionsContainer, .brushs
+		flex-wrap: wrap;
+		justify-content: space-between;
+		align-items: flex-start;
+		.brushs
 		{
+			border-bottom: 1px dotted #3d4e51;
+		}
+		.sousOptionsContainer
+		{
+			text-align: center;
+		}
+		.brushs, .sousOptionsContainer
+		{			
 			display: flex;
-			justify-content: center;
-			align-items: center;
+			flex-wrap: wrap;
+			justify-content: space-between;
+			align-items: flex-start;
+			width: 116px;
+			button
+			{
+				margin: .4rem 0;
+				position: relative;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				width: 48px;
+				height: 48px;
+				border-radius: 4px;
+			    font-family: $fontSecondaire;
+			    color: black;
+				background-color: #f9fcff;
+				transition: border-radius .5s;
+				&:hover
+				{
+					background-color: #95d6e2;
+					cursor: pointer;
+				}
+				&:hover:after
+				{
+					border-radius: 50%;
+					border: 1px solid white;
+					padding: .7rem;
+					position: absolute;
+					left: 110%;
+					top: 0;
+					color: #f9fcff;
+					background-color: #1b2021;
+					z-index: 103;
+				}
+			}
+			#drawBrush
+			{
+				&:hover:after
+				{
+					content:"Brush";
+				}
+			}
+			#drawLine
+			{
+				&:hover:after
+				{
+					content:"Line";
+				}
+			}
+			#drawLineForm
+			{
+				&:hover:after
+				{
+					content:"Shape by Line";
+				}
+			}
+			#drawRectangle
+			{
+				&:hover:after
+				{
+					content:"Rectangle";
+				}
+			}
+			#drawCircle
+			{
+				margin-right: auto;
+				&:hover:after
+				{
+					content:"circle";
+				}
+			}
 			.button_unselect
 			{
 				display: flex;
@@ -185,26 +284,17 @@ header
 			}
 			.button_Select
 			{
+				border-radius: 50%;
 				display: flex;
 				justify-content: center;
 				align-items: center;
-				background-color: black;
-				color: white;
+				background-color: #95d6e2;
 			}
-		}
-		.sousOptionsContainer
-		{
-			margin-left: $spaceBetweenOptions;
-			margin-right: $spaceBetweenOptions;
-			display: flex;
-			align-items: center;
 			#color, #colorStroke
 			{
-				margin-left: $spaceBetweenOptions;
-				margin-right: $spaceBetweenOptions;
 				border: 1px solid black;
-				width: 33px;
-				height: 33px;
+				width: 48px;
+				height: 24px;
 				background-color: black;
 			}
 			#lineOptionWidth
@@ -343,11 +433,24 @@ header
 			width: 50px;
 		}
 	}
+	.undoredo
+	{
+		display: flex;
+		justify-content: space-between;
+		width: 100%;
+		border-top: 1px dotted #3d4e51;
+	}
+	#undo, #redo, #opacityFill, #opacityStroke, #lineOptionWidth, #color, #colorStroke
+	{
+		margin: .4rem 0;
+		width: 48px;
+		height: 24px;
+		color: black;
+	}
 	#recordSubmit
 	{
 		border: 2px solid black;
-		border-radius: 50%;
-		width: 33px;
+		width: 100%;
 		height: 33px;
 		font-size: .7rem;
 		color: black;

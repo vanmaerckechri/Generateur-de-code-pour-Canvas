@@ -1,19 +1,4 @@
 @import "variables";
-button
-{
-	border: 1px solid black;
-	border-radius: 4px;
-	font-family: 'Open Sans Condensed', sans-serif;
-	font-size: 1rem;
-	color: black;
-	font-weight: bold;
-	background-color: pink;
-	&:hover
-	{
-		color: white;
-		background-color: black;
-	}
-}
 h1
 {
 	margin: 1rem 0;
@@ -29,18 +14,6 @@ h1
 	margin-top: 1rem;
 	color: green;
 }
-.submit
-{
-	margin-left: .5rem;
-	padding: .2rem .5rem;
-	text-decoration: none;
-	color: orange;
-	background-color: black;
-	&:hover
-	{
-		color: white;
-	}
-}
 .submitHref
 {
 	color: rgb(50, 50, 175);
@@ -55,6 +28,7 @@ h1
 .pagination
 {
 	display: flex;
+	justify-content: center;
 	align-items: baseline;
 	form
 	{
@@ -64,7 +38,7 @@ h1
 			padding: .2rem .5rem;
 			font-weight: bold;
 			color: white;
-			background-color: black;
+			background-color: transparent;
 			&:hover
 			{
 				cursor: pointer;
@@ -290,4 +264,22 @@ h1
 			cursor: pointer;
 		}
 	}
+}
+
+.button_unselect
+{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 48px;
+	height: 48px;
+}
+.button_Select
+{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 48px;
+	height: 48px;
+	background-color: #95d6e2;
 }

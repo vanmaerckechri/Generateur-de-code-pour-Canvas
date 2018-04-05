@@ -24,12 +24,13 @@ html, body, header, nav, footer, section, div, span, h1, h2, h3, p, a, blockquot
     content: "?"; } }
 html {
   height: 100%;
-  background-color: #c8c8c8; }
+  background-color: #1b2021;
+  font-family: "Oswald", sans-serif; }
 
 body {
   margin-left: auto;
   margin-right: auto;
-  max-width: 960px;
+  max-width: 1080px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -39,30 +40,8 @@ canvas {
   border: 1px solid black;
   background-color: white; }
 
-button {
-  margin-left: 2px;
-  margin-right: 2px;
-  width: 100px;
-  height: 33px; }
-
-input {
-  margin-left: 2px;
-  margin-right: 2px; }
-
 h2 {
   text-align: center; }
-
-button {
-  border: 1px solid black;
-  border-radius: 4px;
-  font-family: 'Open Sans Condensed', sans-serif;
-  font-size: 1rem;
-  color: black;
-  font-weight: bold;
-  background-color: pink; }
-  button:hover {
-    color: white;
-    background-color: black; }
 
 h1 {
   margin: 1rem 0;
@@ -76,15 +55,6 @@ h1 {
   margin-top: 1rem;
   color: green; }
 
-.submit {
-  margin-left: .5rem;
-  padding: .2rem .5rem;
-  text-decoration: none;
-  color: orange;
-  background-color: black; }
-  .submit:hover {
-    color: white; }
-
 .submitHref {
   color: #3232af;
   text-decoration: underline;
@@ -95,13 +65,14 @@ h1 {
 
 .pagination {
   display: flex;
+  justify-content: center;
   align-items: baseline; }
   .pagination form input {
     border-radius: 50%;
     padding: .2rem .5rem;
     font-weight: bold;
     color: white;
-    background-color: black; }
+    background-color: transparent; }
     .pagination form input:hover {
       cursor: pointer;
       color: orange; }
@@ -265,6 +236,21 @@ h1 {
       transition: all .5s;
       cursor: pointer; }
 
+.button_unselect {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px; }
+
+.button_Select {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+  background-color: #95d6e2; }
+
 header {
   width: 100%;
   height: 60px;
@@ -273,23 +259,33 @@ header {
   align-items: baseline;
   z-index: 102; }
   header:before {
-    border-bottom: 1px solid rgba(50, 55, 60, 0.5);
     position: absolute;
     content: "";
     top: 0;
     left: 0;
     width: 100%;
     height: 60px;
-    background-color: rgba(50, 55, 60, 0.3);
-    z-index: -1; }
+    background-color: #669da8;
+    z-index: -1;
+    box-shadow: 0px 12px 2px 1px rgba(27, 32, 33, 0.2); }
   header h1 {
     flex: 3;
-    font-size: 1.3rem; }
+    font-size: 1.3rem;
+    color: #1b2021; }
   header .connect {
     flex: 1;
     display: flex;
     justify-content: flex-end;
     align-items: center; }
+    header .connect .submit {
+      margin-left: .5rem;
+      padding: .2rem .5rem;
+      text-decoration: none;
+      font-size: 1rem;
+      letter-spacing: .1rem;
+      color: #f9fcff; }
+      header .connect .submit:hover {
+        color: #1b2021; }
 
 #main {
   width: 100%; }
@@ -307,32 +303,31 @@ header {
     #main form .submit {
       padding: .2rem .5rem; }
   #main .dessins {
-    margin-top: 3rem;
+    margin-top: 1.5rem;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between; }
+    justify-content: center;
+    width: 100%; }
     #main .dessins .dessin {
-      border-top-right-radius: 1rem;
-      border-bottom-left-radius: 1rem;
-      margin-bottom: 1rem;
       position: relative;
-      max-width: 100%;
-      height: auto;
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
       transition: all .4s; }
-      #main .dessins .dessin:hover {
-        border: 1px solid white;
-        transform: scale(1.2);
-        box-shadow: 8px 12px 4px rgba(33, 33, 36, 0.3);
-        z-index: 100; }
-        #main .dessins .dessin:hover .miniature {
+      #main .dessins .dessin:hover .dessinInfo {
+        background-color: rgba(0, 0, 0, 0.4); }
+        #main .dessins .dessin:hover .dessinInfo .miniature {
+          border-radius: 50%; }
+        #main .dessins .dessin:hover .dessinInfo .dessinTitre {
+          letter-spacing: initial;
+          opacity: 1; }
+        #main .dessins .dessin:hover .dessinInfo .dessinAuteur {
+          opacity: 1; }
+        #main .dessins .dessin:hover .dessinInfo .dessinDate {
           opacity: 1; }
       #main .dessins .dessin .miniature {
-        border-top-right-radius: 1rem;
-        border-bottom-left-radius: 1rem;
-        max-width: 300px;
-        height: auto;
+        width: 100%;
         background-color: white;
-        opacity: .8;
         transition: all .5s; }
       #main .dessins .dessin .dessinInfo {
         position: absolute;
@@ -341,93 +336,129 @@ header {
         height: 100%;
         width: 100%;
         display: flex;
+        flex-direction: column;
         flex-wrap: wrap;
-        justify-content: flex-end;
-        align-items: baseline;
+        justify-content: center;
+        align-items: center;
         color: white;
         text-shadow: black 1px 1px, black -1px 1px, black -1px -1px, black 1px -1px;
-        pointer-events: none; }
+        pointer-events: none;
+        transition: all .5s; }
         #main .dessins .dessin .dessinInfo .dessinTitre {
-          border-top-right-radius: 1rem;
-          padding: .5rem 1rem;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
           width: 100%;
-          text-align: left;
-          font-size: .8rem;
+          text-align: center;
+          font-size: 1rem;
+          opacity: 0;
           overflow: hidden;
+          white-space: nowrap;
           text-overflow: ellipsis;
-          overflow-wrap: break-word;
-          word-break: break-all;
-          background-color: rgba(75, 100, 100, 0.8); }
+          letter-spacing: .2rem;
+          transition: letter-spacing 1s; }
         #main .dessins .dessin .dessinInfo .dessinAuteur {
-          border-bottom-left-radius: 1rem;
-          padding: .5rem 1rem;
-          flex: 1;
-          align-self: flex-end;
-          font-size: .8rem;
-          text-align: left;
-          background-color: rgba(75, 100, 100, 0.8); }
+          font-size: .9rem;
+          text-align: center;
+          opacity: 0;
+          transition: opacity .5s;
+          transition-delay: .2s; }
           #main .dessins .dessin .dessinInfo .dessinAuteur:first-letter {
             text-transform: uppercase; }
         #main .dessins .dessin .dessinInfo .dessinDate {
-          padding: .5rem 1rem;
-          flex: 1;
-          align-self: flex-end;
           font-size: .8rem;
           font-style: italic;
-          text-align: right;
-          background-color: rgba(75, 100, 100, 0.8); }
+          text-align: center;
+          opacity: 0;
+          transition: opacity .5s;
+          transition-delay: .2s; }
     #main .dessins .dessinMy {
       border: 2px solid orange; }
       #main .dessins .dessinMy:hover {
         border: 2px solid orange; }
 
 #interface {
-  margin-top: 1rem;
-  width: 100%; }
+  padding: 70px .4rem .4rem .4rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 132px;
+  background-color: #3d4e51;
+  z-index: 101; }
   #interface .menuRow {
-    margin-bottom: .5rem;
-    width: 100%;
-    height: 33px;
     display: flex;
-    justify-content: space-around;
-    align-items: center; }
-    #interface .menuRow .sousOptionsContainer, #interface .menuRow .brushs {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start; }
+    #interface .menuRow .brushs {
+      border-bottom: 1px dotted #3d4e51; }
+    #interface .menuRow .sousOptionsContainer {
+      text-align: center; }
+    #interface .menuRow .brushs, #interface .menuRow .sousOptionsContainer {
       display: flex;
-      justify-content: center;
-      align-items: center; }
-      #interface .menuRow .sousOptionsContainer .button_unselect, #interface .menuRow .brushs .button_unselect {
-        display: flex;
-        justify-content: center;
-        align-items: center; }
-      #interface .menuRow .sousOptionsContainer .button_Select, #interface .menuRow .brushs .button_Select {
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-start;
+      width: 116px; }
+      #interface .menuRow .brushs button, #interface .menuRow .sousOptionsContainer button {
+        margin: .4rem 0;
+        position: relative;
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: black;
-        color: white; }
-    #interface .menuRow .sousOptionsContainer {
-      margin-left: 2px;
-      margin-right: 2px;
-      display: flex;
-      align-items: center; }
-      #interface .menuRow .sousOptionsContainer #color, #interface .menuRow .sousOptionsContainer #colorStroke {
-        margin-left: 2px;
-        margin-right: 2px;
+        width: 48px;
+        height: 48px;
+        border-radius: 4px;
+        font-family: "Raleway", sans-serif;
+        color: black;
+        background-color: #f9fcff;
+        transition: border-radius .5s; }
+        #interface .menuRow .brushs button:hover, #interface .menuRow .sousOptionsContainer button:hover {
+          background-color: #95d6e2;
+          cursor: pointer; }
+        #interface .menuRow .brushs button:hover:after, #interface .menuRow .sousOptionsContainer button:hover:after {
+          border-radius: 50%;
+          border: 1px solid white;
+          padding: .7rem;
+          position: absolute;
+          left: 110%;
+          top: 0;
+          color: #f9fcff;
+          background-color: #1b2021;
+          z-index: 103; }
+      #interface .menuRow .brushs #drawBrush:hover:after, #interface .menuRow .sousOptionsContainer #drawBrush:hover:after {
+        content: "Brush"; }
+      #interface .menuRow .brushs #drawLine:hover:after, #interface .menuRow .sousOptionsContainer #drawLine:hover:after {
+        content: "Line"; }
+      #interface .menuRow .brushs #drawLineForm:hover:after, #interface .menuRow .sousOptionsContainer #drawLineForm:hover:after {
+        content: "Shape by Line"; }
+      #interface .menuRow .brushs #drawRectangle:hover:after, #interface .menuRow .sousOptionsContainer #drawRectangle:hover:after {
+        content: "Rectangle"; }
+      #interface .menuRow .brushs #drawCircle, #interface .menuRow .sousOptionsContainer #drawCircle {
+        margin-right: auto; }
+        #interface .menuRow .brushs #drawCircle:hover:after, #interface .menuRow .sousOptionsContainer #drawCircle:hover:after {
+          content: "circle"; }
+      #interface .menuRow .brushs .button_unselect, #interface .menuRow .sousOptionsContainer .button_unselect {
+        display: flex;
+        justify-content: center;
+        align-items: center; }
+      #interface .menuRow .brushs .button_Select, #interface .menuRow .sousOptionsContainer .button_Select {
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #95d6e2; }
+      #interface .menuRow .brushs #color, #interface .menuRow .brushs #colorStroke, #interface .menuRow .sousOptionsContainer #color, #interface .menuRow .sousOptionsContainer #colorStroke {
         border: 1px solid black;
-        width: 33px;
-        height: 33px;
+        width: 48px;
+        height: 24px;
         background-color: black; }
-      #interface .menuRow .sousOptionsContainer #lineOptionWidth {
+      #interface .menuRow .brushs #lineOptionWidth, #interface .menuRow .sousOptionsContainer #lineOptionWidth {
         width: 50px; }
-      #interface .menuRow .sousOptionsContainer #strokeColorR, #interface .menuRow .sousOptionsContainer #colorR {
+      #interface .menuRow .brushs #strokeColorR, #interface .menuRow .brushs #colorR, #interface .menuRow .sousOptionsContainer #strokeColorR, #interface .menuRow .sousOptionsContainer #colorR {
         -webkit-appearance: none;
         appearance: none; }
-        #interface .menuRow .sousOptionsContainer #strokeColorR::-moz-range-track, #interface .menuRow .sousOptionsContainer #colorR::-moz-range-track {
+        #interface .menuRow .brushs #strokeColorR::-moz-range-track, #interface .menuRow .brushs #colorR::-moz-range-track, #interface .menuRow .sousOptionsContainer #strokeColorR::-moz-range-track, #interface .menuRow .sousOptionsContainer #colorR::-moz-range-track {
           background-color: red; }
-        #interface .menuRow .sousOptionsContainer #strokeColorR::-webkit-slider-thumb, #interface .menuRow .sousOptionsContainer #colorR::-webkit-slider-thumb {
+        #interface .menuRow .brushs #strokeColorR::-webkit-slider-thumb, #interface .menuRow .brushs #colorR::-webkit-slider-thumb, #interface .menuRow .sousOptionsContainer #strokeColorR::-webkit-slider-thumb, #interface .menuRow .sousOptionsContainer #colorR::-webkit-slider-thumb {
           margin-top: -9px;
           -webkit-appearance: none;
           border-radius: 50%;
@@ -437,25 +468,25 @@ header {
           background: red;
           cursor: pointer;
           color: black; }
-        #interface .menuRow .sousOptionsContainer #strokeColorR::-webkit-slider-runnable-track, #interface .menuRow .sousOptionsContainer #colorR::-webkit-slider-runnable-track {
+        #interface .menuRow .brushs #strokeColorR::-webkit-slider-runnable-track, #interface .menuRow .brushs #colorR::-webkit-slider-runnable-track, #interface .menuRow .sousOptionsContainer #strokeColorR::-webkit-slider-runnable-track, #interface .menuRow .sousOptionsContainer #colorR::-webkit-slider-runnable-track {
           width: 100%;
           height: 3px;
           cursor: pointer;
           background: black; }
-        #interface .menuRow .sousOptionsContainer #strokeColorR::-ms-fill-lower, #interface .menuRow .sousOptionsContainer #colorR::-ms-fill-lower {
+        #interface .menuRow .brushs #strokeColorR::-ms-fill-lower, #interface .menuRow .brushs #colorR::-ms-fill-lower, #interface .menuRow .sousOptionsContainer #strokeColorR::-ms-fill-lower, #interface .menuRow .sousOptionsContainer #colorR::-ms-fill-lower {
           background: black;
           border-radius: 50px; }
-        #interface .menuRow .sousOptionsContainer #strokeColorR::-ms-fill-upper, #interface .menuRow .sousOptionsContainer #colorR::-ms-fill-upper {
+        #interface .menuRow .brushs #strokeColorR::-ms-fill-upper, #interface .menuRow .brushs #colorR::-ms-fill-upper, #interface .menuRow .sousOptionsContainer #strokeColorR::-ms-fill-upper, #interface .menuRow .sousOptionsContainer #colorR::-ms-fill-upper {
           background: black;
           border-radius: 50px; }
-        #interface .menuRow .sousOptionsContainer #strokeColorR::-ms-thumb, #interface .menuRow .sousOptionsContainer #colorR::-ms-thumb {
+        #interface .menuRow .brushs #strokeColorR::-ms-thumb, #interface .menuRow .brushs #colorR::-ms-thumb, #interface .menuRow .sousOptionsContainer #strokeColorR::-ms-thumb, #interface .menuRow .sousOptionsContainer #colorR::-ms-thumb {
           margin-top: 0px; }
-      #interface .menuRow .sousOptionsContainer #strokeColorG, #interface .menuRow .sousOptionsContainer #colorG {
+      #interface .menuRow .brushs #strokeColorG, #interface .menuRow .brushs #colorG, #interface .menuRow .sousOptionsContainer #strokeColorG, #interface .menuRow .sousOptionsContainer #colorG {
         -webkit-appearance: none;
         appearance: none; }
-        #interface .menuRow .sousOptionsContainer #strokeColorG::-moz-range-track, #interface .menuRow .sousOptionsContainer #colorG::-moz-range-track {
+        #interface .menuRow .brushs #strokeColorG::-moz-range-track, #interface .menuRow .brushs #colorG::-moz-range-track, #interface .menuRow .sousOptionsContainer #strokeColorG::-moz-range-track, #interface .menuRow .sousOptionsContainer #colorG::-moz-range-track {
           background-color: green; }
-        #interface .menuRow .sousOptionsContainer #strokeColorG::-webkit-slider-thumb, #interface .menuRow .sousOptionsContainer #colorG::-webkit-slider-thumb {
+        #interface .menuRow .brushs #strokeColorG::-webkit-slider-thumb, #interface .menuRow .brushs #colorG::-webkit-slider-thumb, #interface .menuRow .sousOptionsContainer #strokeColorG::-webkit-slider-thumb, #interface .menuRow .sousOptionsContainer #colorG::-webkit-slider-thumb {
           margin-top: -9px;
           -webkit-appearance: none;
           border-radius: 50%;
@@ -465,25 +496,25 @@ header {
           background: green;
           cursor: pointer;
           color: black; }
-        #interface .menuRow .sousOptionsContainer #strokeColorG::-webkit-slider-runnable-track, #interface .menuRow .sousOptionsContainer #colorG::-webkit-slider-runnable-track {
+        #interface .menuRow .brushs #strokeColorG::-webkit-slider-runnable-track, #interface .menuRow .brushs #colorG::-webkit-slider-runnable-track, #interface .menuRow .sousOptionsContainer #strokeColorG::-webkit-slider-runnable-track, #interface .menuRow .sousOptionsContainer #colorG::-webkit-slider-runnable-track {
           width: 100%;
           height: 3px;
           cursor: pointer;
           background: black; }
-        #interface .menuRow .sousOptionsContainer #strokeColorG::-ms-fill-lower, #interface .menuRow .sousOptionsContainer #colorG::-ms-fill-lower {
+        #interface .menuRow .brushs #strokeColorG::-ms-fill-lower, #interface .menuRow .brushs #colorG::-ms-fill-lower, #interface .menuRow .sousOptionsContainer #strokeColorG::-ms-fill-lower, #interface .menuRow .sousOptionsContainer #colorG::-ms-fill-lower {
           background: black;
           border-radius: 50px; }
-        #interface .menuRow .sousOptionsContainer #strokeColorG::-ms-fill-upper, #interface .menuRow .sousOptionsContainer #colorG::-ms-fill-upper {
+        #interface .menuRow .brushs #strokeColorG::-ms-fill-upper, #interface .menuRow .brushs #colorG::-ms-fill-upper, #interface .menuRow .sousOptionsContainer #strokeColorG::-ms-fill-upper, #interface .menuRow .sousOptionsContainer #colorG::-ms-fill-upper {
           background: black;
           border-radius: 50px; }
-        #interface .menuRow .sousOptionsContainer #strokeColorG::-ms-thumb, #interface .menuRow .sousOptionsContainer #colorG::-ms-thumb {
+        #interface .menuRow .brushs #strokeColorG::-ms-thumb, #interface .menuRow .brushs #colorG::-ms-thumb, #interface .menuRow .sousOptionsContainer #strokeColorG::-ms-thumb, #interface .menuRow .sousOptionsContainer #colorG::-ms-thumb {
           margin-top: 0px; }
-      #interface .menuRow .sousOptionsContainer #strokeColorB, #interface .menuRow .sousOptionsContainer #colorB {
+      #interface .menuRow .brushs #strokeColorB, #interface .menuRow .brushs #colorB, #interface .menuRow .sousOptionsContainer #strokeColorB, #interface .menuRow .sousOptionsContainer #colorB {
         -webkit-appearance: none;
         appearance: none; }
-        #interface .menuRow .sousOptionsContainer #strokeColorB::-moz-range-track, #interface .menuRow .sousOptionsContainer #colorB::-moz-range-track {
+        #interface .menuRow .brushs #strokeColorB::-moz-range-track, #interface .menuRow .brushs #colorB::-moz-range-track, #interface .menuRow .sousOptionsContainer #strokeColorB::-moz-range-track, #interface .menuRow .sousOptionsContainer #colorB::-moz-range-track {
           background-color: blue; }
-        #interface .menuRow .sousOptionsContainer #strokeColorB::-webkit-slider-thumb, #interface .menuRow .sousOptionsContainer #colorB::-webkit-slider-thumb {
+        #interface .menuRow .brushs #strokeColorB::-webkit-slider-thumb, #interface .menuRow .brushs #colorB::-webkit-slider-thumb, #interface .menuRow .sousOptionsContainer #strokeColorB::-webkit-slider-thumb, #interface .menuRow .sousOptionsContainer #colorB::-webkit-slider-thumb {
           margin-top: -9px;
           -webkit-appearance: none;
           border-radius: 50%;
@@ -493,25 +524,34 @@ header {
           background: blue;
           cursor: pointer;
           color: black; }
-        #interface .menuRow .sousOptionsContainer #strokeColorB::-webkit-slider-runnable-track, #interface .menuRow .sousOptionsContainer #colorB::-webkit-slider-runnable-track {
+        #interface .menuRow .brushs #strokeColorB::-webkit-slider-runnable-track, #interface .menuRow .brushs #colorB::-webkit-slider-runnable-track, #interface .menuRow .sousOptionsContainer #strokeColorB::-webkit-slider-runnable-track, #interface .menuRow .sousOptionsContainer #colorB::-webkit-slider-runnable-track {
           width: 100%;
           height: 3px;
           cursor: pointer;
           background: black; }
-        #interface .menuRow .sousOptionsContainer #strokeColorB::-ms-fill-lower, #interface .menuRow .sousOptionsContainer #colorB::-ms-fill-lower {
+        #interface .menuRow .brushs #strokeColorB::-ms-fill-lower, #interface .menuRow .brushs #colorB::-ms-fill-lower, #interface .menuRow .sousOptionsContainer #strokeColorB::-ms-fill-lower, #interface .menuRow .sousOptionsContainer #colorB::-ms-fill-lower {
           background: black;
           border-radius: 50px; }
-        #interface .menuRow .sousOptionsContainer #strokeColorB::-ms-fill-upper, #interface .menuRow .sousOptionsContainer #colorB::-ms-fill-upper {
+        #interface .menuRow .brushs #strokeColorB::-ms-fill-upper, #interface .menuRow .brushs #colorB::-ms-fill-upper, #interface .menuRow .sousOptionsContainer #strokeColorB::-ms-fill-upper, #interface .menuRow .sousOptionsContainer #colorB::-ms-fill-upper {
           background: black;
           border-radius: 50px; }
-        #interface .menuRow .sousOptionsContainer #strokeColorB::-ms-thumb, #interface .menuRow .sousOptionsContainer #colorB::-ms-thumb {
+        #interface .menuRow .brushs #strokeColorB::-ms-thumb, #interface .menuRow .brushs #colorB::-ms-thumb, #interface .menuRow .sousOptionsContainer #strokeColorB::-ms-thumb, #interface .menuRow .sousOptionsContainer #colorB::-ms-thumb {
           margin-top: 0px; }
     #interface .menuRow .slider, #interface .menuRow .sliderCircle {
       width: 50px; }
+  #interface .undoredo {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    border-top: 1px dotted #3d4e51; }
+  #interface #undo, #interface #redo, #interface #opacityFill, #interface #opacityStroke, #interface #lineOptionWidth, #interface #color, #interface #colorStroke {
+    margin: .4rem 0;
+    width: 48px;
+    height: 24px;
+    color: black; }
   #interface #recordSubmit {
     border: 2px solid black;
-    border-radius: 50%;
-    width: 33px;
+    width: 100%;
     height: 33px;
     font-size: .7rem;
     color: black;
