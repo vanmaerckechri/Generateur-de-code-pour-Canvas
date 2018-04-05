@@ -25,7 +25,7 @@ html, body, header, nav, footer, section, div, span, h1, h2, h3, p, a, blockquot
 html {
   height: 100%;
   background-color: #1b2021;
-  font-family: "Oswald", sans-serif; }
+  font-family: "Raleway", sans-serif; }
 
 body {
   margin-left: auto;
@@ -35,6 +35,9 @@ body {
   flex-direction: column;
   justify-content: space-between;
   align-items: center; }
+
+header {
+  font-family: "Oswald", sans-serif; }
 
 canvas {
   border: 1px solid black;
@@ -358,7 +361,7 @@ header {
           font-size: .9rem;
           text-align: center;
           opacity: 0;
-          transition: opacity .5s;
+          transition: opacity 1s;
           transition-delay: .2s; }
           #main .dessins .dessin .dessinInfo .dessinAuteur:first-letter {
             text-transform: uppercase; }
@@ -367,7 +370,7 @@ header {
           font-style: italic;
           text-align: center;
           opacity: 0;
-          transition: opacity .5s;
+          transition: opacity 1s;
           transition-delay: .2s; }
     #main .dessins .dessinMy {
       border: 2px solid orange; }
@@ -389,7 +392,7 @@ header {
     justify-content: space-between;
     align-items: flex-start; }
     #interface .menuRow .brushs {
-      border-bottom: 1px dotted #3d4e51; }
+      border-bottom: 1px dotted rgba(249, 252, 255, 0.3); }
     #interface .menuRow .sousOptionsContainer {
       text-align: center; }
     #interface .menuRow .brushs, #interface .menuRow .sousOptionsContainer {
@@ -398,44 +401,9 @@ header {
       justify-content: space-between;
       align-items: flex-start;
       width: 116px; }
-      #interface .menuRow .brushs button, #interface .menuRow .sousOptionsContainer button {
-        margin: .4rem 0;
-        position: relative;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 48px;
-        height: 48px;
-        border-radius: 4px;
-        font-family: "Raleway", sans-serif;
-        color: black;
-        background-color: #f9fcff;
-        transition: border-radius .5s; }
-        #interface .menuRow .brushs button:hover, #interface .menuRow .sousOptionsContainer button:hover {
-          background-color: #95d6e2;
-          cursor: pointer; }
-        #interface .menuRow .brushs button:hover:after, #interface .menuRow .sousOptionsContainer button:hover:after {
-          border-radius: 50%;
-          border: 1px solid white;
-          padding: .7rem;
-          position: absolute;
-          left: 110%;
-          top: 0;
-          color: #f9fcff;
-          background-color: #1b2021;
-          z-index: 103; }
-      #interface .menuRow .brushs #drawBrush:hover:after, #interface .menuRow .sousOptionsContainer #drawBrush:hover:after {
-        content: "Brush"; }
-      #interface .menuRow .brushs #drawLine:hover:after, #interface .menuRow .sousOptionsContainer #drawLine:hover:after {
-        content: "Line"; }
-      #interface .menuRow .brushs #drawLineForm:hover:after, #interface .menuRow .sousOptionsContainer #drawLineForm:hover:after {
-        content: "Shape by Line"; }
-      #interface .menuRow .brushs #drawRectangle:hover:after, #interface .menuRow .sousOptionsContainer #drawRectangle:hover:after {
-        content: "Rectangle"; }
-      #interface .menuRow .brushs #drawCircle, #interface .menuRow .sousOptionsContainer #drawCircle {
-        margin-right: auto; }
-        #interface .menuRow .brushs #drawCircle:hover:after, #interface .menuRow .sousOptionsContainer #drawCircle:hover:after {
-          content: "circle"; }
+      #interface .menuRow .brushs .optionTitre, #interface .menuRow .sousOptionsContainer .optionTitre {
+        width: 100%;
+        color: #f9fcff; }
       #interface .menuRow .brushs .button_unselect, #interface .menuRow .sousOptionsContainer .button_unselect {
         display: flex;
         justify-content: center;
@@ -449,9 +417,13 @@ header {
       #interface .menuRow .brushs #color, #interface .menuRow .brushs #colorStroke, #interface .menuRow .sousOptionsContainer #color, #interface .menuRow .sousOptionsContainer #colorStroke {
         border: 1px solid black;
         width: 48px;
-        height: 24px;
-        background-color: black; }
+        height: 24px; }
+      #interface .menuRow .brushs #colorStroke, #interface .menuRow .sousOptionsContainer #colorStroke {
+        background-color: red; }
+      #interface .menuRow .brushs #color, #interface .menuRow .sousOptionsContainer #color {
+        background-color: lime; }
       #interface .menuRow .brushs #lineOptionWidth, #interface .menuRow .sousOptionsContainer #lineOptionWidth {
+        text-align: center;
         width: 50px; }
       #interface .menuRow .brushs #strokeColorR, #interface .menuRow .brushs #colorR, #interface .menuRow .sousOptionsContainer #strokeColorR, #interface .menuRow .sousOptionsContainer #colorR {
         -webkit-appearance: none;
@@ -540,30 +512,70 @@ header {
     #interface .menuRow .slider, #interface .menuRow .sliderCircle {
       width: 50px; }
   #interface .undoredo {
+    border-top: 1px dotted rgba(249, 252, 255, 0.3);
     display: flex;
     justify-content: space-between;
-    width: 100%;
-    border-top: 1px dotted #3d4e51; }
+    width: 100%; }
+  #interface #undo, #interface #redo {
+    background-color: #f9fcff;
+    height: 24px; }
+    #interface #undo:hover, #interface #redo:hover {
+      cursor: pointer;
+      background-color: #95d6e2; }
   #interface #undo, #interface #redo, #interface #opacityFill, #interface #opacityStroke, #interface #lineOptionWidth, #interface #color, #interface #colorStroke {
     margin: .4rem 0;
     width: 48px;
     height: 24px;
     color: black; }
   #interface #recordSubmit {
-    border: 2px solid black;
+    border: 1px solid #f9fcff;
     width: 100%;
     height: 33px;
-    font-size: .7rem;
-    color: black;
-    background-color: orange; }
+    font-size: 1rem;
+    color: #f9fcff;
+    background-color: #1b2021; }
     #interface #recordSubmit:hover {
-      border: 2px solid orange;
-      color: white;
-      background-color: black;
+      border: 1px solid #1b2021;
+      color: #1b2021;
+      background-color: #95d6e2;
       cursor: pointer; }
 
 #opacityFill, #opacityStroke {
+  text-align: center;
   width: 30px; }
+
+#drawBrush, #drawLine, #drawLineForm, #drawRectangle, #drawCircle, #strokeOption, #fillOption, #undo, #redo {
+  margin: .4rem 0;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 4px;
+  color: black;
+  background-color: #f9fcff;
+  transition: border-radius .5s; }
+  #drawBrush:hover, #drawLine:hover, #drawLineForm:hover, #drawRectangle:hover, #drawCircle:hover, #strokeOption:hover, #fillOption:hover, #undo:hover, #redo:hover {
+    background-color: #95d6e2;
+    cursor: pointer; }
+
+#undo:hover:after, #redo:hover:after {
+  border-radius: 50%;
+  border: 1px solid white;
+  padding: .7rem;
+  position: absolute;
+  left: 110%;
+  top: 0;
+  color: #f9fcff;
+  background-color: #1b2021;
+  z-index: 103; }
+
+#undo:hover:after {
+  content: "Undo"; }
+
+#redo:hover:after {
+  content: "redo"; }
 
 #code {
   padding: 10px;

@@ -149,7 +149,7 @@ header
 					font-size: .9rem;
 					text-align: center;
 					opacity: 0;
-					transition: opacity .5s;
+					transition: opacity 1s;
 					transition-delay: .2s;
 					&:first-letter
 					{
@@ -162,7 +162,7 @@ header
 					font-style: italic;
 					text-align: center;
 					opacity: 0;
-					transition: opacity .5s;
+					transition: opacity 1s;
 					transition-delay: .2s;
 				}
 			}
@@ -195,7 +195,7 @@ header
 		align-items: flex-start;
 		.brushs
 		{
-			border-bottom: 1px dotted #3d4e51;
+			border-bottom: 1px dotted rgba(249, 252, 255, .3);
 		}
 		.sousOptionsContainer
 		{
@@ -208,73 +208,10 @@ header
 			justify-content: space-between;
 			align-items: flex-start;
 			width: 116px;
-			button
+			.optionTitre
 			{
-				margin: .4rem 0;
-				position: relative;
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				width: 48px;
-				height: 48px;
-				border-radius: 4px;
-			    font-family: $fontSecondaire;
-			    color: black;
-				background-color: #f9fcff;
-				transition: border-radius .5s;
-				&:hover
-				{
-					background-color: #95d6e2;
-					cursor: pointer;
-				}
-				&:hover:after
-				{
-					border-radius: 50%;
-					border: 1px solid white;
-					padding: .7rem;
-					position: absolute;
-					left: 110%;
-					top: 0;
-					color: #f9fcff;
-					background-color: #1b2021;
-					z-index: 103;
-				}
-			}
-			#drawBrush
-			{
-				&:hover:after
-				{
-					content:"Brush";
-				}
-			}
-			#drawLine
-			{
-				&:hover:after
-				{
-					content:"Line";
-				}
-			}
-			#drawLineForm
-			{
-				&:hover:after
-				{
-					content:"Shape by Line";
-				}
-			}
-			#drawRectangle
-			{
-				&:hover:after
-				{
-					content:"Rectangle";
-				}
-			}
-			#drawCircle
-			{
-				margin-right: auto;
-				&:hover:after
-				{
-					content:"circle";
-				}
+				width: 100%;
+				color: #f9fcff;
 			}
 			.button_unselect
 			{
@@ -295,10 +232,18 @@ header
 				border: 1px solid black;
 				width: 48px;
 				height: 24px;
-				background-color: black;
+			}
+			#colorStroke
+			{
+				background-color: rgb(255, 0, 0);
+			}
+			#color
+			{
+				background-color: rgb(0, 255, 0);
 			}
 			#lineOptionWidth
 			{
+				text-align: center;
 				width: 50px;
 			}
 			#strokeColorR, #colorR
@@ -323,10 +268,10 @@ header
 			    }
 				&::-webkit-slider-runnable-track
 				{
-				  width: 100%;
-				  height: 3px;
-				  cursor: pointer;
-				  background: black;
+				  	width: 100%;
+				  	height: 3px;
+				  	cursor: pointer;
+				  	background: black;
 				}
 				&::-ms-fill-lower
 				{
@@ -345,7 +290,7 @@ header
 			}
 			#strokeColorG, #colorG
 			{
-				 -webkit-appearance: none;
+				-webkit-appearance: none;
 			    appearance: none;
 				&::-moz-range-track
 				{  
@@ -387,7 +332,7 @@ header
 			}
 			#strokeColorB, #colorB
 			{
-				 -webkit-appearance: none;
+				-webkit-appearance: none;
 			    appearance: none;
 				&::-moz-range-track
 				{  
@@ -407,10 +352,10 @@ header
 			    }
 				&::-webkit-slider-runnable-track
 				{
-				  width: 100%;
-				  height: 3px;
-				  cursor: pointer;
-				  background: black;
+					width: 100%;
+					height: 3px;
+					cursor: pointer;
+					background: black;
 				}
 				&::-ms-fill-lower
 				{
@@ -435,10 +380,20 @@ header
 	}
 	.undoredo
 	{
+		border-top: 1px dotted rgba(249, 252, 255, .3);
 		display: flex;
 		justify-content: space-between;
 		width: 100%;
-		border-top: 1px dotted #3d4e51;
+	}
+	#undo, #redo
+	{
+		background-color: #f9fcff;
+		height: 24px;
+		&:hover
+		{
+			cursor: pointer;
+			background-color: #95d6e2;
+		}
 	}
 	#undo, #redo, #opacityFill, #opacityStroke, #lineOptionWidth, #color, #colorStroke
 	{
@@ -449,17 +404,17 @@ header
 	}
 	#recordSubmit
 	{
-		border: 2px solid black;
+		border: 1px solid #f9fcff;
 		width: 100%;
 		height: 33px;
-		font-size: .7rem;
-		color: black;
-		background-color: orange;
+		font-size: 1rem;
+		color: #f9fcff;
+		background-color: #1b2021;
 		&:hover
 		{
-			border: 2px solid orange;
-			color: white;
-			background-color: black;
+			border: 1px solid #1b2021;
+			color: #1b2021;
+			background-color: #95d6e2;
 			cursor: pointer;
 		}
 	}
@@ -467,7 +422,57 @@ header
 
 #opacityFill, #opacityStroke
 {
+	text-align: center;
 	width: 30px;
+}
+//info-bulle
+#drawBrush, #drawLine, #drawLineForm, #drawRectangle, #drawCircle, #strokeOption, #fillOption, #undo, #redo
+{
+	margin: .4rem 0;
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 48px;
+	height: 48px;
+	border-radius: 4px;
+    color: black;
+	background-color: #f9fcff;
+	transition: border-radius .5s;
+	&:hover
+	{
+		background-color: #95d6e2;
+		cursor: pointer;
+	}
+}
+#undo, #redo
+{	
+	&:hover:after
+	{
+		border-radius: 50%;
+		border: 1px solid white;
+		padding: .7rem;
+		position: absolute;
+		left: 110%;
+		top: 0;
+		color: #f9fcff;
+		background-color: #1b2021;
+		z-index: 103;
+	}
+}
+#undo
+{
+	&:hover:after
+	{
+		content:"Undo";
+	}
+}
+#redo
+{
+	&:hover:after
+	{
+		content:"redo";
+	}
 }
 
 #code

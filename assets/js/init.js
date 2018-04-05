@@ -1,11 +1,11 @@
 window.onload = function()
 {                
       let slider = document.getElementsByClassName("slider");
-      redStroke = slider[0].value = 0;
-      greenStroke = slider[1].value = 0;
-      blueStroke = slider[2].value = 0;
-      red = slider[3].value = 0;
-      green = slider[4].value = 0;
+      redStroke = slider[0].value = 255;
+      greenStroke = slider[2].value = 0;
+      blueStroke = slider[4].value = 0;
+      red = slider[1].value = 0;
+      green = slider[3].value = 255;
       blue = slider[5].value = 0;
       //canvasWidth = prompt('width canvas');
       //canvasHeight = prompt('height canvas');

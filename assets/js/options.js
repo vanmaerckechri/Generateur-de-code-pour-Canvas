@@ -22,10 +22,10 @@ function changeColor()
     let colorActu = document.getElementById('color');
     let colorActuStroke = document.getElementById('colorStroke');
     redStroke = slider[0].value;
-    greenStroke = slider[1].value;
-    blueStroke = slider[2].value;
-    red = slider[3].value;
-    green = slider[4].value;
+    greenStroke = slider[2].value;
+    blueStroke = slider[4].value;
+    red = slider[1].value;
+    green = slider[3].value;
     blue = slider[5].value;
     colorActu.style.backgroundColor = 'rgb( '+red+', '+green+', '+blue+')';
     colorActuStroke.style.backgroundColor = 'rgb( '+redStroke+', '+greenStroke+', '+blueStroke+')';

@@ -24,13 +24,15 @@
             <input type="range" min="1" max="255" value="0" class="slider" id="colorG" onmousemove="changeColor()">
             <input type="range" min="1" max="255" value="0" class="slider" id="strokeColorB" onmousemove="changeColor()">
             <input type="range" min="1" max="255" value="0" class="slider" id="colorB" onmousemove="changeColor()">
+            <p class="optionTitre">Opacity</p>
             <input type="text" value="100" id="opacityStroke" onchange="changeStrokeOpacity()">
             <input type="text" value="100" id="opacityFill" onchange="changeFillOpacity()">
+            <p class="optionTitre">Line Width</p>
             <input id="lineOptionWidth" type="number" min="1" onclick="changeLineWidth()" onmousemove="changeLineWidth()">
         </div>
         <div class="undoredo">
-            <button id="undo" class="button_unselect" onclick="activerUndo(this)">Undo</button>
-            <button id="redo" class="button_unselect" onclick="activerRedo(this)">Redo</button>
+            <button id="undo" class="button_unselect" onclick="activerUndo(this)"><<</button>
+            <button id="redo" class="button_unselect" onclick="activerRedo(this)">>></button>
         </div>
     </div>
     <?=$GLOBALS['recordButton']?>

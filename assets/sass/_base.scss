@@ -3,7 +3,7 @@ html
 {
 	height: 100%;
 	background-color: #1b2021;
-	font-family: $fontTitre;
+	font-family: $fontSecondaire;
 }
 body
 {
@@ -14,6 +14,10 @@ body
 	flex-direction: column;
 	justify-content: space-between;
 	align-items: center;
+}
+header
+{
+	font-family: $fontTitre;
 }
 canvas
 {
