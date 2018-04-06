@@ -1,60 +1,62 @@
-<?php $title = 'Générateur de Canvas - Galerie'; ?>
+<?php $title = 'Canvas UI - Gallery'; ?>
 
 <?php ob_start(); ?>
     <div id="main" class="gallery">
-	    <div class="filtres">
-	    	<form method="post" id="formFilter" action="index.php?action=gallery">
-			   	<p>
-			       	<label for="parPage">Dessins par page:</label>
-			       	<select name="parPage" id="parPage">
-			           	<option value="10"<?=$GLOBALS['parPageSelected'][0]?>>10</option>
-			           	<option value="20"<?=$GLOBALS['parPageSelected'][1]?>>20</option>
-			           	<option value="30"<?=$GLOBALS['parPageSelected'][2]?>>30</option>
-			           	<option value="40"<?=$GLOBALS['parPageSelected'][3]?>>40</option>
-			           	<option value="50"<?=$GLOBALS['parPageSelected'][4]?>>50</option>
-			       	</select>
-			       	<label for="trierPar">Trier par:</label>
-			       	<select name="trierPar" id="trierPar">
-			       		<option value="date"<?=$GLOBALS['trierParSelect'][0]?>>date</option>
-			           	<option value="auteur"<?=$GLOBALS['trierParSelect'][1]?>>auteur</option>
-			           	<option value="titre"<?=$GLOBALS['trierParSelect'][2]?>>titre</option>
-						<?php
-			           	if ($GLOBALS['sessionAuthOk'] === TRUE)
-			           	{
-			           	?>
-			           		<option value="mesDessins"<?=$GLOBALS['trierParSelect'][3]?>>mes dessins</option>
-			           	<?php
- 						}
-			           	?>
-			       	</select>
-			   	</p>
-			</form>
-			<span><?=$_SESSION['smsDeleteDraw']?></span>
-		</div>
-		<div class="pagination">
-			<form method="post" id="paginLeft" action="index.php?action=gallery">
-				<input type="submit" name="paginLeft" id="paginLeft" value="<<">
-			</form>
-			<?php
-				$_SESSION['smsDeleteDraw'] = "";
-				for($i = 0; $i < $_SESSION['pagesLength']; $i++) 
-				{
-					$page = $i + 1;
-					$class = 'paginationChiffre';
-					$class = $page == $_SESSION['pageActu'] ? 'paginationChiffreActu' : $class;
-					?>
-					<a href="index.php?action=gallery&page=<?=$page?>" class="<?=$class?>"><?=$page?></a>
-					<?php
-					if ($i < $_SESSION['pagesLength'] - 1)
+    	<div class="paginFilterContainer">
+		    <div class="filtres">
+		    	<form method="post" id="formFilter" action="index.php?action=gallery">
+				   	<p>
+				       	<label for="parPage">Dessins par page:</label>
+				       	<select name="parPage" id="parPage">
+				           	<option value="10"<?=$GLOBALS['parPageSelected'][0]?>>10</option>
+				           	<option value="20"<?=$GLOBALS['parPageSelected'][1]?>>20</option>
+				           	<option value="30"<?=$GLOBALS['parPageSelected'][2]?>>30</option>
+				           	<option value="40"<?=$GLOBALS['parPageSelected'][3]?>>40</option>
+				           	<option value="50"<?=$GLOBALS['parPageSelected'][4]?>>50</option>
+				       	</select>
+				       	<label for="trierPar">Trier par:</label>
+				       	<select name="trierPar" id="trierPar">
+				       		<option value="date"<?=$GLOBALS['trierParSelect'][0]?>>date</option>
+				           	<option value="auteur"<?=$GLOBALS['trierParSelect'][1]?>>auteur</option>
+				           	<option value="titre"<?=$GLOBALS['trierParSelect'][2]?>>titre</option>
+							<?php
+				           	if ($GLOBALS['sessionAuthOk'] === TRUE)
+				           	{
+				           	?>
+				           		<option value="mesDessins"<?=$GLOBALS['trierParSelect'][3]?>>mes dessins</option>
+				           	<?php
+	 						}
+				           	?>
+				       	</select>
+				   	</p>
+				</form>
+				<span><?=$_SESSION['smsDeleteDraw']?></span>
+			</div>
+			<div class="pagination">
+				<form method="post" id="paginLeft" action="index.php?action=gallery">
+					<input type="submit" name="paginLeft" id="paginLeft" value="<<">
+				</form>
+				<?php
+					$_SESSION['smsDeleteDraw'] = "";
+					for($i = 0; $i < $_SESSION['pagesLength']; $i++) 
 					{
-						echo " - ";
+						$page = $i + 1;
+						$class = 'paginationChiffre';
+						$class = $page == $_SESSION['pageActu'] ? 'paginationChiffreActu' : $class;
+						?>
+						<a href="index.php?action=gallery&page=<?=$page?>" class="<?=$class?>"><?=$page?></a>
+						<?php
+						if ($i < $_SESSION['pagesLength'] - 1)
+						{
+							echo " - ";
+						}
 					}
-				}
-			?>
-			<form method="post" id="paginRight" action="index.php?action=gallery">
-				<input type="submit" name="paginRight" id="paginRight" value=">>">
-			</form>
+				?>
+				<form method="post" id="paginRight" action="index.php?action=gallery">
+					<input type="submit" name="paginRight" id="paginRight" value=">>">
+				</form>
 
+			</div>
 		</div>
 		<div class="dessins">
 		    <?php

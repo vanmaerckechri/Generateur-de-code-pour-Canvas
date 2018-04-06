@@ -1,0 +1,7 @@
+
+<canvas id="scene65" width="700" height="700">
+</canvas>
+<script type="text/javascript">
+var canvas = document.getElementById("scene65");
+var ctx = canvas.getContext("2d");
+</script>

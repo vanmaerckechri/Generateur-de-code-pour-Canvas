@@ -1,0 +1,456 @@
+html, body, header, nav, footer, section, div, span, h1, h2, h3, p, a, blockquote, cite, img, ol, ul, li, form, input, fieldset, label, legend, code, button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  font-weight: normal;
+  box-shadow: none; }
+
+@keyframes carouselArrowWait {
+  0% {
+    border-bottom-left-radius: 2px;
+    border-top-right-radius: 2px; }
+  100% {
+    border-bottom-left-radius: 16px;
+    border-top-right-radius: 16px; } }
+html {
+  height: 100%;
+  background-color: #c8c8c8; }
+
+body {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 960px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center; }
+
+canvas {
+  border: 1px solid black;
+  background-color: white; }
+
+button {
+  margin-left: 2px;
+  margin-right: 2px;
+  width: 100px;
+  height: 33px; }
+
+input {
+  margin-left: 2px;
+  margin-right: 2px; }
+
+h2 {
+  text-align: center; }
+
+button {
+  border: 1px solid black;
+  border-radius: 4px;
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-size: 1rem;
+  color: black;
+  font-weight: bold;
+  background-color: pink; }
+  button:hover {
+    color: white;
+    background-color: black; }
+
+h1 {
+  margin: 1rem 0;
+  font-size: 1.2rem; }
+
+.smsAlert {
+  margin-top: 1rem;
+  color: red; }
+
+.sms {
+  margin-top: 1rem;
+  color: green; }
+
+.submit {
+  margin-left: .5rem;
+  padding: .2rem .5rem;
+  text-decoration: none;
+  color: orange;
+  background-color: black; }
+  .submit:hover {
+    color: white; }
+
+.submitHref {
+  color: #3232af;
+  text-decoration: underline;
+  background: none; }
+  .submitHref:hover {
+    color: black;
+    cursor: pointer; }
+
+.pagination {
+  display: flex;
+  align-items: baseline; }
+  .pagination form input {
+    border-radius: 50%;
+    padding: .2rem .5rem;
+    font-weight: bold;
+    color: white;
+    background-color: black; }
+    .pagination form input:hover {
+      cursor: pointer;
+      color: orange; }
+  .pagination .paginationChiffre, .pagination .paginationChiffreActu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 1rem;
+    height: 1rem;
+    font-size: 1rem;
+    text-decoration: none;
+    color: black; }
+  .pagination .paginationChiffre:hover {
+    border-radius: 50%;
+    color: orange;
+    background-color: black; }
+  .pagination .paginationChiffreActu {
+    border-radius: 50%;
+    color: orange;
+    background-color: black; }
+
+#dessinDetail {
+  position: fixed;
+  left: 0;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  transition: all 1s; }
+  #dessinDetail #modalContainer {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    display: none;
+    position: relative;
+    max-width: 960px;
+    background-color: white; }
+    #dessinDetail #modalContainer .arrowLeft, #dessinDetail #modalContainer .arrowRight {
+      border: 2px solid white;
+      position: absolute;
+      top: calc(50% - 25px);
+      width: 50px;
+      height: 50px;
+      color: black;
+      transform: rotate(45deg);
+      background-color: orange;
+      z-index: -1;
+      animation: carouselArrowWait 1s linear infinite alternate;
+      transition: all .5s; }
+      #dessinDetail #modalContainer .arrowLeft:hover, #dessinDetail #modalContainer .arrowRight:hover {
+        border: 2px solid orange;
+        background-color: white; }
+    #dessinDetail #modalContainer .arrowLeft {
+      left: -25px; }
+    #dessinDetail #modalContainer .arrowRight {
+      right: -25px; }
+    #dessinDetail #modalContainer #imgActu {
+      border: 2px solid white; }
+      #dessinDetail #modalContainer #imgActu img {
+        height: 75vh; }
+      #dessinDetail #modalContainer #imgActu .titre {
+        padding: .5rem 1rem; }
+      #dessinDetail #modalContainer #imgActu .auteur {
+        padding: .5rem 1rem;
+        text-align: right; }
+    #dessinDetail #modalContainer #codeActu {
+      height: 75vh;
+      padding: 10px;
+      flex: 1;
+      background-color: black;
+      color: green;
+      font-size: 16px;
+      font-weight: bold;
+      overflow: scroll;
+      overflow-x: hidden;
+      -webkit-user-select: all;
+      -moz-user-select: all;
+      -ms-user-select: all;
+      user-select: all; }
+    #dessinDetail #modalContainer #toggleDisplay {
+      position: absolute;
+      bottom: 2px;
+      left: 0; }
+
+#dessinDetail.dessinDetailMax {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 101; }
+  #dessinDetail.dessinDetailMax #modalContainer {
+    display: flex; }
+
+header {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  z-index: 102; }
+  header:before {
+    border-bottom: 1px solid rgba(50, 55, 60, 0.5);
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background-color: rgba(50, 55, 60, 0.3);
+    z-index: -1; }
+  header h1 {
+    flex: 3;
+    font-size: 1.3rem; }
+  header .connect {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center; }
+
+#main h2 {
+  margin: 2rem 0;
+  font-size: 1.2rem; }
+#main form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; }
+  #main form label {
+    margin-top: .5rem; }
+  #main form input {
+    margin-top: 1rem; }
+  #main form .submit {
+    padding: .2rem .5rem; }
+#main .dessins {
+  margin-top: 3rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; }
+  #main .dessins .dessin {
+    border-top-right-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+    margin-bottom: 1rem;
+    position: relative;
+    max-width: 100%;
+    height: auto;
+    transition: all .4s; }
+    #main .dessins .dessin:hover {
+      border: 1px solid white;
+      transform: scale(1.2);
+      box-shadow: 8px 12px 4px rgba(33, 33, 36, 0.3);
+      z-index: 100; }
+      #main .dessins .dessin:hover img {
+        opacity: 1; }
+    #main .dessins .dessin img {
+      border-top-right-radius: 1rem;
+      border-bottom-left-radius: 1rem;
+      max-width: 300px;
+      height: auto;
+      background-color: white;
+      opacity: .8;
+      transition: all .5s; }
+    #main .dessins .dessin .dessinInfo {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      align-items: baseline;
+      color: white;
+      text-shadow: black 1px 1px, black -1px 1px, black -1px -1px, black 1px -1px;
+      pointer-events: none; }
+      #main .dessins .dessin .dessinInfo .dessinTitre {
+        border-top-right-radius: 1rem;
+        padding: .5rem 1rem;
+        width: 100%;
+        text-transform: uppercase;
+        text-align: left;
+        background-color: rgba(75, 100, 100, 0.8); }
+      #main .dessins .dessin .dessinInfo .dessinAuteur {
+        border-bottom-left-radius: 1rem;
+        padding: .5rem 1rem;
+        flex: 1;
+        align-self: flex-end;
+        font-size: .8rem;
+        text-align: left;
+        background-color: rgba(75, 100, 100, 0.8); }
+        #main .dessins .dessin .dessinInfo .dessinAuteur:first-letter {
+          text-transform: uppercase; }
+      #main .dessins .dessin .dessinInfo .dessinDate {
+        padding: .5rem 1rem;
+        flex: 1;
+        align-self: flex-end;
+        font-size: .8rem;
+        font-style: italic;
+        text-align: right;
+        background-color: rgba(75, 100, 100, 0.8); }
+
+#interface {
+  margin-top: 1rem;
+  width: 100%; }
+  #interface .menuRow {
+    margin-bottom: .5rem;
+    width: 100%;
+    height: 33px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center; }
+    #interface .menuRow .brushs {
+      display: flex;
+      justify-content: center;
+      align-items: center; }
+      #interface .menuRow .brushs .button_unselect {
+        display: flex;
+        justify-content: center;
+        align-items: center; }
+      #interface .menuRow .brushs .button_Select {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: black;
+        color: white; }
+    #interface .menuRow .sousOptionsContainer {
+      margin-left: 2px;
+      margin-right: 2px;
+      display: flex;
+      align-items: center; }
+      #interface .menuRow .sousOptionsContainer #color, #interface .menuRow .sousOptionsContainer #colorStroke {
+        margin-left: 2px;
+        margin-right: 2px;
+        border: 1px solid black;
+        width: 33px;
+        height: 33px;
+        background-color: black; }
+      #interface .menuRow .sousOptionsContainer #lineOptionWidth {
+        width: 50px; }
+      #interface .menuRow .sousOptionsContainer #strokeColorR, #interface .menuRow .sousOptionsContainer #colorR {
+        -webkit-appearance: none;
+        appearance: none; }
+        #interface .menuRow .sousOptionsContainer #strokeColorR::-moz-range-track, #interface .menuRow .sousOptionsContainer #colorR::-moz-range-track {
+          background-color: red; }
+        #interface .menuRow .sousOptionsContainer #strokeColorR::-webkit-slider-thumb, #interface .menuRow .sousOptionsContainer #colorR::-webkit-slider-thumb {
+          margin-top: -9px;
+          -webkit-appearance: none;
+          border-radius: 50%;
+          border: 1px solid white;
+          width: 20px;
+          height: 20px;
+          background: red;
+          cursor: pointer;
+          color: black; }
+        #interface .menuRow .sousOptionsContainer #strokeColorR::-webkit-slider-runnable-track, #interface .menuRow .sousOptionsContainer #colorR::-webkit-slider-runnable-track {
+          width: 100%;
+          height: 3px;
+          cursor: pointer;
+          background: black; }
+        #interface .menuRow .sousOptionsContainer #strokeColorR::-ms-fill-lower, #interface .menuRow .sousOptionsContainer #colorR::-ms-fill-lower {
+          background: black;
+          border-radius: 50px; }
+        #interface .menuRow .sousOptionsContainer #strokeColorR::-ms-fill-upper, #interface .menuRow .sousOptionsContainer #colorR::-ms-fill-upper {
+          background: black;
+          border-radius: 50px; }
+        #interface .menuRow .sousOptionsContainer #strokeColorR::-ms-thumb, #interface .menuRow .sousOptionsContainer #colorR::-ms-thumb {
+          margin-top: 0px; }
+      #interface .menuRow .sousOptionsContainer #strokeColorG, #interface .menuRow .sousOptionsContainer #colorG {
+        -webkit-appearance: none;
+        appearance: none; }
+        #interface .menuRow .sousOptionsContainer #strokeColorG::-moz-range-track, #interface .menuRow .sousOptionsContainer #colorG::-moz-range-track {
+          background-color: green; }
+        #interface .menuRow .sousOptionsContainer #strokeColorG::-webkit-slider-thumb, #interface .menuRow .sousOptionsContainer #colorG::-webkit-slider-thumb {
+          margin-top: -9px;
+          -webkit-appearance: none;
+          border-radius: 50%;
+          border: 1px solid white;
+          width: 20px;
+          height: 20px;
+          background: green;
+          cursor: pointer;
+          color: black; }
+        #interface .menuRow .sousOptionsContainer #strokeColorG::-webkit-slider-runnable-track, #interface .menuRow .sousOptionsContainer #colorG::-webkit-slider-runnable-track {
+          width: 100%;
+          height: 3px;
+          cursor: pointer;
+          background: black; }
+        #interface .menuRow .sousOptionsContainer #strokeColorG::-ms-fill-lower, #interface .menuRow .sousOptionsContainer #colorG::-ms-fill-lower {
+          background: black;
+          border-radius: 50px; }
+        #interface .menuRow .sousOptionsContainer #strokeColorG::-ms-fill-upper, #interface .menuRow .sousOptionsContainer #colorG::-ms-fill-upper {
+          background: black;
+          border-radius: 50px; }
+        #interface .menuRow .sousOptionsContainer #strokeColorG::-ms-thumb, #interface .menuRow .sousOptionsContainer #colorG::-ms-thumb {
+          margin-top: 0px; }
+      #interface .menuRow .sousOptionsContainer #strokeColorB, #interface .menuRow .sousOptionsContainer #colorB {
+        -webkit-appearance: none;
+        appearance: none; }
+        #interface .menuRow .sousOptionsContainer #strokeColorB::-moz-range-track, #interface .menuRow .sousOptionsContainer #colorB::-moz-range-track {
+          background-color: blue; }
+        #interface .menuRow .sousOptionsContainer #strokeColorB::-webkit-slider-thumb, #interface .menuRow .sousOptionsContainer #colorB::-webkit-slider-thumb {
+          margin-top: -9px;
+          -webkit-appearance: none;
+          border-radius: 50%;
+          border: 1px solid white;
+          width: 20px;
+          height: 20px;
+          background: blue;
+          cursor: pointer;
+          color: black; }
+        #interface .menuRow .sousOptionsContainer #strokeColorB::-webkit-slider-runnable-track, #interface .menuRow .sousOptionsContainer #colorB::-webkit-slider-runnable-track {
+          width: 100%;
+          height: 3px;
+          cursor: pointer;
+          background: black; }
+        #interface .menuRow .sousOptionsContainer #strokeColorB::-ms-fill-lower, #interface .menuRow .sousOptionsContainer #colorB::-ms-fill-lower {
+          background: black;
+          border-radius: 50px; }
+        #interface .menuRow .sousOptionsContainer #strokeColorB::-ms-fill-upper, #interface .menuRow .sousOptionsContainer #colorB::-ms-fill-upper {
+          background: black;
+          border-radius: 50px; }
+        #interface .menuRow .sousOptionsContainer #strokeColorB::-ms-thumb, #interface .menuRow .sousOptionsContainer #colorB::-ms-thumb {
+          margin-top: 0px; }
+    #interface .menuRow .slider, #interface .menuRow .sliderCircle {
+      width: 50px; }
+  #interface #recordSubmit {
+    border: 2px solid black;
+    border-radius: 50%;
+    width: 33px;
+    height: 33px;
+    font-size: .7rem;
+    color: black;
+    background-color: orange; }
+    #interface #recordSubmit:hover {
+      border: 2px solid orange;
+      color: white;
+      background-color: black;
+      cursor: pointer; }
+
+#opacityFill, #opacityStroke {
+  width: 30px; }
+
+#code {
+  padding: 10px;
+  width: 702px;
+  background-color: black;
+  color: green;
+  font-size: 16px;
+  font-weight: bold;
+  -webkit-user-select: all;
+  -moz-user-select: all;
+  -ms-user-select: all;
+  user-select: all; }
+  #code span {
+    font-weight: inherit; }
+
+#canvasRelative {
+  position: relative; }
+
+/*# sourceMappingURL=style.css.map */

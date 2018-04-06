@@ -19,18 +19,46 @@ header
 		z-index: -1;
 		box-shadow: 0px 12px 2px 1px rgba(27, 32, 33, .2);
 	}
-	h1
+	.social
 	{
 		flex: 3;
+		height: 100%;
+		display: flex;
+		flex-wrap: none;
+		align-items: center;
+		a
+		{
+			margin-left: .5rem;
+			display: block;
+			color: #3d4e51;
+			text-decoration: none;
+			&:hover
+			{
+				color: #1b2021;
+			}
+			img
+			{
+				&:hover
+				{
+					border-radius: 50%;
+					background-color: #f9fcff;
+				}
+			}
+		}
+	}
+	h1
+	{
+		flex: 2;
+		display: block;
 		font-size: 1.3rem;
+		letter-spacing: .2rem;
+		text-align: center;
 		color: #1b2021;
 	}
 	.connect
 	{
-		flex: 1;
-		display: flex;
-		justify-content: flex-end;
-		align-items: center;
+		flex: 5;
+		text-align: right;
 		.submit
 		{
 			margin-left: .5rem;
@@ -51,6 +79,7 @@ header
 	margin-top: 2rem;
 	height: 100vh;
 	width: 100%;
+	flex: 1;
 	h2
 	{
 		margin: 2rem 0;
@@ -251,9 +280,15 @@ header
 				text-align: center;
 				width: 50px;
 			}
+			#strokeColorR, #colorR, #strokeColorG, #colorG, #strokeColorB, #colorB
+			{
+				height: 24px;
+				background-color: #3d4e51;
+			}
+
 			#strokeColorR, #colorR
 			{
-				 -webkit-appearance: none;
+				-webkit-appearance: none;
 			    appearance: none;
 				&::-moz-range-track
 				{  
@@ -482,8 +517,6 @@ header
 
 #code
 {
-	padding: 10px;
-	width: 702px;
 	background-color: black;
 	color: green;
 	font-size: 16px;
