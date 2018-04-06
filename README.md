@@ -3,7 +3,7 @@
 ## Mises à Jour
 
 * 2018-04-06
-  * Nouveau design.
+  * Nouvelle interface.
 
 * 2018-04-04
   * Ajout du système d'authentification.
