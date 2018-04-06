@@ -1,9 +1,9 @@
-# Générateur de Code pour Canvas (v1.0)
+# Générateur de Code pour Canvas (v1.1)
 
 ## Mises à Jour
 
 * 2018-04-06
- * Nouveau Design.
+  * Nouveau design.
 
 * 2018-04-04
   * Ajout du système d'authentification.
