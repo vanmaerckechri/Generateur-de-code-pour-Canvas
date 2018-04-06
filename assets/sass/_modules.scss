@@ -12,13 +12,24 @@ h1
 .sms
 {	
 	margin-top: 1rem;
-	color: green;
+	color: #0FEB03;
+}
+#formFilter
+{
+	p
+	{
+		label
+		{
+			color: #f9fcff;
+		}
+	}
 }
 .pagination
 {
 	display: flex;
 	justify-content: center;
 	align-items: baseline;
+	color: #f9fcff;
 	form
 	{
 		input
@@ -31,35 +42,36 @@ h1
 			&:hover
 			{
 				cursor: pointer;
-				color: orange;
+				color: #669da8;
 			}
 		}
 	}
 	.paginationChiffre, .paginationChiffreActu
 	{
+		margin: .5rem;
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		width: 1rem;
-		height: 1rem;
+		width: 2rem;
+		height: 2rem;
 		font-size: 1rem;
 		text-decoration: none;
-		color: black;
+		color: #f9fcff;
 	}
 	.paginationChiffre
 	{
 		&:hover
 		{
 			border-radius: 50%;
-			color: orange;
-			background-color: black;
+			color: black;
+			background-color: #669da8;
 		}
 	}
 	.paginationChiffreActu
 	{
 		border-radius: 50%;
-		color: orange;
-		background-color: black;
+		color: black;
+		background-color: #669da8;
 	}
 }
 
@@ -96,7 +108,7 @@ h1
 			transition: all .5s;
 			&:hover
 			{
-				border-color: orange;
+				border-color: #669da8;
 			}
 		}
 		.arrowLeft
@@ -175,9 +187,9 @@ h1
 					}
 					.changeTitleIcon:hover
 					{
-						border-color: orange;
+						border-color: #669da8;
 						cursor: pointer;
-						background-color: orange;
+						background-color: #669da8;
 					}
 				}
 			}
@@ -189,6 +201,7 @@ h1
 				font-size: .8rem;
 				font-style: italic;
 				text-align: right;
+				color: #f9fcff;
 				background-color: rgba(75, 100, 100, .8);
 			}
 		}
@@ -213,9 +226,17 @@ h1
 		}
 		#toggleDisplay
 		{
+			padding: 0 .5rem;	
 			position: absolute;
+			height: 30px;
 			bottom: 2px;
-			left: 0;
+			left: 2px;
+			color: black;
+			background-color: #f9fcff;
+			&:hover
+			{
+				background-color: #669da8
+			}
 		}
 	}
 }

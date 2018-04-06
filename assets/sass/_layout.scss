@@ -46,8 +46,10 @@ header
 		}
 	}
 }
-#main
+#main.gallery
 {
+	margin-top: 2rem;
+	height: 100vh;
 	width: 100%;
 	h2
 	{
@@ -79,8 +81,11 @@ header
 		flex-wrap: wrap;
 		justify-content: center;
 		width: 100%;
+		flex: 1;
 		.dessin
 		{
+			margin: 1px;
+			border: 2px solid #f9fcff;
 			position: relative;
 			width: 200px;
 			height: 200px;
@@ -169,10 +174,10 @@ header
 		}
 		.dessinMy
 		{
-			border: 2px solid orange;
+			border: 2px solid #669da8;
 			&:hover
 			{
-				border: 2px solid orange;
+				border: 2px solid #669da8;
 			}
 		}
 	}

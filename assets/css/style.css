@@ -57,12 +57,16 @@ h1 {
 
 .sms {
   margin-top: 1rem;
-  color: green; }
+  color: #0FEB03; }
+
+#formFilter p label {
+  color: #f9fcff; }
 
 .pagination {
   display: flex;
   justify-content: center;
-  align-items: baseline; }
+  align-items: baseline;
+  color: #f9fcff; }
   .pagination form input {
     border-radius: 50%;
     padding: .2rem .5rem;
@@ -71,24 +75,25 @@ h1 {
     background-color: transparent; }
     .pagination form input:hover {
       cursor: pointer;
-      color: orange; }
+      color: #669da8; }
   .pagination .paginationChiffre, .pagination .paginationChiffreActu {
+    margin: .5rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 1rem;
-    height: 1rem;
+    width: 2rem;
+    height: 2rem;
     font-size: 1rem;
     text-decoration: none;
-    color: black; }
+    color: #f9fcff; }
   .pagination .paginationChiffre:hover {
     border-radius: 50%;
-    color: orange;
-    background-color: black; }
+    color: black;
+    background-color: #669da8; }
   .pagination .paginationChiffreActu {
     border-radius: 50%;
-    color: orange;
-    background-color: black; }
+    color: black;
+    background-color: #669da8; }
 
 #dessinDetail {
   position: fixed;
@@ -119,7 +124,7 @@ h1 {
       animation: carouselArrowWait 1s linear infinite alternate;
       transition: all .5s; }
       #dessinDetail #modalContainer .arrowLeft:hover, #dessinDetail #modalContainer .arrowRight:hover {
-        border-color: orange; }
+        border-color: #669da8; }
     #dessinDetail #modalContainer .arrowLeft {
       border-bottom: 2px solid white;
       border-left: 2px solid white;
@@ -173,9 +178,9 @@ h1 {
           cursor: pointer;
           background-color: red; }
         #dessinDetail #modalContainer #imgActu .titre .dessinOptions .changeTitleIcon:hover {
-          border-color: orange;
+          border-color: #669da8;
           cursor: pointer;
-          background-color: orange; }
+          background-color: #669da8; }
       #dessinDetail #modalContainer #imgActu .auteur {
         padding: .5rem 1rem;
         flex: 1;
@@ -183,6 +188,7 @@ h1 {
         font-size: .8rem;
         font-style: italic;
         text-align: right;
+        color: #f9fcff;
         background-color: rgba(75, 100, 100, 0.8); }
     #dessinDetail #modalContainer #codeActu {
       display: flex;
@@ -202,9 +208,15 @@ h1 {
       -ms-user-select: all;
       user-select: all; }
     #dessinDetail #modalContainer #toggleDisplay {
+      padding: 0 .5rem;
       position: absolute;
+      height: 30px;
       bottom: 2px;
-      left: 0; }
+      left: 2px;
+      color: black;
+      background-color: #f9fcff; }
+      #dessinDetail #modalContainer #toggleDisplay:hover {
+        background-color: #669da8; }
 
 #dessinDetail.dessinDetailMax {
   width: 100%;
@@ -322,49 +334,54 @@ header {
       header .connect .submit:hover {
         color: #1b2021; }
 
-#main {
+#main.gallery {
+  margin-top: 2rem;
+  height: 100vh;
   width: 100%; }
-  #main h2 {
+  #main.gallery h2 {
     margin: 2rem 0;
     font-size: 1.2rem; }
-  #main form {
+  #main.gallery form {
     display: flex;
     flex-direction: column;
     align-items: flex-start; }
-    #main form label {
+    #main.gallery form label {
       margin-top: .5rem; }
-    #main form input {
+    #main.gallery form input {
       margin-top: 1rem; }
-    #main form .submit {
+    #main.gallery form .submit {
       padding: .2rem .5rem; }
-  #main .dessins {
+  #main.gallery .dessins {
     margin-top: 1.5rem;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    width: 100%; }
-    #main .dessins .dessin {
+    width: 100%;
+    flex: 1; }
+    #main.gallery .dessins .dessin {
+      margin: 1px;
+      border: 2px solid #f9fcff;
       position: relative;
       width: 200px;
       height: 200px;
       object-fit: cover;
       transition: all .4s; }
-      #main .dessins .dessin:hover .dessinInfo {
+      #main.gallery .dessins .dessin:hover .dessinInfo {
         background-color: rgba(0, 0, 0, 0.4); }
-        #main .dessins .dessin:hover .dessinInfo .miniature {
+        #main.gallery .dessins .dessin:hover .dessinInfo .miniature {
           border-radius: 50%; }
-        #main .dessins .dessin:hover .dessinInfo .dessinTitre {
+        #main.gallery .dessins .dessin:hover .dessinInfo .dessinTitre {
           letter-spacing: initial;
           opacity: 1; }
-        #main .dessins .dessin:hover .dessinInfo .dessinAuteur {
+        #main.gallery .dessins .dessin:hover .dessinInfo .dessinAuteur {
           opacity: 1; }
-        #main .dessins .dessin:hover .dessinInfo .dessinDate {
+        #main.gallery .dessins .dessin:hover .dessinInfo .dessinDate {
           opacity: 1; }
-      #main .dessins .dessin .miniature {
+      #main.gallery .dessins .dessin .miniature {
         width: 100%;
         background-color: white;
         transition: all .5s; }
-      #main .dessins .dessin .dessinInfo {
+      #main.gallery .dessins .dessin .dessinInfo {
         position: absolute;
         top: 0;
         left: 0;
@@ -379,7 +396,7 @@ header {
         text-shadow: black 1px 1px, black -1px 1px, black -1px -1px, black 1px -1px;
         pointer-events: none;
         transition: all .5s; }
-        #main .dessins .dessin .dessinInfo .dessinTitre {
+        #main.gallery .dessins .dessin .dessinInfo .dessinTitre {
           width: 100%;
           text-align: center;
           font-size: 1rem;
@@ -389,25 +406,25 @@ header {
           text-overflow: ellipsis;
           letter-spacing: .2rem;
           transition: letter-spacing 1s; }
-        #main .dessins .dessin .dessinInfo .dessinAuteur {
+        #main.gallery .dessins .dessin .dessinInfo .dessinAuteur {
           font-size: .9rem;
           text-align: center;
           opacity: 0;
           transition: opacity 1s;
           transition-delay: .2s; }
-          #main .dessins .dessin .dessinInfo .dessinAuteur:first-letter {
+          #main.gallery .dessins .dessin .dessinInfo .dessinAuteur:first-letter {
             text-transform: uppercase; }
-        #main .dessins .dessin .dessinInfo .dessinDate {
+        #main.gallery .dessins .dessin .dessinInfo .dessinDate {
           font-size: .8rem;
           font-style: italic;
           text-align: center;
           opacity: 0;
           transition: opacity 1s;
           transition-delay: .2s; }
-    #main .dessins .dessinMy {
-      border: 2px solid orange; }
-      #main .dessins .dessinMy:hover {
-        border: 2px solid orange; }
+    #main.gallery .dessins .dessinMy {
+      border: 2px solid #669da8; }
+      #main.gallery .dessins .dessinMy:hover {
+        border: 2px solid #669da8; }
 
 #interface {
   padding: 70px .4rem .4rem .4rem;

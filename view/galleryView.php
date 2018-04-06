@@ -1,7 +1,7 @@
 <?php $title = 'Générateur de Canvas - Galerie'; ?>
 
 <?php ob_start(); ?>
-    <div id="main">
+    <div id="main" class="gallery">
 	    <div class="filtres">
 	    	<form method="post" id="formFilter" action="index.php?action=gallery">
 			   	<p>
@@ -33,7 +33,7 @@
 		</div>
 		<div class="pagination">
 			<form method="post" id="paginLeft" action="index.php?action=gallery">
-				<input type="submit" name="paginLeft" id="paginLeft" value="<">
+				<input type="submit" name="paginLeft" id="paginLeft" value="<<">
 			</form>
 			<?php
 				$_SESSION['smsDeleteDraw'] = "";
@@ -45,10 +45,14 @@
 					?>
 					<a href="index.php?action=gallery&page=<?=$page?>" class="<?=$class?>"><?=$page?></a>
 					<?php
+					if ($i < $_SESSION['pagesLength'] - 1)
+					{
+						echo " - ";
+					}
 				}
 			?>
 			<form method="post" id="paginRight" action="index.php?action=gallery">
-				<input type="submit" name="paginRight" id="paginRight" value=">">
+				<input type="submit" name="paginRight" id="paginRight" value=">>">
 			</form>
 
 		</div>
