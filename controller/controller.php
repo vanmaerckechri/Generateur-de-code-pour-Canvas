@@ -1,9 +1,9 @@
 <?php
 require('./model/model.php');
 //CHARGEMENT DB!
-//require('humhum.php');
-$dbCoordinates = ["dbHost" => "localhost", "dbPort" => "", "dbName" => "gen_code_canvas", "dbCharset" => "utf8", "dbLogin" => "root", "dbPwd" => "", "table" => "members"];
-$dbGalleryCoo = ["dbHost" => "localhost", "dbPort" => "", "dbName" => "gen_code_canvas", "dbCharset" => "utf8", "dbLogin" => "root", "dbPwd" => "", "table" => "dessins"];
+require('humhum.php');
+//$dbCoordinates = ["dbHost" => "localhost", "dbPort" => "", "dbName" => "gen_code_canvas", "dbCharset" => "utf8", "dbLogin" => "root", "dbPwd" => "", "table" => "members"];
+//$dbGalleryCoo = ["dbHost" => "localhost", "dbPort" => "", "dbName" => "gen_code_canvas", "dbCharset" => "utf8", "dbLogin" => "root", "dbPwd" => "", "table" => "dessins"];
 $auth = new Authentification();
 //PASSWORD OUBLIE!
 	//envoi du mail et systeme pour que le lien ne fonctionne qu'une seule fois.
