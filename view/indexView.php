@@ -1,4 +1,4 @@
-<?php $title = 'Générateur de Code pour le Canvas'; ?>
+<?php $title = 'Canvas UI'; ?>
 
 <?php ob_start(); ?>
 <div id="interface">

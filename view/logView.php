@@ -2,7 +2,7 @@
 $title = '';
 if (isset($_GET['log']) && $_GET['log'] === "reg")
 {
-	$title = 'Générateur de Canvas - Register';
+	$title = 'Canvas UI - Register';
 	ob_start();
 	?>
 	<div id="main" class="formulaire">		
@@ -30,7 +30,7 @@ if (isset($_GET['log']) && $_GET['log'] === "reg")
 }
 else if (isset($_GET['log']) && $_GET['log'] === "in")
 {
-	$title = 'Générateur de Canvas - Authentification';
+	$title = 'Canvas UI - Authentification';
 	ob_start();
 	?>
 	<div id="main" class="formulaire">		
@@ -54,7 +54,7 @@ else if (isset($_GET['log']) && $_GET['log'] === "in")
 }
 else if (isset($_GET['log']) && $_GET['log'] === "lost")
 {
-	$title = 'Générateur de Canvas - Password Oublié';
+	$title = 'Canvas UI - Password Oublié';
 	ob_start();
 	?>
 	<div id="main" class="formulaire">		
@@ -74,7 +74,7 @@ else if (isset($_GET['log']) && $_GET['log'] === "lost")
 }
 else if (isset($GLOBALS['resetPwd']) && $GLOBALS['resetPwd'] === TRUE)
 {
-	$title = 'Générateur de Canvas - Password Oublié';
+	$title = 'Canvas UI - Password Oublié';
 	ob_start();
 	?>
 	<div id="main" class="formulaire">		
