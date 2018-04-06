@@ -79,6 +79,7 @@ header
 	margin-top: 2rem;
 	height: 100vh;
 	width: 100%;
+	flex: 1;
 	h2
 	{
 		margin: 2rem 0;
@@ -510,8 +511,6 @@ header
 
 #code
 {
-	padding: 10px;
-	width: 702px;
 	background-color: black;
 	color: green;
 	font-size: 16px;

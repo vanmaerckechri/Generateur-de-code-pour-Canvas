@@ -2,6 +2,8 @@
 html
 {
 	height: 100%;
+	width: 100%;
+	min-width: 608px;
 	background-color: #1b2021;
 	font-family: $fontSecondaire;
 }
@@ -15,6 +17,7 @@ body
 	flex-direction: column;
 	justify-content: space-between;
 	align-items: center;
+	overflow-x: hidden;
 }
 header, h2, label
 {
