@@ -280,9 +280,15 @@ header
 				text-align: center;
 				width: 50px;
 			}
+			#strokeColorR, #colorR, #strokeColorG, #colorG, #strokeColorB, #colorB
+			{
+				height: 24px;
+				background-color: #3d4e51;
+			}
+
 			#strokeColorR, #colorR
 			{
-				 -webkit-appearance: none;
+				-webkit-appearance: none;
 			    appearance: none;
 				&::-moz-range-track
 				{  

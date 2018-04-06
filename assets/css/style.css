@@ -500,6 +500,9 @@ header {
       #interface .menuRow .brushs #lineOptionWidth, #interface .menuRow .sousOptionsContainer #lineOptionWidth {
         text-align: center;
         width: 50px; }
+      #interface .menuRow .brushs #strokeColorR, #interface .menuRow .brushs #colorR, #interface .menuRow .brushs #strokeColorG, #interface .menuRow .brushs #colorG, #interface .menuRow .brushs #strokeColorB, #interface .menuRow .brushs #colorB, #interface .menuRow .sousOptionsContainer #strokeColorR, #interface .menuRow .sousOptionsContainer #colorR, #interface .menuRow .sousOptionsContainer #strokeColorG, #interface .menuRow .sousOptionsContainer #colorG, #interface .menuRow .sousOptionsContainer #strokeColorB, #interface .menuRow .sousOptionsContainer #colorB {
+        height: 24px;
+        background-color: #3d4e51; }
       #interface .menuRow .brushs #strokeColorR, #interface .menuRow .brushs #colorR, #interface .menuRow .sousOptionsContainer #strokeColorR, #interface .menuRow .sousOptionsContainer #colorR {
         -webkit-appearance: none;
         appearance: none; }
