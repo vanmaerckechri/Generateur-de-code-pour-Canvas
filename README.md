@@ -2,6 +2,9 @@
 
 ## Mises à Jour
 
+* 2018-04-06
+ * Nouveau Design.
+
 * 2018-04-04
   * Ajout du système d'authentification.
   * Ajout de la galerie.
