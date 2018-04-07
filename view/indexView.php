@@ -13,7 +13,7 @@
     </div>
     <div class="menuRow">
         <div class="sousOptionsContainer">
-            <button id="strokeOption" class="button_Select">Stroke</button>
+            <button id="strokeOption" class="button_unselect button_Select">Stroke</button>
             <button id="fillOption" class="button_unselect">Fill</button>
             <div id="colorStroke"></div>
             <div id="color"></div>
