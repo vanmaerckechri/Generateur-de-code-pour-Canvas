@@ -118,17 +118,7 @@ function launchDraw()
 	}
 }
 
-//temp
-let red = 0;
-let green = 0;
-let blue = 0;
-let redStroke = 0;
-let greenStroke = 0;
-let blueStroke = 0;
-let lineOptionWidth = 3;
-let strokeOpacity = 1;
-let fillOpacity = 1;
-
+//SHAPES!
 let undo = ctx.getImageData(0, 0, canvas.width, canvas.height); 
 
 function colorShape()

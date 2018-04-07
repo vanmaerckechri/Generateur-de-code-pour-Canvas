@@ -1,21 +1,37 @@
+//OPACITY!
+let strokeOpacity;
+let opacityStrokeId = document.querySelector("#opacityStroke");
+opacityStrokeId.addEventListener('change', changeStrokeOpacity);
 function changeStrokeOpacity()
 {
-    let opacityStrokeId = document.querySelector("#opacityStroke");
     opacityStrokeId.value = opacityStrokeId.value > 100 ? 100 : opacityStrokeId.value;
     opacityStrokeId.value = opacityStrokeId.value < 0 ? 0 : opacityStrokeId.value;
     opacityStrokeId.value = isNaN(opacityStrokeId.value) ? 100 : opacityStrokeId.value;
     strokeOpacity = (opacityStrokeId.value/100);
 }
 
+let fillOpacity;
+let opacityFillId = document.querySelector("#opacityFill");
+opacityFillId.addEventListener('change', changeFillOpacity);
 function changeFillOpacity()
 {
-    let opacityFillId = document.querySelector("#opacityFill");
     opacityFillId.value = opacityFillId.value > 100 ? 100 : opacityFillId.value;
     opacityFillId.value = opacityFillId.value < 0 ? 0 : opacityFillId.value;
     opacityFillId.value = isNaN(opacityFillId.value) ? 100 : opacityFillId.value;
     fillOpacity = (opacityFillId.value/100);
 }
 
+//COLOR!
+let slider = document.getElementsByClassName("slider");
+let redStroke, greenStroke, blueStroke, red, green, blue;
+//distribution de l'evenement "click" sur les options de couleur.
+for (let i = 0, sliderLength = slider.length; i < sliderLength; i++)
+{
+    slider[i].addEventListener('change', function()
+    {
+        changeColor();
+    });
+}
 function changeColor()
 {
     let slider = document.getElementsByClassName("slider");
@@ -31,49 +47,16 @@ function changeColor()
     colorActuStroke.style.backgroundColor = 'rgb( '+redStroke+', '+greenStroke+', '+blueStroke+')';
 }
 
+//LINE WIDTH!
+let lineWidth = document.getElementById('lineOptionWidth');
+lineWidth.addEventListener('change', changeLineWidth);
 function changeLineWidth()
 {
-	let lineWidthId = document.getElementById('lineOptionWidth');
-	lineWidthId.value = (lineWidthId.value <= 0 || isNaN(lineWidthId.value)) ? 1 : lineWidthId.value;
-	lineOptionWidth = document.getElementById('lineOptionWidth').value;
+	lineWidth.value = (lineWidth.value <= 0 || isNaN(lineWidth.value)) ? 1 : lineWidth.value;
+	lineOptionWidth = lineWidth.value;
 }
 
-document.getElementById('lineOptionWidth').addEventListener('keypress', function (e)
-{
-	var key = e.which || e.keyCode;
-	if (key === 13)
-	{
-		changeLineWidth();
-	}
-});
-
-
-function changePaintOption(thisId, option)
-{
-    if (thisId == document.getElementById('strokeOption'))
-    {
-        if (stroke == false)
-        {
-            thisId.className = 'button_Select';
-            stroke = true;
-        }
-        else
-        {
-            thisId.className = 'button_unselect';
-            stroke = false;
-        }
-    }
-    if (thisId == document.getElementById('fillOption'))
-    {
-        if (fill == false)
-        {
-            thisId.className = 'button_Select';
-            fill = true;
-        }
-        else
-        {
-            thisId.className = 'button_unselect';
-            fill = false;
-        }
-    }
-}
+changeStrokeOpacity();
+changeFillOpacity();
+changeColor();
+changeLineWidth();
