@@ -57,7 +57,6 @@ function selectStrokeFill(button)
 //MOUSE COORDINATES!
 let mouseX;
 let mouseY;
-let mouseDown = false;
 document.addEventListener('mousemove', saveMouseXY);
 
 function getX(event)
@@ -90,8 +89,9 @@ function saveMouseXY(event)
     mouseX = getX(event);
     mouseY = getY(event);
 }
-//BEGIN/STOP DRAWN!
+//BEGIN/STOP DRAW!
 let canvasContainer = document.getElementById('canvasRelative');
+let mouseDown = false;
 canvasContainer.addEventListener('mousedown', function()
 {
 	mouseDown = true;
@@ -112,10 +112,15 @@ function launchDraw()
 	{
 		drawRectangle();
 	}
-	if (toolSelected === "drawCircle")
+	else if (toolSelected === "drawCircle")
 	{
 		drawCircle();
 	}
+	else if (toolSelected === "drawLineForm")
+	{
+		drawLineForm()
+	}
+	console.log(drawTemp);
 }
 
 //SHAPES!
@@ -135,6 +140,57 @@ function colorShape()
         ctx.fillStyle = 'rgba( '+red+', '+green+', '+blue+', '+fillOpacity+')';
         ctx.fill();
     }
+}
+
+function drawLineForm()
+{
+	if (drawTemp === undefined)
+	{
+	    originX = mouseX;
+	    originY = mouseY;
+	    let saveMousePoints = [[],[]];
+		let saveMousePointsIndice = 0;
+	    saveMousePoints[0].push(originX);
+	    saveMousePoints[1].push(originY);
+       	undo = ctx.getImageData(0, 0, canvas.width, canvas.height);
+       	//dummy variables.
+        let circleCenterX = originX + ((mouseX - originX)/2);
+        let circleCenterY = originY + ((mouseY - originY)/2);
+
+		drawTemp = setInterval(function()
+	    {
+            ctx.beginPath();
+            ctx.moveTo(saveMousePoints[0][saveMousePointsIndice], saveMousePoints[1][saveMousePointsIndice]);
+            ctx.putImageData(undo, 0, 0);
+            ctx.lineTo(mouseX, mouseY);
+            ctx.closePath();
+            ctx.lineWidth = lineOptionWidth;
+            ctx.strokeStyle = 'rgba( '+redStroke+', '+greenStroke+', '+blueStroke+', '+strokeOpacity+')';
+            ctx.stroke();
+           	//dummy origin circle.
+		    ctx.beginPath();
+		    ctx.arc(circleCenterX, circleCenterY, 10, 0, 2*Math.PI);
+		    ctx.strokeStyle = 'rgb(0, 150, 255)';
+	        ctx.stroke();
+	        ctx.fillStyle = 'rgb(100, 150, 0)';
+	        ctx.fill();
+		}, 10);
+		canvas.onmousedown = function()
+		{
+			console.log('mousex:'+mouseX);
+			console.log('originx:'+originX);
+			if (mouseX <= originX + 5 && mouseX >= originX - 5 && mouseY <= originY + 5 && mouseY >= originY - 5)
+			{	
+				console.log('OKOKOKOKOKOKOKOK');
+				clearInterval(drawTemp);
+				canvas.onmousedown = null;
+				return;
+			}
+			saveMousePointsIndice++;
+			saveMousePoints[0].push(mouseX);
+	    	saveMousePoints[1].push(mouseY);
+		};
+	}
 }
 
 function drawRectangle()
@@ -172,6 +228,8 @@ function drawCircle()
     let circleAngle = 2;
     let negativeX = 1;
     let circleByCenter = false;//en prévision d'un raccourci clavier pour dessiner un cercle par le centre.
+	let circleCenterX;
+	let circleCenterY;
 
     drawTemp = setInterval(function()
     {

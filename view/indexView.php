@@ -24,8 +24,8 @@
             <input type="range" min="1" max="255" value="0" class="slider" id="strokeColorB">
             <input type="range" min="1" max="255" value="0" class="slider" id="colorB">
             <p class="optionTitre">Opacity</p>
-            <input type="text" value="100" id="opacityStroke">
-            <input type="text" value="100" id="opacityFill">
+            <input type="number" min="0" max="100" value="100" id="opacityStroke">
+            <input type="number" min="0" max="100" value="100" id="opacityFill">
             <p class="optionTitre">Line Width</p>
             <input id="lineOptionWidth" type="number" min="1" value="3">
         </div>
