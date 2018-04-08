@@ -1,21 +1,24 @@
 function stopBrush()
 {
-	clearInterval(tempoDessin);
-	originX = mouseX;
-    originY = mouseY;
-    dessinEnCours = 0;
-    if (stroke === true)
+    if (mouseAbsoluteX > 134)
     {
-        document.getElementById('code').innerHTML += 'ctx.lineWidth = '+lineOptionWidth+';<br>ctx.strokeStyle = "rgba( '+redStroke+', '+greenStroke+', '+blueStroke+', '+strokeOpacity+')";<br>ctx.stroke();<br>';
+    	clearInterval(tempoDessin);
+    	originX = mouseX;
+        originY = mouseY;
+        dessinEnCours = 0;
+        if (stroke === true)
+        {
+            document.getElementById('code').innerHTML += 'ctx.lineWidth = '+lineOptionWidth+';<br>ctx.strokeStyle = "rgba( '+redStroke+', '+greenStroke+', '+blueStroke+', '+strokeOpacity+')";<br>ctx.stroke();<br>';
+        }
+        if (fill === true && stroke === false)
+        {
+           document.getElementById('code').innerHTML += 'ctx.lineWidth = '+lineOptionWidth+';<br>ctx.strokeStyle = "rgba( '+red+', '+green+', '+blue+', '+fillOpacity+')";<br>ctx.stroke();<br>';
+        }
+        document.getElementById('code').innerHTML += '//BRUSH - END<br>';
+        document.getElementById('code').innerHTML += '<span id="lastChild">&lt;/script&gt;</span>';
+        addUndo();
+        busy = false;
     }
-    if (fill === true && stroke === false)
-    {
-       document.getElementById('code').innerHTML += 'ctx.lineWidth = '+lineOptionWidth+';<br>ctx.strokeStyle = "rgba( '+red+', '+green+', '+blue+', '+fillOpacity+')";<br>ctx.stroke();<br>';
-    }
-    document.getElementById('code').innerHTML += '//BRUSH - END<br>';
-    document.getElementById('code').innerHTML += '<span id="lastChild">&lt;/script&gt;</span>';
-    addUndo();
-    busy = false;
 }
 
 function drawBrush()

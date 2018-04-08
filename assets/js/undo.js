@@ -1,6 +1,6 @@
 function activerUndo()
 {
-	if (undoIndex > 0)
+	if (undoIndex > 0 && busy == false)
 	{
 		undoIndex--;
 		let restoreUndo = undoRedo[undoIndex];
@@ -13,7 +13,7 @@ function activerUndo()
 }
 function activerRedo()
 {
-	if (undoIndex + 1 < undoRedo.length)
+	if (undoIndex + 1 < undoRedo.length && busy == false)
 	{
 		undoIndex++;
 		let restoreUndo = undoRedo[undoIndex];
@@ -28,7 +28,6 @@ function activerRedo()
 function addUndo()
 {
 	let saveThisStep = ctx.getImageData(0, 0, canvas.width, canvas.height);
-
 	if (undoIndex < 9)
 	{
 		let deleteRedo = 9 - undoIndex;

@@ -3,11 +3,11 @@ document.addEventListener("keyup", keyUpHandler, false);
 
 function keyDownHandler(e)
 {
-    if(e.keyCode == 90 && busy == false)
+    if(e.keyCode == 90)
     {
         activerUndo();
     }
-    else if (e.keyCode == 89 && busy == false)
+    else if (e.keyCode == 89)
     {
         activerRedo();
     }
@@ -20,15 +20,15 @@ function gestionEvent()
 {
 	if (boutonSelection == document.getElementById('drawBrush'))
 	{
+        canvas.removeEventListener('click', detecterOutil, false);
 		canvas.addEventListener('mousedown', detecterOutil, false);
-		canvas.addEventListener('mouseup', stopBrush, false);
-		canvas.removeEventListener('click', detecterOutil, false);
+		document.addEventListener('mouseup', stopBrush, false);
 	}
 	else
 	{
 		canvas.addEventListener('click', detecterOutil, false);
 		canvas.removeEventListener('mousedown', detecterOutil, false);
-		canvas.removeEventListener('mouseup', stopBrush, false);
+		document.removeEventListener('mouseup', stopBrush, false);
 	}
 }
 
@@ -56,6 +56,7 @@ function desactiverBouton()
 }
 
 canvas.addEventListener('mousemove', saveMouseXY);
+document.addEventListener('mousemove', saveMouseAbsoluteXY);
 
 function getX(event)
 {
@@ -83,6 +84,13 @@ function getY(event)
     return null;    
 }
 
+let mouseAbsoluteX;
+let mouseAbsoluteY;
+function saveMouseAbsoluteXY(event)
+{
+    mouseAbsoluteX = event.clientX;
+    mouseAbsoluteY = event.clientY;
+}
 function saveMouseXY(event)
 {
     mouseX = getX(event);
