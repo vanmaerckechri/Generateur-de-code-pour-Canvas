@@ -650,10 +650,10 @@ header {
   z-index: 103; }
 
 #undo:hover:after {
-  content: "Undo"; }
+  content: "Undo (Z)"; }
 
 #redo:hover:after {
-  content: "redo"; }
+  content: "redo (Y)"; }
 
 #code {
   background-color: black;
@@ -668,6 +668,7 @@ header {
     font-weight: inherit; }
 
 #canvasRelative {
-  position: relative; }
+  position: relative;
+  flex: 1; }
 
 /*# sourceMappingURL=style.css.map */

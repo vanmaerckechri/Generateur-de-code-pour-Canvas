@@ -504,14 +504,14 @@ header
 {
 	&:hover:after
 	{
-		content:"Undo";
+		content:"Undo (Z)";
 	}
 }
 #redo
 {
 	&:hover:after
 	{
-		content:"redo";
+		content:"redo (Y)";
 	}
 }
 
@@ -533,4 +533,5 @@ header
 #canvasRelative
 {
 	position: relative;
+	flex: 1;
 }

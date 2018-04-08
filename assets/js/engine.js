@@ -1,3 +1,21 @@
+document.addEventListener("keydown", keyDownHandler, false);
+document.addEventListener("keyup", keyUpHandler, false);
+
+function keyDownHandler(e)
+{
+    if(e.keyCode == 90 && busy == false)
+    {
+        activerUndo();
+    }
+    else if (e.keyCode == 89 && busy == false)
+    {
+        activerRedo();
+    }
+}
+function keyUpHandler(e)
+{
+}
+
 function gestionEvent()
 {
 	if (boutonSelection == document.getElementById('drawBrush'))
@@ -96,6 +114,7 @@ function detecterOutil()
         {
             dessinEnCours = 2;
         }
+        busy = true;
         drawBrush();
     }
     if (boutonSelection == boutonDrawLine)
@@ -104,6 +123,7 @@ function detecterOutil()
         {
             dessinEnCours = 2;
         }
+        busy = true;
         drawLine();
     }
     if (boutonSelection == boutonDrawLineForm)
@@ -119,6 +139,7 @@ function detecterOutil()
             canvasSaveDuringCreationShape = ctx.getImageData(0, 0, canvas.width, canvas.height);
             dessinEnCours = 1;
         }
+        busy = true;
         drawLineForm();
     }
     if (boutonSelection == boutonDrawRect)
@@ -127,6 +148,7 @@ function detecterOutil()
         {
             dessinEnCours = 2;
         }
+        busy = true;
         drawRectangle();
     }
     if (boutonSelection == boutonDrawCircle)
@@ -135,6 +157,7 @@ function detecterOutil()
         {
             dessinEnCours = 2;
         }
+        busy = true;
         drawCircle();
     }
 }

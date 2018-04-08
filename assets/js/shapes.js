@@ -15,6 +15,7 @@ function stopBrush()
     document.getElementById('code').innerHTML += '//BRUSH - END<br>';
     document.getElementById('code').innerHTML += '<span id="lastChild">&lt;/script&gt;</span>';
     addUndo();
+    busy = false;
 }
 
 function drawBrush()
@@ -101,6 +102,7 @@ function drawLine()
         }
         document.getElementById('code').innerHTML += '<span id="lastChild">&lt;/script&gt;</span>';
         addUndo();
+        busy = false;
     }
 }
 
@@ -199,6 +201,7 @@ function drawLineForm()
         saveMousePoints = [[],[]];
         dessinEnCours = 0;
         addUndo();
+        busy = false;
     }
 }
 
@@ -268,6 +271,7 @@ function drawRectangle()
         document.getElementById('code').innerHTML += '<span id="lastChild">&lt;/script&gt;</span>';
         canvasSaveBetweenTwoShapes = ctx.getImageData(0, 0, canvas.width, canvas.height);
         addUndo();
+        busy = false;
     }
 }
 function drawCircle()
@@ -340,5 +344,6 @@ function drawCircle()
         document.getElementById('code').innerHTML += '<span id="lastChild">&lt;/script&gt;</span>';
         canvasSaveBetweenTwoShapes = ctx.getImageData(0, 0, canvas.width, canvas.height);
         addUndo();
+        busy = false;
     }
 }

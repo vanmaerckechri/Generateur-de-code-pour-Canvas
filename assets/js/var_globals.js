@@ -9,6 +9,7 @@ let saveMousePoints = [[],[]];
 let saveMousePointsIndice = -1;
 let dessinEnCours = 0;
 let test = 0;
+let busy = false;
 //options
 let stroke = true;
 let fill = false;
