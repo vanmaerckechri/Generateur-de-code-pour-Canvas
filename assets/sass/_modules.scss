@@ -1,13 +1,14 @@
 @import "variables";
 .smsAlert
 {	
-	margin-top: 1rem;
+	margin-bottom: 1rem;
 	color: red;
 }
 .sms
 {	
-	margin-top: 1rem;
+	margin: 1rem;
 	color: #0FEB03;
+	text-align: center;
 }
 .paginFilterContainer
 {
@@ -306,6 +307,7 @@
 	justify-content: center;
 	align-items: center;
 	flex: 1;
+	max-width: 300px;
 	h2
 	{
 		font-family: $fontTitre;
@@ -314,9 +316,10 @@
 	}
 	form
 	{
-		width: 33%;
+		width: 100%;
 		label
 		{
+			width: 100%;
 			font-family: $fontTitre;
 			color: #f9fcff;		
 		}

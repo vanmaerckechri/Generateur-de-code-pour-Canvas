@@ -2,6 +2,7 @@
 
 <?php ob_start(); ?>
     <div id="main" class="gallery">
+    	<span><?=$_SESSION['smsDeleteDraw']?></span>
     	<div class="paginFilterContainer">
 		    <div class="filtres">
 		    	<form method="post" id="formFilter" action="index.php?action=gallery">
@@ -30,7 +31,6 @@
 				       	</select>
 				   	</p>
 				</form>
-				<span><?=$_SESSION['smsDeleteDraw']?></span>
 			</div>
 			<div class="pagination">
 				<form method="post" id="paginLeft" action="index.php?action=gallery">
@@ -55,7 +55,6 @@
 				<form method="post" id="paginRight" action="index.php?action=gallery">
 					<input type="submit" name="paginRight" id="paginRight" value=">>">
 				</form>
-
 			</div>
 		</div>
 		<div class="dessins">

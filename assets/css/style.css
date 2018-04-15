@@ -52,12 +52,13 @@ h2 {
   text-align: center; }
 
 .smsAlert {
-  margin-top: 1rem;
+  margin-bottom: 1rem;
   color: red; }
 
 .sms {
-  margin-top: 1rem;
-  color: #0FEB03; }
+  margin: 1rem;
+  color: #0FEB03;
+  text-align: center; }
 
 .paginFilterContainer {
   display: flex;
@@ -272,14 +273,16 @@ h2 {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  flex: 1; }
+  flex: 1;
+  max-width: 300px; }
   .formulaire h2 {
     font-family: "Oswald", sans-serif;
     color: #f9fcff;
     text-align: center; }
   .formulaire form {
-    width: 33%; }
+    width: 100%; }
     .formulaire form label {
+      width: 100%;
       font-family: "Oswald", sans-serif;
       color: #f9fcff; }
     .formulaire form input {

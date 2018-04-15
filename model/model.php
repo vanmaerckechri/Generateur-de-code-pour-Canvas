@@ -672,13 +672,17 @@ class RecordDraw
 						//fputs($fileName, $codeFilter);
 						fwrite($fileNameCode, $code);
 						fclose($fileNameCode);
-//
+
 						$image = explode('base64,',$png);
 						$fileNamePng = fopen($dossier.'/'.$lastIndex.'.png', 'w+');
 						fwrite($fileNamePng,base64_decode($image[1]));
 						fclose($fileNamePng);
-//
-						$_SESSION['smsAuth'] = "<p class='sms'>Votre dessin a bien été enregistré.</p>";
+						if ($_POST['record_code'])
+						{
+							$_POST['record_code'] = null;
+						}
+						header('Location: index.php?action=gallery');
+						$_SESSION['smsDeleteDraw'] = "<p class='sms'>Votre dessin a bien été enregistré.</p>";
 					}
 					//demander confirmation d'écrasement.
 					else

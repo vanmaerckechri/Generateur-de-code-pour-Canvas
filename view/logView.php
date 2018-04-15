@@ -101,6 +101,7 @@ else if (isset($_GET['log']) && $_GET['log'] === "out")
 	<div id="main">		
 		<h2 class="sms">Vous avez été déconnecté</h2>
 	</div>
+	<div></div>
 	<?php 
 	$content = ob_get_clean();
 }
